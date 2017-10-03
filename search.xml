@@ -1,9 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[浏览器原生API实现Base64编码转换]]></title>
+    <url>%2F2017%2F10%2F03%2F%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8E%9F%E7%94%9FAPI%E5%AE%9E%E7%8E%B0Base64%E7%BC%96%E7%A0%81%E8%BD%AC%E6%8D%A2%2F</url>
+    <content type="text"><![CDATA[最近发现浏览器的两个原生API atob()、btoa() 可以实现编码转换 1、代码如下：12btoa("hello world"); // "aGVsbG8gd29ybGQ="atob("aGVsbG8gd29ybGQ="); // "hello world" 2、再科（bai）普(du) 一下base64的编码原理： 转码过程例子：38=46内存1个字节占8位转前： s 1 3先转成ascii：对应 115 49 512进制： 01110011 00110001 001100116个一组（4组） 011100110011000100110011然后才有后面的 011100 110011 000100 110011然后计算机是8位8位的存数 6不够，自动就补两个高位0了所有有了 高位补0科学计算器输入 00011100 00110011 00000100 00110011得到 28 51 4 51查对下照表 c z E z 3、如果好奇atob()与btoa()的具体实现，可参考如下代码： 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108109110111112113114115116117118119120121122123124125126127128129130131132133134135136137138139140141142143144145146147148149150151152153154155156157158159160161162163164165166167168169170171172173174175176177178179180181182183184185186187188189190191192193194195196197198199200201202203204205206207208209210211212213214215216217218219220/* * $Id: base64.js,v 2.15 2014/04/05 12:58:57 dankogai Exp dankogai $ * * Licensed under the BSD 3-Clause License. * http://opensource.org/licenses/BSD-3-Clause * * References: * http://en.wikipedia.org/wiki/Base64 */(function(global) &#123; 'use strict'; // existing version for noConflict() var _Base64 = global.Base64; var version = "2.3.2"; // if node.js, we use Buffer var buffer; if (typeof module !== 'undefined' &amp;&amp; module.exports) &#123; try &#123; buffer = require('buffer').Buffer; &#125; catch (err) &#123;&#125; &#125; // constants var b64chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'; var b64tab = function(bin) &#123; var t = &#123;&#125;; for (var i = 0, l = bin.length; i &lt; l; i++) t[bin.charAt(i)] = i; return t; &#125;(b64chars); var fromCharCode = String.fromCharCode; // encoder stuff var cb_utob = function(c) &#123; if (c.length &lt; 2) &#123; var cc = c.charCodeAt(0); return cc &lt; 0x80 ? c : cc &lt; 0x800 ? (fromCharCode(0xc0 | (cc &gt;&gt;&gt; 6)) + fromCharCode(0x80 | (cc &amp; 0x3f))) : (fromCharCode(0xe0 | ((cc &gt;&gt;&gt; 12) &amp; 0x0f)) + fromCharCode(0x80 | ((cc &gt;&gt;&gt; 6) &amp; 0x3f)) + fromCharCode(0x80 | ( cc &amp; 0x3f))); &#125; else &#123; var cc = 0x10000 + (c.charCodeAt(0) - 0xD800) * 0x400 + (c.charCodeAt(1) - 0xDC00); return (fromCharCode(0xf0 | ((cc &gt;&gt;&gt; 18) &amp; 0x07)) + fromCharCode(0x80 | ((cc &gt;&gt;&gt; 12) &amp; 0x3f)) + fromCharCode(0x80 | ((cc &gt;&gt;&gt; 6) &amp; 0x3f)) + fromCharCode(0x80 | ( cc &amp; 0x3f))); &#125; &#125;; var re_utob = /[\uD800-\uDBFF][\uDC00-\uDFFFF]|[^\x00-\x7F]/g; var utob = function(u) &#123; return u.replace(re_utob, cb_utob); &#125;; var cb_encode = function(ccc) &#123; var padlen = [0, 2, 1][ccc.length % 3], ord = ccc.charCodeAt(0) &lt;&lt; 16 | ((ccc.length &gt; 1 ? ccc.charCodeAt(1) : 0) &lt;&lt; 8) | ((ccc.length &gt; 2 ? ccc.charCodeAt(2) : 0)), chars = [ b64chars.charAt( ord &gt;&gt;&gt; 18), b64chars.charAt((ord &gt;&gt;&gt; 12) &amp; 63), padlen &gt;= 2 ? '=' : b64chars.charAt((ord &gt;&gt;&gt; 6) &amp; 63), padlen &gt;= 1 ? '=' : b64chars.charAt(ord &amp; 63) ]; return chars.join(''); &#125;; var btoa = global.btoa ? function(b) &#123; return global.btoa(b); &#125; : function(b) &#123; return b.replace(/[\s\S]&#123;1,3&#125;/g, cb_encode); &#125;; var _encode = buffer ? buffer.from &amp;&amp; buffer.from !== Uint8Array.from ? function (u) &#123; return (u.constructor === buffer.constructor ? u : buffer.from(u)) .toString('base64') &#125; : function (u) &#123; return (u.constructor === buffer.constructor ? u : new buffer(u)) .toString('base64') &#125; : function (u) &#123; return btoa(utob(u)) &#125; ; var encode = function(u, urisafe) &#123; return !urisafe ? _encode(String(u)) : _encode(String(u)).replace(/[+\/]/g, function(m0) &#123; return m0 == '+' ? '-' : '_'; &#125;).replace(/=/g, ''); &#125;; var encodeURI = function(u) &#123; return encode(u, true) &#125;; // decoder stuff var re_btou = new RegExp([ '[\xC0-\xDF][\x80-\xBF]', '[\xE0-\xEF][\x80-\xBF]&#123;2&#125;', '[\xF0-\xF7][\x80-\xBF]&#123;3&#125;' ].join('|'), 'g'); var cb_btou = function(cccc) &#123; switch(cccc.length) &#123; case 4: var cp = ((0x07 &amp; cccc.charCodeAt(0)) &lt;&lt; 18) | ((0x3f &amp; cccc.charCodeAt(1)) &lt;&lt; 12) | ((0x3f &amp; cccc.charCodeAt(2)) &lt;&lt; 6) | (0x3f &amp; cccc.charCodeAt(3)), offset = cp - 0x10000; return (fromCharCode((offset &gt;&gt;&gt; 10) + 0xD800) + fromCharCode((offset &amp; 0x3FF) + 0xDC00)); case 3: return fromCharCode( ((0x0f &amp; cccc.charCodeAt(0)) &lt;&lt; 12) | ((0x3f &amp; cccc.charCodeAt(1)) &lt;&lt; 6) | (0x3f &amp; cccc.charCodeAt(2)) ); default: return fromCharCode( ((0x1f &amp; cccc.charCodeAt(0)) &lt;&lt; 6) | (0x3f &amp; cccc.charCodeAt(1)) ); &#125; &#125;; var btou = function(b) &#123; return b.replace(re_btou, cb_btou); &#125;; var cb_decode = function(cccc) &#123; var len = cccc.length, padlen = len % 4, n = (len &gt; 0 ? b64tab[cccc.charAt(0)] &lt;&lt; 18 : 0) | (len &gt; 1 ? b64tab[cccc.charAt(1)] &lt;&lt; 12 : 0) | (len &gt; 2 ? b64tab[cccc.charAt(2)] &lt;&lt; 6 : 0) | (len &gt; 3 ? b64tab[cccc.charAt(3)] : 0), chars = [ fromCharCode( n &gt;&gt;&gt; 16), fromCharCode((n &gt;&gt;&gt; 8) &amp; 0xff), fromCharCode( n &amp; 0xff) ]; chars.length -= [0, 0, 2, 1][padlen]; return chars.join(''); &#125;; var atob = global.atob ? function(a) &#123; return global.atob(a); &#125; : function(a)&#123; return a.replace(/[\s\S]&#123;1,4&#125;/g, cb_decode); &#125;; var _decode = buffer ? buffer.from &amp;&amp; buffer.from !== Uint8Array.from ? function(a) &#123; return (a.constructor === buffer.constructor ? a : buffer.from(a, 'base64')).toString(); &#125; : function(a) &#123; return (a.constructor === buffer.constructor ? a : new buffer(a, 'base64')).toString(); &#125; : function(a) &#123; return btou(atob(a)) &#125;; var decode = function(a)&#123; return _decode( String(a).replace(/[-_]/g, function(m0) &#123; return m0 == '-' ? '+' : '/' &#125;) .replace(/[^A-Za-z0-9\+\/]/g, '') ); &#125;; var noConflict = function() &#123; var Base64 = global.Base64; global.Base64 = _Base64; return Base64; &#125;; // export Base64 global.Base64 = &#123; VERSION: version, atob: atob, btoa: btoa, fromBase64: decode, toBase64: encode, utob: utob, encode: encode, encodeURI: encodeURI, btou: btou, decode: decode, noConflict: noConflict &#125;; // if ES5 is available, make Base64.extendString() available if (typeof Object.defineProperty === 'function') &#123; var noEnum = function(v)&#123; return &#123;value:v,enumerable:false,writable:true,configurable:true&#125;; &#125;; global.Base64.extendString = function () &#123; Object.defineProperty( String.prototype, 'fromBase64', noEnum(function () &#123; return decode(this) &#125;)); Object.defineProperty( String.prototype, 'toBase64', noEnum(function (urisafe) &#123; return encode(this, urisafe) &#125;)); Object.defineProperty( String.prototype, 'toBase64URI', noEnum(function () &#123; return encode(this, true) &#125;)); &#125;; &#125; // // export Base64 to the namespace // if (global['Meteor']) &#123; // Meteor.js Base64 = global.Base64; &#125; // module.exports and AMD are mutually exclusive. // module.exports has precedence. if (typeof module !== 'undefined' &amp;&amp; module.exports) &#123; module.exports.Base64 = global.Base64; &#125; else if (typeof define === 'function' &amp;&amp; define.amd) &#123; // AMD. Register as an anonymous module. define([], function()&#123; return global.Base64 &#125;); &#125; // that's it!&#125;)( typeof self !== 'undefined' ? self : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : this); 以上代码是GitHub上js-base64的开源代码，感兴趣的同学可以戳这里]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>前端备忘</tag>
+        <tag>JS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[JS格式化日期函数]]></title>
+    <url>%2F2017%2F10%2F01%2FJS%E6%A0%BC%E5%BC%8F%E5%8C%96%E6%97%A5%E6%9C%9F%E5%87%BD%E6%95%B0%2F</url>
+    <content type="text"><![CDATA[在JAVA中用SimpleDateFormat对象可以格式化日期，JS中没有原生方法，这个时候可以考虑自己写一个 代码如下： 12345678910111213141516171819202122/** 对Date的扩展，将 Date 转化为指定格式的String 月(M)、日(d)、小时(h)、分(m)、秒(s)、季度(q) 可以用 1-2 个占位符， 年(y)可以用 1-4 个占位符，毫秒(S)只能用 1 个占位符(是 1-3 位的数字) 例子： * (new Date()).Format("yyyy-MM-dd hh:mm:ss.S") ==&gt; 2006-07-02 08:09:04.423 * (new Date()).Format("yyyy-M-d h:m:s.S") ==&gt; 2006-7-2 8:9:4.18 * Date.prototype.Format = function (fmt) &#123; //author: meizz */ var o = &#123; "M+": this.getMonth() + 1, //月份 "d+": this.getDate(), //日 "h+": this.getHours(), //小时 "m+": this.getMinutes(), //分 "s+": this.getSeconds(), //秒 "q+": Math.floor((this.getMonth() + 3) / 3), //季度 "S": this.getMilliseconds() //毫秒 &#125;; if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length)); for (var k in o) if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length))); return fmt;&#125; 另一种写法如下： 123456789101112131415161718192021222324252627282930313233343536373839404142/** 对Date的扩展，将 Date 转化为指定格式的String * 月(M)、日(d)、12小时(h)、24小时(H)、分(m)、秒(s)、周(E)、季度(q) 可以用 1-2 个占位符 * 年(y)可以用 1-4 个占位符，毫秒(S)只能用 1 个占位符(是 1-3 位的数字) 例子： * (new Date()).pattern("yyyy-MM-dd hh:mm:ss.S")==&gt; 2006-07-02 08:09:04.423 * (new Date()).pattern("yyyy-MM-dd E HH:mm:ss") ==&gt; 2009-03-10 二 20:09:04 * (new Date()).pattern("yyyy-MM-dd EE hh:mm:ss") ==&gt; 2009-03-10 周二 08:09:04 * (new Date()).pattern("yyyy-MM-dd EEE hh:mm:ss") ==&gt; 2009-03-10 星期二 08:09:04 * (new Date()).pattern("yyyy-M-d h:m:s.S") ==&gt; 2006-7-2 8:9:4.18 */ Date.prototype.pattern=function(fmt) &#123; var o = &#123; "M+" : this.getMonth()+1, //月份 "d+" : this.getDate(), //日 "h+" : this.getHours()%12 == 0 ? 12 : this.getHours()%12, //小时 "H+" : this.getHours(), //小时 "m+" : this.getMinutes(), //分 "s+" : this.getSeconds(), //秒 "q+" : Math.floor((this.getMonth()+3)/3), //季度 "S" : this.getMilliseconds() //毫秒 &#125;; var week = &#123; "0" : "/u65e5", "1" : "/u4e00", "2" : "/u4e8c", "3" : "/u4e09", "4" : "/u56db", "5" : "/u4e94", "6" : "/u516d" &#125;; if(/(y+)/.test(fmt))&#123; fmt=fmt.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length)); &#125; if(/(E+)/.test(fmt))&#123; fmt=fmt.replace(RegExp.$1, ((RegExp.$1.length&gt;1) ? (RegExp.$1.length&gt;2 ? "/u661f/u671f" : "/u5468") : "")+week[this.getDay()+""]); &#125; for(var k in o)&#123; if(new RegExp("("+ k +")").test(fmt))&#123; fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length))); &#125; &#125; return fmt; &#125; 参考博客‘一路前行’的博客]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>前端备忘</tag>
+        <tag>JS</tag>
+        <tag>转载</tag>
+        <tag>HTML</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[MAC上如何自由切换python2和python3并正确使用pip]]></title>
+    <url>%2F2017%2F10%2F01%2FMAC%E4%B8%8A%E5%A6%82%E4%BD%95%E8%87%AA%E7%94%B1%E5%88%87%E6%8D%A2python2%E5%92%8Cpython3%E5%B9%B6%E6%AD%A3%E7%A1%AE%E4%BD%BF%E7%94%A8pip%2F</url>
+    <content type="text"><![CDATA[MAC上默认的Python版本是2的版本，这时候怎么才能用上3的语法呢？用pip安装依赖的时候怎么才能根据不同的版本安装不同的依赖库呢？如果你对此也有疑问，或许这篇文章能帮助你 一、下载Python3最新版本如果还没有下载python3最新的版本，可以进入python的官网进行下载。 二、正确的使用Python3进行编译一开始以为用上Python3需要一些特殊的操作，后来发现自己还是 too young too simple sometimes native，事实上，不需要什么特殊的操作，要用Python2就用Python命令编译，就像下面这样： python ./demo.py 要用Python3就用Python3命令编译，就像下面这样： python3 ./demo.py 就这么简单。 三、安装pippip是python的包管理工具，类似node.js中的npm,在MAC中，安装pip很简单，输入如下命令即可安装： sudo easy_install pip 四、在python2和python3上正确的使用pip对于 Linux ## sudo pip install sth 或者明确版本 sudo pip2 install sthsudo pip3 install sthsudo python2 -m pip install sthsudo /path/to/python -m pip install sth 对于 Windows NT ##如果仅安装 python2 pip install sth 如果安装有 python3, 则需要明确 pip 版本 py -2 -m pip install sthpy -3 -m pip install sth 这一条参考的是知乎上同时装了Python3和Python2，怎么用pip？下Johnny Wong的回答,如果还有疑问，可以点进去了解详情。]]></content>
+      <categories>
+        <category>python</category>
+      </categories>
+      <tags>
+        <tag>python备忘</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[IE浏览器跳转报400错误的问题]]></title>
+    <url>%2F2017%2F09%2F30%2FIE%E6%B5%8F%E8%A7%88%E5%99%A8%E8%B7%B3%E8%BD%AC%E6%8A%A5400%E9%94%99%E8%AF%AF%E7%9A%84%E9%97%AE%E9%A2%98%2F</url>
+    <content type="text"><![CDATA[最近开发中，遇到一个问题，在Chrome中可以正常跳转的链接在IE中跳转就会报400错误 如果URL的参数中带有中文，那么在IE中，则很有可能会报400错误，这个时候正确的做法是用js自带的encodeURL对URL进行编码，后传到另个一面后再用decodeURL进行解码。]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>前端踩坑</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[JS转换HTML转义符]]></title>
+    <url>%2F2017%2F09%2F30%2FJS%E8%BD%AC%E6%8D%A2HTML%E8%BD%AC%E4%B9%89%E7%AC%A6%2F</url>
+    <content type="text"><![CDATA[前两天在公司写代码，在后台请求的数据放到前台时显示错乱，检查后发现如果文本里有&lt;,后面再紧跟字母的话，html就会显示错误，要解决这个问题，可以对文本里的特殊字符进行转义 一、去掉html标签123function removeHtmlTab(tab) &#123; return tab.replace(/&lt;[^&lt;&gt;]+?&gt;/g,'');//删除所有HTML标签&#125; 二、普通字符转换成转意符123function html2Escape(sHtml) &#123; return sHtml.replace(/[&lt;&gt;&amp;"]/g,function(c)&#123;return &#123;'&lt;':'&amp;lt;','&gt;':'&amp;gt;','&amp;':'&amp;amp;','"':'&amp;quot;'&#125;[c];&#125;);&#125; 三、转意符换成普通字符1234function escape2Html(str) &#123; var arrEntities=&#123;'lt':'&lt;','gt':'&gt;','nbsp':' ','amp':'&amp;','quot':'"'&#125;; return str.replace(/&amp;(lt|gt|nbsp|amp|quot);/ig,function(all,t)&#123;return arrEntities[t];&#125;);&#125; 三、&nbsp;转成空格1234function nbsp2Space(str) &#123; var arrEntities = &#123;'nbsp' : ' '&#125;; return str.replace(/&amp;(nbsp);/ig, function(all, t)&#123;return arrEntities[t]&#125;)&#125; 四、回车转为br标签123function return2Br(str) &#123; eturn str.replace(/\r?\n/g,"&lt;br /&gt;");&#125; 五、去除开头结尾换行,并将连续3次以上换行转换成2次换行123456function trimBr(str) &#123; str=str.replace(/((\s|&amp;nbsp;)*\r?\n)&#123;3,&#125;/g,"\r\n\r\n");//限制最多2次换行 str=str.replace(/^((\s|&amp;nbsp;)*\r?\n)+/g,'');//清除开头换行 str=str.replace(/((\s|&amp;nbsp;)*\r?\n)+$/g,'');//清除结尾换行 return str;&#125; 六、将多个连续空格合并成一个空格1234function mergeSpace(str) &#123; str=str.replace(/(\s|&amp;nbsp;)+/g,' '); return str;&#125; 参考博客：SJY之家]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>前端备忘</tag>
+        <tag>JS</tag>
+        <tag>转载</tag>
+        <tag>HTML</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[js过滤emoji表情符号]]></title>
+    <url>%2F2017%2F09%2F30%2Fjs%E8%BF%87%E6%BB%A4emoji%E8%A1%A8%E6%83%85%E7%AC%A6%E5%8F%B7%2F</url>
+    <content type="text"><![CDATA[有时候，在手机的输入框输入emoji，插入数据库时会报错，这时候有一个解决方案是用js正则把emoji表情给过滤掉 unicode定义的emoji是四个字符，而Mysql的utf8编码最多3个字节，所以数据插不进去。所以数据库会报错： SQLException: Incorrect string value 这时候有三种解决方案： 把emoji直接过滤掉； 将Mysql的编码从utf8转换成utf8mb4; unicode emoji转义为softbank的emoji; 这次只讨论第一种方案, 以下是正则代码,很简短，只有一行：1name = name.replace(/\ud83c[\udf00-\udfff]|\ud83d[\udc00-\ude4f]|\ud83d[\ude80-\udeff]/g, ""); 参考博客：“逸学堂”的博客]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>前端备忘</tag>
+        <tag>JS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[获取随机字符串]]></title>
+    <url>%2F2017%2F09%2F29%2F%E8%8E%B7%E5%8F%96%E9%9A%8F%E6%9C%BA%E5%AD%97%E7%AC%A6%E4%B8%B2%2F</url>
+    <content type="text"><![CDATA[如何获取一段随机字符串？下面的方法或许能帮到你 123456789101112131415 /** * Get the a random string * @param &#123;integer&#125; len length of the random string * @return &#123;string&#125; */function getStrRandom(len) &#123; //len为字符串长度 var len = len || 32; var $chars = 'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678'; /****默认去掉了容易混淆的字符oOLl,9gq,Vv,Uu,I1****/ var maxPos = $chars.length; var pwd = ''; for (var i = 0; i &lt; len; i++) &#123; pwd += $chars.charAt(Math.floor(Math.random() * maxPos)); &#125; return pwd;&#125;]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>前端备忘</tag>
+        <tag>JS</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[JS字符串截取函数slice(),substring(),substr()的区别]]></title>
+    <url>%2F2017%2F09%2F28%2FJS%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%88%AA%E5%8F%96%E5%87%BD%E6%95%B0slice-substring-substr%E7%9A%84%E5%8C%BA%E5%88%AB%2F</url>
+    <content type="text"><![CDATA[在JS中,slice()、substring()、substr()都有截取字符串的作用，那他们有哪些用法上的区别呢？如果你也有疑惑，这篇文章或许能够帮助到你。 一、substring()substring()方法返回一个索引和另一个索引之间的字符串，语法如下： str.substring(indexStart, [indexEnd]) 下面有六点需要注意： substring()从提取的字符indexStart可达但不包括 indexEnd 如果为indexStart 等于indexEnd，substring()返回一个空字符串。 如果indexEnd省略，则将substring()字符提取到字符串的末尾。 如果任一参数小于0或是NaN，它被视为为0。 如果任何一个参数都大于stringName.length，则被视为是stringName.length。 如果indexStart大于indexEnd，那么效果substring()就好像这两个论点被交换了一样； 例如，。str.substring(1, 0) == str.substring(0, 1) 以下是一些示例代码：123456789var str = 'abcdefghij';console.log('(1, 2): ' + str.substring(1, 2)); // '(1, 2): b'console.log('(1, 1): ' + str.substring(1, 1)); // '(1, 1): 'console.log('(-3, 2): ' + str.substring(-3, 2)); // '(-3, 2): ab'console.log('(-3): ' + str.substring(-3)); // '(-3): abcdefghij'console.log('(1): ' + str.substring(1)); // '(1): bcdefghij'console.log('(-20, 2): ' + str.substring(-20, 2)); // '(-20, 2): ab'console.log('(2, 20): ' + str.substring(2, 20)); // '(2, 20): cdefghij'console.log('(20, 2): ' + str.substring(20, 2)); // '(20, 2): cdefghij' 二、substr()substr()方法返回从指定位置开始的字符串中指定字符数的字符，语法如下： str.substr(start, [length]) 下面有四点需要注意： substr()会从start获取长度为length字符（如果截取到字符串的末尾，则会停止截取）。 如果start是正的并且大于或等于字符串的长度，则substr()返回一个空字符串。 若start为负数,则将该值加上字符串长度后再进行计算（如果加上字符串的长度后还是负数，则从0开始截取）。 如果length为0或为负数，substr()返回一个空字符串。如果length省略，则将substr()字符提取到字符串的末尾。 以下是一些示例代码：1234567var str = 'abcdefghij';console.log('(1, 2): ' + str.substr(1, 2)); // '(1, 2): bc'console.log('(-3, 2): ' + str.substr(-3, 2)); // '(-3, 2): hi'console.log('(-3): ' + str.substr(-3)); // '(-3): hij'console.log('(1): ' + str.substr(1)); // '(1): bcdefghij'console.log('(-20, 2): ' + str.substr(-20, 2)); // '(-20, 2): ab'console.log('(20, 2): ' + str.substr(20, 2)); // '(20, 2): ' 需要注意的是，Microsoft的JScript不支持起始索引的负值。如果要使用此功能，可以使用以下兼容性代码来解决此错误： 12345678910111213141516171819// only run when the substr() function is brokenif ('ab'.substr(-1) != 'b') &#123; /** * Get the substring of a string * @param &#123;integer&#125; start where to start the substring * @param &#123;integer&#125; length how many characters to return * @return &#123;string&#125; */ String.prototype.substr = function(substr) &#123; return function(start, length) &#123; // call the original method return substr.call(this, // did we get a negative start, calculate how much it is from the beginning of the string // adjust the start parameter for negative value start &lt; 0 ? this.length + start : start, length) &#125; &#125;(String.prototype.substr);&#125; 三、substring()与substr()的主要区别substring()方法的参数表示起始和结束索引，substr()方法的参数表示起始索引和要包含在生成的字符串中的字符的长度,示例如下： 123var text = 'Mozilla';console.log(text.substring(2,5)); // =&gt; "zil"console.log(text.substr(2,3)); // =&gt; "zil" 四、slice()slice()方法返回一个索引和另一个索引之间的字符串，语法如下： str.slice(beginIndex[, endIndex]) 若beginIndex为负数,则将该值加上字符串长度后再进行计算（如果加上字符串的长度后还是负数，则从0开始截取）。 如果beginIndex大于或等于字符串的长度，则slice()返回一个空字符串。 如果endIndex省略，则将slice()字符提取到字符串的末尾。如果为负，它被视为strLength + endIndex其中strLength是字符串。 以下是一些示例代码：1234567891011var str = 'abcdefghij';console.log('(1, 2): ' + str.slice(1, 2)); // '(1, 2): b'console.log('(-3, 2): ' + str.slice(-3, 2)); // '(-3, 2): 'console.log('(-3, 9): ' + str.slice(-3, 9)); // '(-3, 9): hi'console.log('(-3): ' + str.slice(-3)); // '(-3): hij'console.log('(-3，-1): ' + str.slice(-3，-1)); // '(-3，-1): hi'console.log('(0，-1): ' + str.slice(0，-1)); // '(0，-1): abcdefghi'console.log('(1): ' + str.slice(1)); // '(1): bcdefghij'console.log('(-20, 2): ' + str.slice(-20, 2)); // '(-20, 2): ab'console.log('(20): ' + str.slice(20)); // '(20): 'console.log('(20, 2): ' + str.slice(20, 2)); // '(20, 2): ']]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>JS</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[JS中如何进行对象的深拷贝]]></title>
     <url>%2F2017%2F09%2F21%2FJS%E4%B8%AD%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%B7%B1%E6%8B%B7%E8%B4%9D%2F</url>
-    <content type="text"><![CDATA[在JS中，一般的=号传递的都是对象/数组的引用，并没有真正地拷贝一个对象，那如何进行对象的深度拷贝呢？这篇文章或许能够帮助到你。 一、对象引用、浅层拷贝与深层拷贝的区别js的对象引用传递理解起来很简单，参考如下代码：12345var a = &#123;name:'wanger'&#125;var b = a ;a===b // trueb.name = 'zhangsan'a.name //'zhangan' 上述代码中，使用了=进行赋值，于是b指向了a所指向的栈的对象，也就是a与b指向了同一个栈对象，所以在对b.name赋值时，a.name也发生了变化。为了避免上面的情况，可以对对象进行拷贝，代码如下： 12345var a = &#123;name:'wanger'&#125;var b = Object.assign(&#123;&#125;, a)a===b // falseb.name = 'zhangsan'a.name //'wanger' 上面代码将原始对象拷贝到一个空对象，就得到了原始对象的克隆，这时候a与b指向的是不同的栈对象，所以对b.name重新复制也不会影响到a.name。但是如果a.name是一个对象的引用，而不是一个字符串，那么上面的代码也会遇到一些问题，参考如下代码： 12345var a = &#123;name:&#123;firstName:'wang',lastName:'er'&#125;&#125;var b = Object.assign(&#123;&#125;, a)a===b // falseb.name.firstName = 'zhang'a.name.firstName //'zhang' b.name.firstName又影响到了a.name.firstName，这是因为Object.assign(）方法只是浅层拷贝，a.name是一个栈对象的引用，赋值给b时，b.name也同样是这个栈对象的引用，很多时候，我们不想让这种事情发生，所以我们就需要用到对象的深拷贝。 二、使用JSON.parse（）与JSON.stringify（）对对象进行拷贝通常情况下，我们可以使用JSON.parse（）与 JSON.stringify（）实现对象的深克隆，如下： 123var clone = function (obj) &#123; return JSON.parse(JSON.stringify(obj));&#125; 这种方法只适用于纯数据json对象的深度克隆，因为有些时候，这种方法也有缺陷，参考如下代码： 12345var clone = function (obj) &#123; return JSON.parse(JSON.stringify(obj));&#125;var a = &#123;a:function()&#123;console.log('hello world')&#125;,b:&#123;c:1&#125;,c:[1,2,3],d:"wanger",e:new Date(),f:null,g:undefined&#125;var b = clone(a) 打印如下：我们发现，上述的方法会忽略值为function以及undefied的字段，而且对date类型的支持也不太友好。 更要紧的是，上述方法只能克隆原始对象自身的值，不能克隆它继承的值，参考如下代码： 1234567function Person (name) &#123; this.name = name&#125;var wanger = new Person('王二')var newwanger = clone(wanger)wanger.constructor === Person // truenewwanger.constructor === Object // true 打印如下： 我们发现，克隆的对象的构造函数已经变成了Object,而原来的对象的构造是Personß。 三、目前没有发现bug的对象深拷贝方法王二在网上参考了不少文章，方法都不尽完美，于是在前人基础上改造了一下，方法如下，目前没有发现有什么bug： 12345678910111213var clone = function (obj) &#123; if(obj === null) return null if(typeof obj !== 'object') return obj; if(obj.constructor===Date) return new Date(obj) ; var newObj = new obj.constructor (); //保持继承链 for (var key in obj) &#123; if (obj.hasOwnProperty(key)) &#123; //不遍历其原型链上的属性 var val = obj[key]; newObj[key] = typeof val === 'object' ? arguments.callee(val) : val; // 使用arguments.callee解除与函数名的耦合 &#125; &#125; return newObj; &#125;; 这里有三点需要注意：1、用new obj.constructor ()构造函数新建一个空的对象，而不是使用{}或者[],这样可以保持原形链的继承；2、用obj.hasOwnProperty(key)来判断属性是否来自原型链上，因为for..in..也会遍历其原型链上的可枚举属性。3、上面的函数用到递归算法，在函数有名字，而且名字以后也不会变的情况下，这样定义没有问题。但问题是这个函数的执行与函数名 factorial 紧紧耦合在了一起。为了消除这种紧密耦合的现象，需要使用 arguments.callee。]]></content>
+    <content type="text"><![CDATA[在JS中，一般的=号传递的都是对象/数组的引用，并没有真正地拷贝一个对象，那如何进行对象的深度拷贝呢？如果你对此也有疑问，这篇文章或许能够帮助到你。 一、对象引用、浅层拷贝与深层拷贝的区别js的对象引用传递理解起来很简单，参考如下代码：12345var a = &#123;name:'wanger'&#125;var b = a ;a===b // trueb.name = 'zhangsan'a.name //'zhangan' 上述代码中，使用了=进行赋值，于是b指向了a所指向的栈的对象，也就是a与b指向了同一个栈对象，所以在对b.name赋值时，a.name也发生了变化。为了避免上面的情况，可以对对象进行拷贝，代码如下： 12345var a = &#123;name:'wanger'&#125;var b = Object.assign(&#123;&#125;, a)a===b // falseb.name = 'zhangsan'a.name //'wanger' 上面代码将原始对象拷贝到一个空对象，就得到了原始对象的克隆，这时候a与b指向的是不同的栈对象，所以对b.name重新复制也不会影响到a.name。但是如果a.name是一个对象的引用，而不是一个字符串，那么上面的代码也会遇到一些问题，参考如下代码： 12345var a = &#123;name:&#123;firstName:'wang',lastName:'er'&#125;&#125;var b = Object.assign(&#123;&#125;, a)a===b // falseb.name.firstName = 'zhang'a.name.firstName //'zhang' b.name.firstName又影响到了a.name.firstName，这是因为Object.assign(）方法只是浅层拷贝，a.name是一个栈对象的引用，赋值给b时，b.name也同样是这个栈对象的引用，很多时候，我们不想让这种事情发生，所以我们就需要用到对象的深拷贝。 二、使用JSON.parse（）与JSON.stringify（）对对象进行拷贝通常情况下，我们可以使用JSON.parse（）与 JSON.stringify（）实现对象的深克隆，如下： 123var clone = function (obj) &#123; return JSON.parse(JSON.stringify(obj));&#125; 这种方法只适用于纯数据json对象的深度克隆，因为有些时候，这种方法也有缺陷，参考如下代码： 12345var clone = function (obj) &#123; return JSON.parse(JSON.stringify(obj));&#125;var a = &#123;a:function()&#123;console.log('hello world')&#125;,b:&#123;c:1&#125;,c:[1,2,3],d:"wanger",e:new Date(),f:null,g:undefined&#125;var b = clone(a) 打印如下：我们发现，上述的方法会忽略值为function以及undefied的字段，而且对date类型的支持也不太友好。 更要紧的是，上述方法只能克隆原始对象自身的值，不能克隆它继承的值，参考如下代码： 1234567function Person (name) &#123; this.name = name&#125;var wanger = new Person('王二')var newwanger = clone(wanger)wanger.constructor === Person // truenewwanger.constructor === Object // true 打印如下： 我们发现，克隆的对象的构造函数已经变成了Object,而原来的对象的构造是Personß。 三、目前没有发现bug的对象深拷贝方法王二在网上参考了不少文章，方法都不尽完美，于是在前人基础上改造了一下，方法如下，目前没有发现有什么bug： 12345678910111213var clone = function (obj) &#123; if(obj === null) return null if(typeof obj !== 'object') return obj; if(obj.constructor===Date) return new Date(obj); var newObj = new obj.constructor (); //保持继承链 for (var key in obj) &#123; if (obj.hasOwnProperty(key)) &#123; //不遍历其原型链上的属性 var val = obj[key]; newObj[key] = typeof val === 'object' ? arguments.callee(val) : val; // 使用arguments.callee解除与函数名的耦合 &#125; &#125; return newObj; &#125;; 这里有三点需要注意：1、用new obj.constructor ()构造函数新建一个空的对象，而不是使用{}或者[],这样可以保持原形链的继承；2、用obj.hasOwnProperty(key)来判断属性是否来自原型链上，因为for..in..也会遍历其原型链上的可枚举属性。3、上面的函数用到递归算法，在函数有名字，而且名字以后也不会变的情况下，这样定义没有问题。但问题是这个函数的执行与函数名 factorial 紧紧耦合在了一起。为了消除这种紧密耦合的现象，需要使用 arguments.callee。 2017-10-03添加，之前没有考虑正则对象的问题，这里做一下修改： 1234567891011121314var clone = function (obj) &#123; if(obj === null) return null if(typeof obj !== 'object') return obj; if(obj.constructor===Date) return new Date(obj); if(obj.constructor === RegExp) return new RegExp(obj); var newObj = new obj.constructor (); //保持继承链 for (var key in obj) &#123; if (obj.hasOwnProperty(key)) &#123; //不遍历其原型链上的属性 var val = obj[key]; newObj[key] = typeof val === 'object' ? arguments.callee(val) : val; // 使用arguments.callee解除与函数名的耦合 &#125; &#125; return newObj; &#125;;]]></content>
       <categories>
         <category>前端</category>
       </categories>
@@ -41,8 +138,8 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>JS</tag>
         <tag>前端备忘</tag>
+        <tag>JS</tag>
       </tags>
   </entry>
   <entry>
@@ -53,8 +150,8 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>JS</tag>
         <tag>前端备忘</tag>
+        <tag>JS</tag>
       </tags>
   </entry>
   <entry>
@@ -65,8 +162,8 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>JS</tag>
         <tag>前端备忘</tag>
+        <tag>JS</tag>
         <tag>转载</tag>
       </tags>
   </entry>
@@ -78,8 +175,8 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>JS</tag>
         <tag>前端备忘</tag>
+        <tag>JS</tag>
       </tags>
   </entry>
   <entry>
@@ -90,8 +187,8 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>JS</tag>
         <tag>前端备忘</tag>
+        <tag>JS</tag>
       </tags>
   </entry>
   <entry>
@@ -102,8 +199,8 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>JS</tag>
         <tag>前端备忘</tag>
+        <tag>JS</tag>
       </tags>
   </entry>
   <entry>
@@ -114,8 +211,8 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>JS</tag>
         <tag>前端备忘</tag>
+        <tag>JS</tag>
       </tags>
   </entry>
   <entry>
@@ -161,8 +258,8 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>JS</tag>
         <tag>前端备忘</tag>
+        <tag>JS</tag>
       </tags>
   </entry>
   <entry>
@@ -186,8 +283,8 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>JS</tag>
         <tag>前端备忘</tag>
+        <tag>JS</tag>
       </tags>
   </entry>
   <entry>
@@ -198,8 +295,8 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>JS</tag>
         <tag>前端备忘</tag>
+        <tag>JS</tag>
       </tags>
   </entry>
   <entry>
@@ -210,8 +307,8 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>博客搭建</tag>
         <tag>转载</tag>
+        <tag>博客搭建</tag>
       </tags>
   </entry>
 </search>

@@ -23,21 +23,7 @@
     </url>
 
     <url>
-        <loc>http://yoursite.com/tags/%E8%BD%AC%E8%BD%BD/</loc>
-        <lastmod>2017-09-16T15:34:12.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>http://yoursite.com/tags/%E7%99%BE%E5%BA%A6%E5%9C%B0%E5%9B%BEAPI/</loc>
-        <lastmod>2017-09-16T15:34:12.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>http://yoursite.com/tags/HTML/</loc>
         <lastmod>2017-09-16T15:34:12.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
@@ -51,15 +37,43 @@
     </url>
 
     <url>
+        <loc>http://yoursite.com/tags/python%E5%A4%87%E5%BF%98/</loc>
+        <lastmod>2017-10-01T12:43:21.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://yoursite.com/tags/%E5%89%8D%E7%AB%AF%E8%B8%A9%E5%9D%91/</loc>
+        <lastmod>2017-10-01T13:20:46.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://yoursite.com/tags/%E8%BD%AC%E8%BD%BD/</loc>
+        <lastmod>2017-10-03T14:00:15.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://yoursite.com/tags/HTML/</loc>
+        <lastmod>2017-10-03T14:00:15.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
         <loc>http://yoursite.com/tags/%E5%89%8D%E7%AB%AF%E5%A4%87%E5%BF%98/</loc>
-        <lastmod>2017-09-23T15:16:59.000Z</lastmod>
+        <lastmod>2017-10-03T14:42:36.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
         <loc>http://yoursite.com/tags/JS/</loc>
-        <lastmod>2017-09-27T15:19:28.000Z</lastmod>
+        <lastmod>2017-10-03T14:42:36.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
