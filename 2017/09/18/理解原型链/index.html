@@ -114,7 +114,7 @@
 <meta property="og:image" content="https://github.com/WangYuLue/pic_of_blog/blob/master/1709/5.png?raw=true">
 <meta property="og:image" content="https://github.com/WangYuLue/pic_of_blog/blob/master/1709/6.png?raw=true">
 <meta property="og:image" content="https://github.com/WangYuLue/pic_of_blog/blob/master/1709/7.png?raw=true">
-<meta property="og:updated_time" content="2017-09-23T15:16:59.000Z">
+<meta property="og:updated_time" content="2017-10-13T06:58:57.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="理解原型链">
 <meta name="twitter:description" content="在JS中，原型链有时候让人觉得很胡里花哨，又是prototype、__proto__又是各种指向什么的，让人觉得很头疼。如果你也有这种感觉，或许这篇文章可以帮助到你">
@@ -444,7 +444,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  1,399 字
+                  1,469 字
                 </span>
               
 
@@ -545,6 +545,8 @@
 <blockquote>
 <p>这样再一封装的话，代码就很完美了。</p>
 </blockquote>
+<p>事实上，我们也可以在<code>inherits</code>中使用<code>Object.create()</code>来进行操作，代码如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">inherits</span>(<span class="params">Child, Parent</span>) </span>&#123;</div><div class="line">    Child.prototype = <span class="built_in">Object</span>.create(Parent.prototype);</div><div class="line">    Child.prototype.constructor = Child;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>如果有兴趣了解<code>Object.create()</code>的其他用法，可以参考我的这篇博客<a href="http://www.wangyulue.com/2017/10/10/JS%E4%B8%ADObject-defineProperty%E4%B8%8EObject-create%E7%9A%84%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%952/#more" target="_blank" rel="external">JS中Object.create的使用方法</a>;</p>
 <h3 id="四、ES6的新关键字class"><a href="#四、ES6的新关键字class" class="headerlink" title="四、ES6的新关键字class"></a>四、ES6的新关键字class</h3><p>在ES6中，新的关键字class，extends被正式被引入，它采用的类似java的继承写法，写起来就像这样：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span> <span class="keyword">extends</span> <span class="title">Person</span> </span>&#123;</div><div class="line">    <span class="keyword">constructor</span>(name, grade) &#123;</div><div class="line">        <span class="keyword">super</span>(msg); <span class="comment">// 记得用super调用父类的构造方法!</span></div><div class="line">        <span class="keyword">this</span>.grade = grade || <span class="number">1</span>;</div><div class="line">    &#125;</div><div class="line">    myGrade() &#123;</div><div class="line">        alert(<span class="string">'I am at grade '</span> + <span class="keyword">this</span>.grade);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>这样写的话会更通俗易懂，继承也相当方便。读者可以进入<a href="https://www.liaoxuefeng.com/wiki/001434446689867b27157e896e74d51a89c25cc8b43bdb3000/001458267339633fd3a83c597d04b5fb59f7d1f6792efb3000" target="_blank" rel="external">廖雪峰的官方网站</a>详细了解class的用法</p>
 <p>参考文献：<br><a href="https://www.liaoxuefeng.com/wiki/001434446689867b27157e896e74d51a89c25cc8b43bdb3000/0014344997013405abfb7f0e1904a04ba6898a384b1e925000" target="_blank" rel="external">廖雪峰的官方网站</a></p>
@@ -692,7 +694,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">26</span>
+                <span class="site-state-item-count">31</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -796,6 +798,10 @@
               
                 <li class="links-of-blogroll-item" style="float: none;">
                   <a href="http://es6.ruanyifeng.com/" title="阮一峰ES6语法" target="_blank">阮一峰ES6语法</a>
+                </li>
+              
+                <li class="links-of-blogroll-item" style="float: none;">
+                  <a href="https://developers.google.com/web/tools/chrome-devtools/" title="Chrome开发者工具" target="_blank">Chrome开发者工具</a>
                 </li>
               
             </ul>

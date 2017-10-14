@@ -108,7 +108,7 @@
 <meta property="og:site_name" content="王玉略的个人网站">
 <meta property="og:description" content="在JS中,slice()、substring()、substr()都有截取字符串的作用，那他们有哪些用法上的区别呢？如果你也有疑惑，这篇文章或许能够帮助到你。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-09-29T13:06:45.000Z">
+<meta property="og:updated_time" content="2017-10-13T06:58:57.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JS字符串截取函数slice(),substring(),substr()的区别">
 <meta name="twitter:description" content="在JS中,slice()、substring()、substr()都有截取字符串的作用，那他们有哪些用法上的区别呢？如果你也有疑惑，这篇文章或许能够帮助到你。">
@@ -437,7 +437,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  1,008 字
+                  1,024 字
                 </span>
               
 
@@ -513,6 +513,9 @@
 <h3 id="四、slice"><a href="#四、slice" class="headerlink" title="四、slice()"></a>四、slice()</h3><p><code>slice()</code>方法返回一个索引和另一个索引之间的字符串，语法如下：</p>
 <blockquote>
 <p>str.slice(beginIndex[, endIndex])</p>
+</blockquote>
+<p>下面有三点需要注意：</p>
+<blockquote>
 <ul>
 <li>若<code>beginIndex</code>为负数,则将该值加上字符串长度后再进行计算（如果加上字符串的长度后还是负数，则从0开始截取）。</li>
 <li>如果<code>beginIndex</code>大于或等于字符串的长度，则<code>slice()</code>返回一个空字符串。</li>
@@ -520,6 +523,7 @@
 </ul>
 </blockquote>
 <p>以下是一些示例代码：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> str = <span class="string">'abcdefghij'</span>;</div><div class="line"><span class="built_in">console</span>.log(<span class="string">'(1, 2): '</span>   + str.slice(<span class="number">1</span>, <span class="number">2</span>));   <span class="comment">// '(1, 2): b'</span></div><div class="line"><span class="built_in">console</span>.log(<span class="string">'(-3, 2): '</span>  + str.slice(<span class="number">-3</span>, <span class="number">2</span>));  <span class="comment">// '(-3, 2): '</span></div><div class="line"><span class="built_in">console</span>.log(<span class="string">'(-3, 9): '</span>  + str.slice(<span class="number">-3</span>, <span class="number">9</span>));  <span class="comment">// '(-3, 9): hi'</span></div><div class="line"><span class="built_in">console</span>.log(<span class="string">'(-3): '</span>     + str.slice(<span class="number">-3</span>));     <span class="comment">// '(-3): hij'</span></div><div class="line"><span class="built_in">console</span>.log(<span class="string">'(-3，-1): '</span> + str.slice(<span class="number">-3</span>，<span class="number">-1</span>));     <span class="comment">// '(-3，-1): hi'</span></div><div class="line"><span class="built_in">console</span>.log(<span class="string">'(0，-1): '</span>  + str.slice(<span class="number">0</span>，<span class="number">-1</span>));     <span class="comment">// '(0，-1): abcdefghi'</span></div><div class="line"><span class="built_in">console</span>.log(<span class="string">'(1): '</span>      + str.slice(<span class="number">1</span>));      <span class="comment">// '(1): bcdefghij'</span></div><div class="line"><span class="built_in">console</span>.log(<span class="string">'(-20, 2): '</span> + str.slice(<span class="number">-20</span>, <span class="number">2</span>)); <span class="comment">// '(-20, 2): ab'</span></div><div class="line"><span class="built_in">console</span>.log(<span class="string">'(20): '</span>     + str.slice(<span class="number">20</span>));  <span class="comment">// '(20): '</span></div><div class="line"><span class="built_in">console</span>.log(<span class="string">'(20, 2): '</span>  + str.slice(<span class="number">20</span>, <span class="number">2</span>));  <span class="comment">// '(20, 2): '</span></div></pre></td></tr></table></figure></p>
+<p>参考文档<br><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String/substring" target="_blank" rel="external">MDN web docs</a></p>
 
       
     </div>
@@ -664,7 +668,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">26</span>
+                <span class="site-state-item-count">31</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -768,6 +772,10 @@
               
                 <li class="links-of-blogroll-item" style="float: none;">
                   <a href="http://es6.ruanyifeng.com/" title="阮一峰ES6语法" target="_blank">阮一峰ES6语法</a>
+                </li>
+              
+                <li class="links-of-blogroll-item" style="float: none;">
+                  <a href="https://developers.google.com/web/tools/chrome-devtools/" title="Chrome开发者工具" target="_blank">Chrome开发者工具</a>
                 </li>
               
             </ul>
