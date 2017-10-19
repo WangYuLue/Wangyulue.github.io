@@ -108,7 +108,7 @@
 <meta property="og:site_name" content="王玉略的个人网站">
 <meta property="og:description" content="在JS中,slice()、substring()、substr()都有截取字符串的作用，那他们有哪些用法上的区别呢？如果你也有疑惑，这篇文章或许能够帮助到你。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-10-13T06:58:57.000Z">
+<meta property="og:updated_time" content="2017-10-15T01:16:50.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JS字符串截取函数slice(),substring(),substr()的区别">
 <meta name="twitter:description" content="在JS中,slice()、substring()、substr()都有截取字符串的作用，那他们有哪些用法上的区别呢？如果你也有疑惑，这篇文章或许能够帮助到你。">
@@ -437,7 +437,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  1,024 字
+                  1,026 字
                 </span>
               
 
@@ -482,11 +482,11 @@
 <blockquote>
 <ul>
 <li>substring()从提取的字符indexStart可达但不包括 indexEnd</li>
-<li>如果为indexStart 等于indexEnd，substring()返回一个空字符串。</li>
+<li>如果indexStart 等于indexEnd，substring()返回一个空字符串。</li>
 <li>如果indexEnd省略，则将substring()字符提取到字符串的末尾。</li>
 <li>如果任一参数小于0或是NaN，它被视为为0。</li>
 <li>如果任何一个参数都大于stringName.length，则被视为是stringName.length。</li>
-<li>如果indexStart大于indexEnd，那么效果substring()就好像这两个论点被交换了一样； 例如，。str.substring(1, 0) == str.substring(0, 1)</li>
+<li>如果indexStart大于indexEnd，那么效果substring()就好像这两个论点被交换了一样； 例如，str.substring(1, 0) == str.substring(0, 1)</li>
 </ul>
 </blockquote>
 <p>以下是一些示例代码：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> str = <span class="string">'abcdefghij'</span>;</div><div class="line"><span class="built_in">console</span>.log(<span class="string">'(1, 2): '</span>   + str.substring(<span class="number">1</span>, <span class="number">2</span>));   <span class="comment">// '(1, 2): b'</span></div><div class="line"><span class="built_in">console</span>.log(<span class="string">'(1, 1): '</span>   + str.substring(<span class="number">1</span>, <span class="number">1</span>));   <span class="comment">// '(1, 1): '</span></div><div class="line"><span class="built_in">console</span>.log(<span class="string">'(-3, 2): '</span>  + str.substring(<span class="number">-3</span>, <span class="number">2</span>));  <span class="comment">// '(-3, 2): ab'</span></div><div class="line"><span class="built_in">console</span>.log(<span class="string">'(-3): '</span>     + str.substring(<span class="number">-3</span>));     <span class="comment">// '(-3): abcdefghij'</span></div><div class="line"><span class="built_in">console</span>.log(<span class="string">'(1): '</span>      + str.substring(<span class="number">1</span>));      <span class="comment">// '(1): bcdefghij'</span></div><div class="line"><span class="built_in">console</span>.log(<span class="string">'(-20, 2): '</span> + str.substring(<span class="number">-20</span>, <span class="number">2</span>)); <span class="comment">// '(-20, 2): ab'</span></div><div class="line"><span class="built_in">console</span>.log(<span class="string">'(2, 20): '</span>  + str.substring(<span class="number">2</span>, <span class="number">20</span>));  <span class="comment">// '(2, 20): cdefghij'</span></div><div class="line"><span class="built_in">console</span>.log(<span class="string">'(20, 2): '</span>  + str.substring(<span class="number">20</span>, <span class="number">2</span>));  <span class="comment">// '(20, 2): cdefghij'</span></div></pre></td></tr></table></figure></p>
@@ -519,7 +519,7 @@
 <ul>
 <li>若<code>beginIndex</code>为负数,则将该值加上字符串长度后再进行计算（如果加上字符串的长度后还是负数，则从0开始截取）。</li>
 <li>如果<code>beginIndex</code>大于或等于字符串的长度，则<code>slice()</code>返回一个空字符串。</li>
-<li>如果<code>endIndex</code>省略，则将<code>slice()</code>字符提取到字符串的末尾。如果为负，它被视为<code>strLength + endIndex</code>其中<code>strLength</code>是字符串。</li>
+<li>如果<code>endIndex</code>省略，则将<code>slice()</code>字符提取到字符串的末尾。如果为负，它被视为<code>strLength + endIndex</code>其中<code>strLength</code>是字符串的长度。</li>
 </ul>
 </blockquote>
 <p>以下是一些示例代码：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> str = <span class="string">'abcdefghij'</span>;</div><div class="line"><span class="built_in">console</span>.log(<span class="string">'(1, 2): '</span>   + str.slice(<span class="number">1</span>, <span class="number">2</span>));   <span class="comment">// '(1, 2): b'</span></div><div class="line"><span class="built_in">console</span>.log(<span class="string">'(-3, 2): '</span>  + str.slice(<span class="number">-3</span>, <span class="number">2</span>));  <span class="comment">// '(-3, 2): '</span></div><div class="line"><span class="built_in">console</span>.log(<span class="string">'(-3, 9): '</span>  + str.slice(<span class="number">-3</span>, <span class="number">9</span>));  <span class="comment">// '(-3, 9): hi'</span></div><div class="line"><span class="built_in">console</span>.log(<span class="string">'(-3): '</span>     + str.slice(<span class="number">-3</span>));     <span class="comment">// '(-3): hij'</span></div><div class="line"><span class="built_in">console</span>.log(<span class="string">'(-3，-1): '</span> + str.slice(<span class="number">-3</span>，<span class="number">-1</span>));     <span class="comment">// '(-3，-1): hi'</span></div><div class="line"><span class="built_in">console</span>.log(<span class="string">'(0，-1): '</span>  + str.slice(<span class="number">0</span>，<span class="number">-1</span>));     <span class="comment">// '(0，-1): abcdefghi'</span></div><div class="line"><span class="built_in">console</span>.log(<span class="string">'(1): '</span>      + str.slice(<span class="number">1</span>));      <span class="comment">// '(1): bcdefghij'</span></div><div class="line"><span class="built_in">console</span>.log(<span class="string">'(-20, 2): '</span> + str.slice(<span class="number">-20</span>, <span class="number">2</span>)); <span class="comment">// '(-20, 2): ab'</span></div><div class="line"><span class="built_in">console</span>.log(<span class="string">'(20): '</span>     + str.slice(<span class="number">20</span>));  <span class="comment">// '(20): '</span></div><div class="line"><span class="built_in">console</span>.log(<span class="string">'(20, 2): '</span>  + str.slice(<span class="number">20</span>, <span class="number">2</span>));  <span class="comment">// '(20, 2): '</span></div></pre></td></tr></table></figure></p>
@@ -668,7 +668,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">31</span>
+                <span class="site-state-item-count">33</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -679,7 +679,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -690,7 +690,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-count">13</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

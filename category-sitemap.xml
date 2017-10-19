@@ -14,15 +14,22 @@
     </url>
 
     <url>
-        <loc>http://yoursite.com/categories/python/</loc>
-        <lastmod>2017-10-01T12:43:21.000Z</lastmod>
+        <loc>http://yoursite.com/categories/%E5%89%8D%E7%AB%AF/</loc>
+        <lastmod>2017-10-17T15:26:36.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://yoursite.com/categories/%E5%89%8D%E7%AB%AF/</loc>
-        <lastmod>2017-10-14T13:21:31.000Z</lastmod>
+        <loc>http://yoursite.com/categories/%E7%AE%97%E6%B3%95/</loc>
+        <lastmod>2017-10-19T13:00:32.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://yoursite.com/categories/Python/</loc>
+        <lastmod>2017-10-19T17:18:56.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
