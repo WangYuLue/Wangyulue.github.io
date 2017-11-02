@@ -108,7 +108,7 @@
 <meta property="og:site_name" content="王玉略的个人网站">
 <meta property="og:description" content="最近发现浏览器的两个原生API atob()、btoa() 可以实现编码转换">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-10-03T14:42:36.000Z">
+<meta property="og:updated_time" content="2017-11-02T15:40:15.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浏览器原生API实现Base64编码转换">
 <meta name="twitter:description" content="最近发现浏览器的两个原生API atob()、btoa() 可以实现编码转换">
@@ -437,7 +437,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  979 字
+                  1,039 字
                 </span>
               
 
@@ -475,6 +475,11 @@
 </blockquote>
 <a id="more"></a>
 <p>1、代码如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">btoa(<span class="string">"hello world"</span>); <span class="comment">// "aGVsbG8gd29ybGQ="</span></div><div class="line">atob(<span class="string">"aGVsbG8gd29ybGQ="</span>); <span class="comment">// "hello world"</span></div></pre></td></tr></table></figure></p>
+<hr>
+<p>2017-11-01添加</p>
+<p>如果转换的字符串中有中文的话，编码转换会失败，这时候就需要<code>window.encodeURIComponent</code>和<code>window.decodeURIComponent</code>的帮助了：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> str = <span class="string">"China，中国"</span>;</div><div class="line"></div><div class="line"><span class="built_in">window</span>.btoa(<span class="built_in">window</span>.encodeURIComponent(str))</div><div class="line"><span class="comment">//"Q2hpbmElRUYlQkMlOEMlRTQlQjglQUQlRTUlOUIlQkQ="</span></div><div class="line"></div><div class="line"><span class="built_in">window</span>.decodeURIComponent(<span class="built_in">window</span>.atob(<span class="string">'Q2hpbmElRUYlQkMlOEMlRTQlQjglQUQlRTUlOUIlQkQ='</span>))</div><div class="line"><span class="comment">//"China，中国"</span></div></pre></td></tr></table></figure>
+<hr>
 <p>2、再科（bai）普(du) 一下base64的编码原理：</p>
 <blockquote>
 <p>转码过程例子：<br>3<em>8=4</em>6<br>内存1个字节占8位<br>转前： s 1 3<br>先转成ascii：对应 115 49 51<br>2进制： 01110011 00110001 00110011<br>6个一组（4组） 011100110011000100110011<br>然后才有后面的 011100 110011 000100 110011<br>然后计算机是8位8位的存数 6不够，自动就补两个高位0了<br>所有有了 高位补0<br>科学计算器输入 00011100 00110011 00000100 00110011<br>得到 28 51 4 51<br>查对下照表 c z E z</p>
@@ -619,7 +624,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">35</span>
+                <span class="site-state-item-count">43</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -630,7 +635,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -641,7 +646,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-count">15</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
