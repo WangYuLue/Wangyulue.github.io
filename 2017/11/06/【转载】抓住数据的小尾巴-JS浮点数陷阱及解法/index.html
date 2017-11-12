@@ -1,0 +1,1484 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-flash.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="JS,转载," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="前两天开发时做计算金额汇总，然后139.16+126计算的结果是265.15999999999997，这把我郁闷的半死，刚好这两天刷掘金看到一篇深度好文抓住数据的小尾巴 - JS浮点数陷阱及解法，算是解开了我心中的半片阴霾，因为有些没太理解，所以还有半片继续阴霾着。不管怎么说，这里先做一个转载">
+<meta name="keywords" content="JS,转载">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【转载】抓住数据的小尾巴 - JS浮点数陷阱及解法">
+<meta property="og:url" content="http://yoursite.com/2017/11/06/【转载】抓住数据的小尾巴-JS浮点数陷阱及解法/index.html">
+<meta property="og:site_name" content="王玉略的个人网站">
+<meta property="og:description" content="前两天开发时做计算金额汇总，然后139.16+126计算的结果是265.15999999999997，这把我郁闷的半死，刚好这两天刷掘金看到一篇深度好文抓住数据的小尾巴 - JS浮点数陷阱及解法，算是解开了我心中的半片阴霾，因为有些没太理解，所以还有半片继续阴霾着。不管怎么说，这里先做一个转载">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://github.com/WangYuLue/pic_of_blog/blob/master/1711/9.png?raw=true">
+<meta property="og:image" content="https://github.com/WangYuLue/pic_of_blog/blob/master/1711/10.png?raw=true">
+<meta property="og:image" content="https://github.com/WangYuLue/pic_of_blog/blob/master/1711/11.png?raw=true">
+<meta property="og:image" content="https://github.com/WangYuLue/pic_of_blog/blob/master/1711/12.png?raw=true">
+<meta property="og:image" content="https://github.com/WangYuLue/pic_of_blog/blob/master/1711/13.png?raw=true">
+<meta property="og:image" content="https://github.com/WangYuLue/pic_of_blog/blob/master/1711/14.png?raw=true">
+<meta property="og:updated_time" content="2017-11-12T08:38:22.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【转载】抓住数据的小尾巴 - JS浮点数陷阱及解法">
+<meta name="twitter:description" content="前两天开发时做计算金额汇总，然后139.16+126计算的结果是265.15999999999997，这把我郁闷的半死，刚好这两天刷掘金看到一篇深度好文抓住数据的小尾巴 - JS浮点数陷阱及解法，算是解开了我心中的半片阴霾，因为有些没太理解，所以还有半片继续阴霾着。不管怎么说，这里先做一个转载">
+<meta name="twitter:image" content="https://github.com/WangYuLue/pic_of_blog/blob/master/1711/9.png?raw=true">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/11/06/【转载】抓住数据的小尾巴-JS浮点数陷阱及解法/"/>
+
+
+
+
+
+  <title>【转载】抓住数据的小尾巴 - JS浮点数陷阱及解法 | 王玉略的个人网站</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?bbdd67cdf143b6f0fa6fd027081a9abe";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+  <style>
+    @media screen and (max-width: 1240px) { 
+      .fork-me-on-github{
+        display: none;
+      }
+    } 
+    .fork-me-on-github{
+      position: absolute;
+      top: 0;
+      left: 0;
+      border: 0;
+      z-index: 10;
+    }
+  </style>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+    <a href="https://github.com/WangYuLue"><img class="fork-me-on-github" src="https://camo.githubusercontent.com/c6625ac1f3ee0a12250227cf83ce904423abf351/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_gray_6d6d6d.png"></a>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">王玉略的个人网站</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Stay Hungry, Stay Foolish.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/11/06/【转载】抓住数据的小尾巴-JS浮点数陷阱及解法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="王二">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="王玉略的个人网站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">【转载】抓住数据的小尾巴 - JS浮点数陷阱及解法</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-11-06T15:06:31+08:00">
+                2017-11-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端备忘/" itemprop="url" rel="index">
+                    <span itemprop="name">前端备忘</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/11/06/【转载】抓住数据的小尾巴-JS浮点数陷阱及解法/" class="leancloud_visitors" data-flag-title="【转载】抓住数据的小尾巴 - JS浮点数陷阱及解法">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  2,155 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  8 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote class="blockquote-center"><p>前两天开发时做计算金额汇总，然后<code>139.16+126</code>计算的结果是<code>265.15999999999997</code>，这把我郁闷的半死，刚好这两天刷掘金看到一篇深度好文<a href="https://juejin.im/post/59f9e26f6fb9a0452724ea32" target="_blank" rel="external">抓住数据的小尾巴 - JS浮点数陷阱及解法</a>，算是解开了我心中的半片阴霾，因为有些没太理解，所以还有半片继续阴霾着。不管怎么说，这里先做一个转载</p>
+</blockquote>
+<a id="more"></a>
+<blockquote>
+<p><strong>文章原发于<a href="https://juejin.im/post/59f9e26f6fb9a0452724ea32" target="_blank" rel="external">掘金’前端新能源’</a></strong></p>
+</blockquote>
+<p>众所周知，JavaScript 浮点数运算时经常遇到会 0.000000001 和 0.999999999 这样奇怪的结果，如 0.1+0.2=0.30000000000000004、1-0.9=0.09999999999999998，很多人知道这是浮点数误差问题，但具体原因就说不清楚了。本文帮你理清这背后的原理以及解决方案，还会向你解释JS中的大数危机和四则运算中会遇到的坑。</p>
+<h3 id="一、浮点数的存储"><a href="#一、浮点数的存储" class="headerlink" title="一、浮点数的存储"></a>一、浮点数的存储</h3><p>首先要搞清楚 JavaScript 如何存储小数。和其它语言如 Java 和 Python 不同，JavaScript 中所有数字包括整数和小数都只有一种类型 — Number。它的实现遵循 IEEE 754 标准，使用 64 位固定长度来表示，也就是标准的 double 双精度浮点数（相关的还有float 32位单精度）。计算机组成原理中有过详细介绍，如果你不记得也没关系。</p>
+<blockquote>
+<p>注：大多数语言中的小数默认都是遵循 IEEE 754 的 float 浮点数，包括 Java、Ruby、Python，本文中的浮点数问题同样存在。</p>
+</blockquote>
+<p>这样的存储结构优点是可以归一化处理整数和小数，节省存储空间。</p>
+<p>64位比特又可分为三个部分：</p>
+<blockquote>
+<ul>
+<li>符号位S：第 1 位是正负数符号位（sign），0代表正数，1代表负数</li>
+<li>指数位E：中间的 11 位存储指数（exponent），用来表示次方数</li>
+<li>尾数位M：最后的 52 位是尾数（mantissa），超出的部分自动进一舍零</li>
+</ul>
+</blockquote>
+<p><img src="https://github.com/WangYuLue/pic_of_blog/blob/master/1711/9.png?raw=true" alt="Alt text"></p>
+<p>实际数字就可以用以下公式来计算：</p>
+<p><img src="https://github.com/WangYuLue/pic_of_blog/blob/master/1711/10.png?raw=true" alt="Alt text"></p>
+<p>注意以上的公式遵循科学计数法的规范，在十进制中 0&lt;M&lt;10，到二进制就是 0&lt;M&lt;2。也就是说整数部分只能是1，所以可以被舍去，只保留后面的小数部分。如 4.5 转成二进制就是 100.1，科学计数法表示是 1.001*2^2，舍去1后 M = 001。E是一个无符号整数，因为长度是11位，取值范围是 0~2047。但是科学计数法中的指数是可以为负数的，所以约定减去一个中间数 1023，[0,1022] 表示为负，[1024,2047] 表示为正。如 4.5 的指数 E = 1025，尾数 M = 001。</p>
+<p>最终的公式变成：</p>
+<p><img src="https://github.com/WangYuLue/pic_of_blog/blob/master/1711/11.png?raw=true" alt="Alt text"></p>
+<p>所以 4.5 最终表示为（M=001、E=1025）：</p>
+<p><img src="https://github.com/WangYuLue/pic_of_blog/blob/master/1711/12.png?raw=true" alt="Alt text"></p>
+<p>(图片由此生成 <a href="http://www.binaryconvert.com/convert_double.html" target="_blank" rel="external">http://www.binaryconvert.com/convert_double.html</a>)</p>
+<p>下面再以 0.1 为例解释浮点误差的原因，0.1 转成二进制表示为 0.0001100110011001100(1100循环)，1.100110011001100x2^-4，所以 E=-4+1023=1019；M 舍去首位的1，得到 100110011…。最终就是：</p>
+<p><img src="https://github.com/WangYuLue/pic_of_blog/blob/master/1711/13.png?raw=true" alt="Alt text"></p>
+<p>转化成十进制后为 0.100000000000000005551115123126，因此就出现了浮点误差。</p>
+<h4 id="1、为什么-0-1-0-2-0-30000000000000004？"><a href="#1、为什么-0-1-0-2-0-30000000000000004？" class="headerlink" title="1、为什么 0.1+0.2=0.30000000000000004？"></a>1、为什么 0.1+0.2=0.30000000000000004？</h4><p>计算步骤为：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 0.1 和 0.2 都转化成二进制后再进行运算</span></div><div class="line"><span class="number">0.00011001100110011001100110011001100110011001100110011010</span> +</div><div class="line"><span class="number">0.0011001100110011001100110011001100110011001100110011010</span> =</div><div class="line"><span class="number">0.0100110011001100110011001100110011001100110011001100111</span></div><div class="line"></div><div class="line"><span class="comment">// 转成十进制正好是 0.30000000000000004</span></div></pre></td></tr></table></figure>
+<h4 id="2、为什么-x-0-1-能得到-0-1？"><a href="#2、为什么-x-0-1-能得到-0-1？" class="headerlink" title="2、为什么 x=0.1 能得到 0.1？"></a>2、为什么 x=0.1 能得到 0.1？</h4><p>恭喜你到了看山不是山的境界。因为 mantissa 固定长度是 52 位，再加上省略的一位，最多可以表示的数是 2^53=9007199254740992，对应科学计数尾数是 9.007199254740992，这也是 JS 最多能表示的精度。它的长度是 16，所以可以近似使用 toPrecision(16) 来做精度运算，超过的精度会自动做凑整处理。于是就有：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="number">0.10000000000000000555</span>.toPrecision(<span class="number">16</span>)</div><div class="line"><span class="comment">// 返回 0.1000000000000000，去掉末尾的零后正好为 0.1</span></div><div class="line"></div><div class="line"><span class="comment">// 但你看到的 `0.1` 实际上并不是 `0.1`。不信你可用更高的精度试试：</span></div><div class="line"><span class="number">0.1</span>.toPrecision(<span class="number">21</span>) = <span class="number">0.100000000000000005551</span></div></pre></td></tr></table></figure>
+<h4 id="3、大数危机"><a href="#3、大数危机" class="headerlink" title="3、大数危机"></a>3、大数危机</h4><p>可能你已经隐约感觉到了，如果整数大于 9007199254740992 会出现什么情况呢？<br>由于 E 最大值是 1023，所以最大可以表示的整数是 2^1024 - 1，这就是能表示的最大整数。但你并不能这样计算这个数字，因为从 2^1024 开始就变成了 Infinity</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&gt; <span class="built_in">Math</span>.pow(<span class="number">2</span>, <span class="number">1023</span>)</div><div class="line"><span class="number">8.98846567431158e+307</span></div><div class="line"></div><div class="line">&gt; <span class="built_in">Math</span>.pow(<span class="number">2</span>, <span class="number">1024</span>)</div><div class="line"><span class="literal">Infinity</span></div></pre></td></tr></table></figure>
+<p>那么对于 (2^53, 2^63) 之间的数会出现什么情况呢？</p>
+<blockquote>
+<ul>
+<li>(2^53, 2^54) 之间的数会两个选一个，只能精确表示偶数</li>
+<li>(2^54, 2^55) 之间的数会四个选一个，只能精确表示4个倍数</li>
+<li>… 依次跳过更多2的倍数</li>
+</ul>
+</blockquote>
+<p>下面这张图能很好的表示 JavaScript 中浮点数和实数（Real Number）之间的对应关系。我们常用的 (-2^53, 2^53) 只是最中间非常小的一部分，越往两边越稀疏越不精确。</p>
+<p><img src="https://github.com/WangYuLue/pic_of_blog/blob/master/1711/14.png?raw=true" alt="Alt text"></p>
+<p>在淘宝早期的订单系统中把订单号当作数字处理，后来随意订单号暴增，已经超过了<br>9007199254740992，最终的解法是把订单号改成字符串处理。</p>
+<p>要想解决大数的问题你可以引用第三方库 bignumber.js，原理是把所有数字当作字符串，重新实现了计算逻辑，缺点是性能比原生的差很多，所以原生支持大数就很有必要了。TC39 已经有一个 Stage 3 的提案 proposal bigint，大数问题有望彻底解决。在浏览器正式支持前，可以使用 Babel 7.0 来实现，它的内部是自动转换成 big-integer 来计算，这样能保持精度但运算效率会降低。</p>
+<h4 id="4、toPrecision-vs-toFixed"><a href="#4、toPrecision-vs-toFixed" class="headerlink" title="4、toPrecision vs toFixed"></a>4、toPrecision vs toFixed</h4><p>数据处理时，这两个函数很容易混淆。它们的共同点是把数字转成字符串供展示使用。注意在计算的中间过程不要使用，只用于最终结果。</p>
+<p>不同点就需要注意一下：</p>
+<blockquote>
+<ul>
+<li>toPrecision 是处理精度，精度是从左至右第一个不为0的数开始数起。</li>
+<li>toFixed 是小数点后指定位数取整，从小数点开始数起。<br>两者都能对多余数字做凑整处理，也有些人用 toFixed 来做四舍五入，但一定要知道它是有 Bug 的。</li>
+</ul>
+</blockquote>
+<p>如：1.005.toFixed(2) 返回的是 1.00 而不是 1.01。</p>
+<p>原因： 1.005 实际对应的数字是 1.00499999999999989，在四舍五入时全部被舍去！</p>
+<p>解法：使用四舍五入函数 Math.round() 来处理。但 Math.round(1.005 <em> 100) / 100 还是不行，因为 1.005 </em> 100 = 100.49999999999999。还需要把乘法和除法精度误差都解决后再使用 Math.round。可以使用后面介绍的 number-precision#round 方法来解决。</p>
+<h3 id="二、解决方案"><a href="#二、解决方案" class="headerlink" title="二、解决方案"></a>二、解决方案</h3><p>回到最关心的问题：如何解决浮点误差。首先，理论上用有限的空间来存储无限的小数是不可能保证精确的，但我们可以处理一下得到我们期望的结果。</p>
+<h4 id="1、数据展示类"><a href="#1、数据展示类" class="headerlink" title="1、数据展示类"></a>1、数据展示类</h4><p>当你拿到 1.4000000000000001 这样的数据要展示时，建议使用 toPrecision 凑整并 parseFloat 转成数字后再显示，如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">parseFloat</span>(<span class="number">1.4000000000000001</span>.toPrecision(<span class="number">12</span>)) === <span class="number">1.4</span>  <span class="comment">// True</span></div></pre></td></tr></table></figure>
+<p>封装成方法就是：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">strip</span>(<span class="params">num, precision = <span class="number">12</span></span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> +<span class="built_in">parseFloat</span>(num.toPrecision(precision));</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>为什么选择 12 做为默认精度？这是一个经验的选择，一般选12就能解决掉大部分0001和0009问题，而且大部分情况下也够用了，如果你需要更精确可以调高。</p>
+<h4 id="2、数据运算类"><a href="#2、数据运算类" class="headerlink" title="2、数据运算类"></a>2、数据运算类</h4><p>对于运算类操作，如 +-*/，就不能使用 toPrecision 了。正确的做法是把小数转成整数后再运算。以加法为例：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment"> * 精确加法</span></div><div class="line"><span class="comment"> */</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">num1, num2</span>) </span>&#123;</div><div class="line">  <span class="keyword">const</span> num1Digits = (num1.toString().split(<span class="string">'.'</span>)[<span class="number">1</span>] || <span class="string">''</span>).length;</div><div class="line">  <span class="keyword">const</span> num2Digits = (num2.toString().split(<span class="string">'.'</span>)[<span class="number">1</span>] || <span class="string">''</span>).length;</div><div class="line">  <span class="keyword">const</span> baseNum = <span class="built_in">Math</span>.pow(<span class="number">10</span>, <span class="built_in">Math</span>.max(num1Digits, num2Digits));</div><div class="line">  <span class="keyword">return</span> (num1 * baseNum + num2 * baseNum) / baseNum;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>以上方法能适用于大部分场景。遇到科学计数法如 2.3e+1（当数字精度大于21时，数字会强制转为科学计数法形式显示）时还需要特别处理一下。</p>
+<p>这里作者推荐了一个开源库<a href="number-precision">number-precision</a>,完美支持浮点数的加减乘除、四舍五入等运算。非常小只有1K，远小于绝大多数同类库（如Math.js、BigDecimal.js），100%测试全覆盖，代码可读性强，可以覆盖大部分应用场景。</p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><blockquote>
+<ul>
+<li><a href="https://link.juejin.im?target=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FDouble-precision_floating-point_format" target="_blank" rel="external">Double-precision floating-point format</a></li>
+<li><a href="https://link.juejin.im?target=http%3A%2F%2Ffloating-point-gui.de%2F" target="_blank" rel="external">What Every Programmer Should Know About Floating-Point Arithmetic</a></li>
+<li><a href="https://link.juejin.im?target=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DpQs_wx8eoQ8" target="_blank" rel="external">Why Computers are Bad at Algebra | Infinite Series</a></li>
+<li><a href="https://link.juejin.im?target=http%3A%2F%2Fjasss.soc.surrey.ac.uk%2F9%2F4%2F4.html" target="_blank" rel="external">Is Your Model Susceptible to Floating-Point Errors?</a></li>
+</ul>
+</blockquote>
+
+      
+    </div>
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.jpg" alt="王二 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>上面是王二的微信公众号 —— 聪聪写字的地方</div>
+</div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JS/" rel="tag"><i class="fa fa-tag"></i> JS</a>
+          
+            <a href="/tags/转载/" rel="tag"><i class="fa fa-tag"></i> 转载</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/11/06/git-reset-与-git-revert-的区别/" rel="next" title="git reset 与 git revert 的区别">
+                <i class="fa fa-chevron-left"></i> git reset 与 git revert 的区别
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/11/07/ES6中类的使用简明教程/" rel="prev" title="ES6中类的使用简明教程">
+                ES6中类的使用简明教程 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yOTgwOC82Mzc0"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="王二" />
+          <p class="site-author-name" itemprop="name">王二</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">53</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/WangYuLue" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/wang-yu-lue" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://zh-cn.facebook.com/people/%E7%8E%8B%E7%8E%89%E7%95%A5/100015123768748" target="_blank" title="FaceBook">
+                  
+                    <i class="fa fa-fw fa-facebook"></i>
+                  
+                  FaceBook
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.instagram.com/wanger_moose" target="_blank" title="Instagram">
+                  
+                    <i class="fa fa-fw fa-instagram"></i>
+                  
+                  Instagram
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-fire"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item" style="float: none;">
+                  <a href="https://developer.mozilla.org/zh-CN/" title="MDN web docs" target="_blank">MDN web docs</a>
+                </li>
+              
+                <li class="links-of-blogroll-item" style="float: none;">
+                  <a href="http://www.ruanyifeng.com/home.html" title="阮一峰的个人网站" target="_blank">阮一峰的个人网站</a>
+                </li>
+              
+                <li class="links-of-blogroll-item" style="float: none;">
+                  <a href="https://www.liaoxuefeng.com/" title="廖雪峰的官方网站" target="_blank">廖雪峰的官方网站</a>
+                </li>
+              
+                <li class="links-of-blogroll-item" style="float: none;">
+                  <a href="http://www.zhangxinxu.com/" title="张鑫旭的个人主页" target="_blank">张鑫旭的个人主页</a>
+                </li>
+              
+                <li class="links-of-blogroll-item" style="float: none;">
+                  <a href="http://es6.ruanyifeng.com/" title="阮一峰ES6语法" target="_blank">阮一峰ES6语法</a>
+                </li>
+              
+                <li class="links-of-blogroll-item" style="float: none;">
+                  <a href="https://developers.google.com/web/tools/chrome-devtools/" title="Chrome开发者工具" target="_blank">Chrome开发者工具</a>
+                </li>
+              
+                <li class="links-of-blogroll-item" style="float: none;">
+                  <a href="https://en.wikipedia.org/wiki/Main_Page" title="Wikipedia" target="_blank">Wikipedia</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、浮点数的存储"><span class="nav-number">1.</span> <span class="nav-text">一、浮点数的存储</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、为什么-0-1-0-2-0-30000000000000004？"><span class="nav-number">1.1.</span> <span class="nav-text">1、为什么 0.1+0.2=0.30000000000000004？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、为什么-x-0-1-能得到-0-1？"><span class="nav-number">1.2.</span> <span class="nav-text">2、为什么 x=0.1 能得到 0.1？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、大数危机"><span class="nav-number">1.3.</span> <span class="nav-text">3、大数危机</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4、toPrecision-vs-toFixed"><span class="nav-number">1.4.</span> <span class="nav-text">4、toPrecision vs toFixed</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、解决方案"><span class="nav-number">2.</span> <span class="nav-text">二、解决方案</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、数据展示类"><span class="nav-number">2.1.</span> <span class="nav-text">1、数据展示类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、数据运算类"><span class="nav-number">2.2.</span> <span class="nav-text">2、数据运算类</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">3.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">王二</span>
+</div>
+
+<!--
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+-->
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("mvz0WF7CL4oQdBxFY48Tvgqy-gzGzoHsz", "b3Owg9A7ta3W43WPBdCRtjNo");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -114,7 +114,7 @@
 <meta property="og:image" content="https://github.com/WangYuLue/pic_of_blog/blob/master/1710/4.jpeg?raw=true">
 <meta property="og:image" content="https://github.com/WangYuLue/pic_of_blog/blob/master/1710/5.jpeg?raw=true">
 <meta property="og:image" content="https://github.com/WangYuLue/pic_of_blog/blob/master/1710/6.jpeg?raw=true">
-<meta property="og:updated_time" content="2017-10-14T13:21:31.000Z">
+<meta property="og:updated_time" content="2017-11-12T08:38:22.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CSS样式踩坑小结">
 <meta name="twitter:description" content="最近做了一些项目，在CSS方面遇到了不少坑，在这里做一个小结">
@@ -444,7 +444,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  1,498 字
+                  1,496 字
                 </span>
               
 
@@ -485,7 +485,7 @@
 <p>会发现Safari的滑动很僵硬，这时候可以用以下样式来解决：<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">div</span>&#123;</div><div class="line">  <span class="attribute">-webkit-overflow-scrolling</span>: touch;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <h3 id="二、去除iphone中点击按钮会出现一个半透明的灰色背景的问题"><a href="#二、去除iphone中点击按钮会出现一个半透明的灰色背景的问题" class="headerlink" title="二、去除iphone中点击按钮会出现一个半透明的灰色背景的问题"></a>二、去除iphone中点击按钮会出现一个半透明的灰色背景的问题</h3><p>在开发iphone微信端的时候，同样发现，如果点击一个按钮，按钮会出现一个半透明的灰色背景，这时候可以用以下样式来解决：</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">a</span>,<span class="selector-tag">img</span>,<span class="selector-tag">button</span>,<span class="selector-tag">input</span>,<span class="selector-tag">textarea</span>,<span class="selector-tag">div</span>&#123;                       </div><div class="line">  <span class="attribute">-webkit-tap-highlight-color</span>:<span class="built_in">rgba</span>(255,255,255,0); </div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="三、div中保留保留文本的空格、换行以及tab字符的处理"><a href="#三、div中保留保留文本的空格、换行以及tab字符的处理" class="headerlink" title="三、div中保留保留文本的空格、换行以及tab字符的处理"></a>三、div中保留保留文本的空格、换行以及tab字符的处理</h3><p>在后台用<code>textarea</code>标签写入文本放入前端显示的时候，发现之前在<code>textarea</code>中的文本都被格式化了（浏览器默认把文本中的空格、换行以及tab字符都处理掉了），如果想保留文本的格式，可以用以下样式来解决：</p>
+<h3 id="三、div中保留文本的空格、换行以及tab字符的处理"><a href="#三、div中保留文本的空格、换行以及tab字符的处理" class="headerlink" title="三、div中保留文本的空格、换行以及tab字符的处理"></a>三、div中保留文本的空格、换行以及tab字符的处理</h3><p>在后台用<code>textarea</code>标签写入文本放入前端显示的时候，发现之前在<code>textarea</code>中的文本都被格式化了（浏览器默认把文本中的空格、换行以及tab字符都处理掉了），如果想保留文本的格式，可以用以下样式来解决：</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">div</span>&#123;</div><div class="line">  <span class="attribute">white-space</span>: pre-wrap;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>需要特别注意的是，<code>white-space</code>有五种值可以选择，<code>normal</code>、<code>pre</code> 、<code>nowrap</code> 、<code>pre-wrap</code>、<code>pre-wrap</code>,每一种值都有不同的表现形式，其中：</p>
 <blockquote>
@@ -686,7 +686,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">45</span>
+                <span class="site-state-item-count">53</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -697,7 +697,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -708,7 +708,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-count">19</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -796,6 +796,10 @@
                   <a href="https://developers.google.com/web/tools/chrome-devtools/" title="Chrome开发者工具" target="_blank">Chrome开发者工具</a>
                 </li>
               
+                <li class="links-of-blogroll-item" style="float: none;">
+                  <a href="https://en.wikipedia.org/wiki/Main_Page" title="Wikipedia" target="_blank">Wikipedia</a>
+                </li>
+              
             </ul>
           </div>
         
@@ -815,7 +819,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、iOS上的Safari没有滑动惯性"><span class="nav-number">1.</span> <span class="nav-text">一、iOS上的Safari没有滑动惯性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、去除iphone中点击按钮会出现一个半透明的灰色背景的问题"><span class="nav-number">2.</span> <span class="nav-text">二、去除iphone中点击按钮会出现一个半透明的灰色背景的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、div中保留保留文本的空格、换行以及tab字符的处理"><span class="nav-number">3.</span> <span class="nav-text">三、div中保留保留文本的空格、换行以及tab字符的处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四、让盒子里的字超出长度后，可以缩略显示变成点点点"><span class="nav-number">4.</span> <span class="nav-text">四、让盒子里的字超出长度后，可以缩略显示变成点点点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#五、word-wrap和word-break的区别"><span class="nav-number">5.</span> <span class="nav-text">五、word-wrap和word-break的区别</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、iOS上的Safari没有滑动惯性"><span class="nav-number">1.</span> <span class="nav-text">一、iOS上的Safari没有滑动惯性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、去除iphone中点击按钮会出现一个半透明的灰色背景的问题"><span class="nav-number">2.</span> <span class="nav-text">二、去除iphone中点击按钮会出现一个半透明的灰色背景的问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、div中保留文本的空格、换行以及tab字符的处理"><span class="nav-number">3.</span> <span class="nav-text">三、div中保留文本的空格、换行以及tab字符的处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四、让盒子里的字超出长度后，可以缩略显示变成点点点"><span class="nav-number">4.</span> <span class="nav-text">四、让盒子里的字超出长度后，可以缩略显示变成点点点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#五、word-wrap和word-break的区别"><span class="nav-number">5.</span> <span class="nav-text">五、word-wrap和word-break的区别</span></a></li></ol></div>
             
 
           </div>
