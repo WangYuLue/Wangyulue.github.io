@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[js实现等待wait函数]]></title>
+    <url>%2F2017%2F12%2F14%2Fjs%E5%AE%9E%E7%8E%B0%E7%AD%89%E5%BE%85wait%E5%87%BD%E6%95%B0%2F</url>
+    <content type="text"><![CDATA[以我以前的认知，JS是不能实现阻塞的，除非是alert()、confirm()这样的函数；不过通道巧妙地利用whlie关键字，我们还是可以实现类似JAVA中wait()函数的功能 废话就不多说了，直接上代码： 12345678910111213141516//具体实现方法function wait(ms)&#123; var start = new Date().getTime(); var end = start; while(end &lt; start + ms) &#123; end = new Date().getTime(); &#125;&#125;function demo() &#123; console.log("Hello wanger"); wait(1000); console.log("Hello World ！");&#125;demo() 以上代码中，打印 Hello wanger 一秒后,才会再打印 Hello World ！ 以上的 wait 方法还有一个更精简的实现方式，参考如下代码： 1234function wait(ms)&#123; var start = new Date().getTime(); while (new Date().getTime() &lt; start + ms);&#125;]]></content>
+      <categories>
+        <category>前端备忘</category>
+      </categories>
+      <tags>
+        <tag>JS</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[扩展运算符的简单用法]]></title>
     <url>%2F2017%2F12%2F05%2F%E6%89%A9%E5%B1%95%E8%BF%90%E7%AE%97%E7%AC%A6%E7%9A%84%E7%AE%80%E5%8D%95%E7%94%A8%E6%B3%95%2F</url>
     <content type="text"><![CDATA[这篇文章简单介绍一下扩展运算符的一些使用场景 一、获取 arguments 中的参数123456789//ES5function demo1 () &#123; console.log(Array.prototype.slice.apply(arguments)) ;&#125;//ES6function demo2 () &#123; console.log([...arguments]) ;&#125; 二、合并数组例如： 1234// ES5[1, 2].concat(more)// ES6[1, 2, ...more] 再比如： 1234567891011let arr1 = ['a', 'b'];let arr2 = ['c'];let arr3 = ['d', 'e'];// ES5的合并数组arr1.concat(arr2, arr3);// [ 'a', 'b', 'c', 'd', 'e' ]// ES6的合并数组[...arr1, ...arr2, ...arr3]// [ 'a', 'b', 'c', 'd', 'e' ] 三、字符串反转扩展运算符可以正确识别四个字节的 Unicode 字符,参考如下代码： 123456789let str = 'x\uD83D\uDE80y';//ES5str.split('').reverse().join('')// 'y\uDE80\uD83Dx'//ES6[...str].reverse().join('')// 'y\uD83D\uDE80x' 四、合并对象扩展运算符可以用于合并对象，参考如下代码：123456789var a = &#123;a:1,b:2&#125;var b = &#123;a:3,c:4&#125;var ab = &#123; ...a, ...b &#125;;// &#123;a: 3, b: 2, c: 4&#125;// 等同于var ab = Object.assign(&#123;&#125;, a, b); 参考文档：阮一峰的”ECMAScript 6 入门”MDN文档]]></content>
