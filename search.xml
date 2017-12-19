@@ -3,6 +3,93 @@
   
     
     <entry>
+      <title><![CDATA[gitHub上一个很牛的代码库]]></title>
+      <url>/2017/12/19/gitHub%E4%B8%8A%E4%B8%80%E4%B8%AA%E5%BE%88%E7%89%9B%E7%9A%84%E4%BB%A3%E7%A0%81%E5%BA%93/</url>
+      <content type="html"><![CDATA[<blockquote class="blockquote-center"><p>最近Github上出现了一个很牛的代码库<a href="https://github.com/Chalarangelo/30-seconds-of-code" target="_blank" rel="external">30-seconds-of-code</a>，短短一天就有了八千多个star. </p>
+</blockquote>
+<a id="more"></a>
+<p>这个代码库精心收集了不少有用的JavaScript代码片段，你可以在30秒或更少的时间内理解。实在是居家旅行搭公交坐地铁的必备良品。</p>
+<p>戳<a href="https://chalarangelo.github.io/30-seconds-of-code/" target="_blank" rel="external">这里</a>可以看到这个代码库的文档。</p>
+<p>在这个代码库里，我看到了之前写的一个算法的另一个实现。之前我写过这么一篇文章<a href="http://www.wangyulue.com/2017/11/03/%E4%B8%80%E9%81%93%E6%9C%89%E8%B6%A3%E7%9A%84%E7%AE%97%E6%B3%95%E9%9D%A2%E8%AF%95%E9%A2%98/#more" target="_blank" rel="external">一道有趣的算法面试题</a></p>
+<p>文章中描述了这么一个问题：</p>
+<blockquote>
+<p>问题：已知一个字符串，请以字典序写出它的所有排列组合。<br>例如：’asd’的所有排列组就是[“ads”, “asd”, “das”, “dsa”, “sad”, “sda”]；<br>规定：字符串由小写字母组成，且无重复</p>
+</blockquote>
+<p>我当时的写法是这样的：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">test</span> (<span class="params">str</span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> str = str.split(<span class="string">''</span>).sort().join(<span class="string">''</span>);</div><div class="line">    <span class="keyword">var</span> arr = [];</div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">demo</span> (<span class="params">str,i=<span class="string">''</span></span>)</span>&#123;</div><div class="line">        <span class="keyword">if</span>(str.length===<span class="number">1</span>)&#123;</div><div class="line">            arr.push(i+str);</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">var</span> x=<span class="number">0</span>;x&lt;str.length;x++)&#123;</div><div class="line">            demo(str.substring(<span class="number">0</span>,x)+str.substring(x+<span class="number">1</span>),i+str[x]);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    demo(str);</div><div class="line">    <span class="keyword">return</span> arr ;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在<a href="https://github.com/Chalarangelo/30-seconds-of-code" target="_blank" rel="external">30-seconds-of-code</a>代码库里，我又发现了另一种优雅的实现，参考如下代码：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> anagrams = <span class="function"><span class="params">str</span> =&gt;</span> &#123;</div><div class="line">  <span class="keyword">if</span> (str.length &lt;= <span class="number">2</span>) <span class="keyword">return</span> str.length === <span class="number">2</span> ? [str, str[<span class="number">1</span>] + str[<span class="number">0</span>]] : [str];</div><div class="line">  <span class="keyword">return</span> str.split(<span class="string">''</span>).reduce(<span class="function">(<span class="params">acc, letter, i</span>) =&gt;</span></div><div class="line">    acc.concat(anagrams(str.slice(<span class="number">0</span>, i) + str.slice(i + <span class="number">1</span>)).map(<span class="function"><span class="params">val</span> =&gt;</span> letter + val)), []);</div><div class="line">&#125;;</div><div class="line"><span class="comment">// anagrams('abc') -&gt; ['abc','acb','bac','bca','cab','cba']</span></div></pre></td></tr></table></figure>
+<p>里面用到了 <code>map</code>、<code>reuduce</code> ，代码一气呵成，实在是妙。戳<a href="https://chalarangelo.github.io/30-seconds-of-code/#anagrams" target="_blank" rel="external">这里</a>可以看它的具体文档。</p>
+<p>不过也有一点需要注意，可能是<code>map</code>、<code>reuduce</code> 的性能问题，这个算法的运行速度并没有王二之前所实现的那个算法的运行速度快。不过总的来说，用 <code>map</code>、<code>reuduce</code> 来实现这个算法确实很优雅。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> 前端 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> JS </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[我们这一代人的芳华]]></title>
+      <url>/2017/12/17/%E6%88%91%E4%BB%AC%E8%BF%99%E4%B8%80%E4%BB%A3%E7%9A%84%E8%8A%B3%E5%8D%8E/</url>
+      <content type="html"><![CDATA[<blockquote class="blockquote-center"><p>昨天 </p>
+</blockquote>
+<a id="more"></a>
+<p>昨天看了电影《芳华》，感触良多。不仅仅是对男女主人公悲惨境遇的深深同情，更是对时代的思考。</p>
+<p>事实上，每一代人的生活轨迹都受那个年代的国家政策、政治环境的影响。就像在电影中，那个年代粗犷的标语口号，领袖头像，集体主义，对人性的压抑都深深地刻在文工团每个人的芳华里。也刻在我们父亲辈或者爷爷辈的芳华里。</p>
+<p>当文工团宣布要解散，大家吃散伙饭，要各奔东西的那个画面，是不是像极了我们大学毕业，结束学业生涯的那一刻？也是在那一刻，我们也像电影中那样，分道扬镳，天各一方，各自上演着不一样的芳华。多说一句，好久不见，我的老同学们。</p>
+<p>王二想，或许20年以后，又会有一个像冯小刚这样厉害的导演，述说着我们这一代人的芳华。那么，什么会刻在我们这一代人的芳华里呢？加入WTO?中国发展的黄金十年？金融危机？北京奥运会？应试教育？长牛楼市？墙？</p>
+<p>王二很期待那个厉害导演会怎么把故事展开，我们到时候拭目以待。</p>
+]]></content>
+      
+        <categories>
+            
+            <category> 王二说 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 读书 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
+      <title><![CDATA[《理解国际冲突》读后感]]></title>
+      <url>/2017/12/17/%E3%80%8A%E7%90%86%E8%A7%A3%E5%9B%BD%E9%99%85%E5%86%B2%E7%AA%81%E3%80%8B%E8%AF%BB%E5%90%8E%E6%84%9F/</url>
+      <content type="html"><![CDATA[<blockquote class="blockquote-center"><p>过去一段时间，王二读了《理解国际冲突》这本书 </p>
+</blockquote>
+<a id="more"></a>
+]]></content>
+      
+        <categories>
+            
+            <category> 王二说 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 读书 </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[《动物农场》读后感]]></title>
       <url>/2017/12/15/%E3%80%8A%E5%8A%A8%E7%89%A9%E5%86%9C%E5%9C%BA%E3%80%8B%E8%AF%BB%E5%90%8E%E6%84%9F/</url>
       <content type="html"><![CDATA[<blockquote class="blockquote-center"><p>这是一本先知书 </p>
