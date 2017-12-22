@@ -142,15 +142,15 @@
     </url>
 
     <url>
-        <loc>http://yoursite.com/tags/JS/</loc>
-        <lastmod>2017-12-19T01:03:41.672Z</lastmod>
+        <loc>http://yoursite.com/tags/%E8%AF%BB%E4%B9%A6/</loc>
+        <lastmod>2017-12-22T06:37:45.419Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://yoursite.com/tags/%E8%AF%BB%E4%B9%A6/</loc>
-        <lastmod>2017-12-19T01:32:27.966Z</lastmod>
+        <loc>http://yoursite.com/tags/JS/</loc>
+        <lastmod>2017-12-22T06:45:09.248Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>

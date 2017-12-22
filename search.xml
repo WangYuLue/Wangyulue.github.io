@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[“30 seconds of code”中好玩的代码片段]]></title>
+    <url>%2F2017%2F12%2F22%2F30-seconds-of-code-%E4%B8%AD%E5%A5%BD%E7%8E%A9%E7%9A%84%E4%BB%A3%E7%A0%81%E7%89%87%E6%AE%B5%2F</url>
+    <content type="text"><![CDATA[最近做了github出现一个挺火的代码库“30 seconds of code”,里面有不少好玩的代码片段，这里做一个分享 以下分享8个有趣的代码片段，有兴趣可以亲自点开看看1、differenceReturns the difference between two arrays.Create a Set from b, then use Array.filter() on a to only keep values not contained in b. 12const difference1 = (a, b) =&gt; &#123; const s = new Set(b); return a.filter(x =&gt; !s.has(x)); &#125;;// difference1([1,2,3], [1,2,4]) -&gt; [3] 王二还想出了如下两种解决方法，也可以满足以上需求： 123const difference2 = (a, b) =&gt; &#123; return a.filter( _ =&gt; !b.some(($)=&gt;(_===$))&#125;;const difference3 = (a, b) =&gt; &#123; return a.filter( _ =&gt; !b.includes(_))&#125;; 2、pickPicks the key-value pairs corresponding to the given keys from an object.Use Array.reduce() to convert the filtered/picked keys back to a object with the corresponding key-value pair if the key exist in the obj. 12const pick1 = (obj, arr) =&gt; arr.reduce((acc, curr) =&gt; (curr in obj &amp;&amp; (acc[curr] = obj[curr]), acc), &#123;&#125;);// pick1(&#123; 'a': 1, 'b': '2', 'c': 3 &#125;, ['a', 'c']) -&gt; &#123; 'a': 1, 'c': 3 &#125; 如果不用reduce而使用一般的解决循环，也可以解决以上需求，例如王二如下给出的方法，不过用reduce一行就能搞定，当然是显得更优雅了。 12345const pick2 = (obj, arr) =&gt; &#123; const res = &#123;&#125;; arr.forEach(curr =&gt; (curr in obj &amp;&amp; (res[curr] = obj[curr]))); return res ;&#125;; 3、zipCreates an array of elements, grouped based on the position in the original arrays. Use Math.max.apply() to get the longest array in the arguments. Creates an array with that length as return value and use Array.from() with a map-function to create an array of grouped elements. If lengths of the argument-arrays vary, undefined is used where no value could be found. 123456const zip1 = (...arrays) =&gt; &#123; const maxLength = Math.max(...arrays.map(x =&gt; x.length)); return Array.from(&#123;length: maxLength&#125;).map((_, i) =&gt; &#123; return Array.from(&#123;length: arrays.length&#125;, (_, k) =&gt; arrays[k][i]); &#125;)&#125; 以上需求一般的解决方法如下所示，可以用两层for循环搞定。但是很显然，上面的写法显得更优雅； 12345678910111213141516const zip2 = () =&gt; &#123; var arr = Array.prototype.slice.call(arguments), maxLength = 0, out = []; arr.forEach(function(i)&#123; maxLength = Math.max(i.length,maxLength) ; &#125;) for(var x=0;x&lt;maxLength;x++)&#123; var temp = []; for(var y=0;y&lt;arr.length;y++)&#123; temp.push(arr[y][x]); &#125; out.push(temp); &#125; return out;&#125; 4、getBoundingClientRect()dom元素使用getBoundingClientRect()可以获得其详细的位置。 5、getURLParametersReturns an object containing the parameters of the current URL. Use match() with an appropriate regular expression to get all key-value pairs, Array.reduce() to map and combine them into a single object. Pass location.search as the argument to apply to the current url. 1234567const getURLParameters1 = () =&gt; location.href.match(/([^?=&amp;]+)(=([^&amp;]*))/g).reduce( (a, v) =&gt; (a[v.slice(0, v.indexOf('='))] = v.slice(v.indexOf('=') + 1), a), &#123;&#125; );// location.href = 'http://url.com/page?name=Adam&amp;surname=Smith';// getURLParameters() -&gt; &#123;name: 'Adam', surname: 'Smith'&#125; 一般的解决思路如下，但是以上的方法用正则加reduce一行就能搞定； 123456789101112131415161718192021222324const getURLParameters2 = () =&gt; &#123; //取得查询字符串并去掉开头的问号 var qs = (location.search.length &gt; 0 ? location.search.substring(1) : ""), //保存数据的对象 args = &#123;&#125;, //取得每一项 items = qs.length ? qs.split("&amp;") : [], item = null, name = null, value = null, //在 for 循环中使用 i = 0, len = items.length; //逐个将每一项添加到 args 对象中 for (i=0; i &lt; len; i++)&#123; item = items[i].split("="); name = decodeURIComponent(item[0]); value = decodeURIComponent(item[1]); if (name.length) &#123; args[name] = value; &#125; &#125; return args;&#125; 6、curryCurries a function. Use recursion. If the number of provided arguments (args) is sufficient, call the passed function f. Otherwise return a curried function f that expects the rest of the arguments. If you want to curry a function that accepts a variable number of arguments (a variadic function, e.g. Math.min()), you can optionally pass the number of arguments to the second parameter arity. 123456const curry = (fn, arity = fn.length, ...args) =&gt; arity &lt;= args.length ? fn(...args) : curry.bind(null, fn, arity, ...args);// curry1(Math.pow)(2)(10) -&gt; 1024// curry1(Math.min, 3)(10)(50)(2) -&gt; 2 一些王二一直弄不明白什么叫做柯里化，这个函数给王二好好上了一课； 7、pipePerforms left-to-right function composition. Use Array.reduce() with the spread operator (...) to perform left-to-right function composition. The first (leftmost) function can accept one or more arguments; the remaining functions must be unary. 1234567const pipeFunctions = (...fns) =&gt; fns.reduce((f, g) =&gt; (...args) =&gt; g(f(...args)));/*const add5 = x =&gt; x + 5const multiply = (x, y) =&gt; x * yconst multiplyAndAdd5 = pipeFunctions(multiply, add5)multiplyAndAdd5(5, 2) -&gt; 15*/ 王二第一次看到这个函数简直就是黑科技； 8、fibonacciGenerates an array, containing the Fibonacci sequence, up until the nth term. Create an empty array of the specific length, initializing the first two values (0 and 1). Use Array.reduce() to add values into the array, using the sum of the last two values, except for the first two. 123const fibonacci = n =&gt; Array.from(&#123; length: n&#125;).map(v =&gt; 0).reduce((acc, val, i) =&gt; acc.concat(i &gt; 1 ? acc[i - 1] + acc[i - 2] : i), []);// fibonacci(5) -&gt; [0,1,1,2,3] 一行函数搞定斐波那契数列。这里，王二觉得作者写的有些偏差，实际上，这里不需要map(v =&gt; 0)，如下： 123const fibonacci = n =&gt; Array.from(&#123; length: n&#125;).reduce((acc, val, i) =&gt; acc.concat(i &gt; 1 ? acc[i - 1] + acc[i - 2] : i), []);// fibonacci(5) -&gt; [0,1,1,2,3] 当然，还有其他的解决方案，如下： 12const fibonacci = n =&gt; Array(n).fill(0).reduce((acc, val, i) =&gt; acc.concat(i &gt; 1 ? acc[i - 1] + acc[i - 2] : i), []); 一般的解决思路如下： 1234567const fibonacci = n =&gt;&#123; var out = []; for(var i=0;i&lt;n;i++)&#123; i &gt; 1 ? out.push(out[i-1]+out[i-2]) : out.push(i); &#125; return out ;&#125; 无聊时看两段，每段理解起来不过30秒，实在是居家旅行必备的良品！赶紧戳进来看看]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>JS</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[gitHub上一个很牛的代码库]]></title>
     <url>%2F2017%2F12%2F19%2FgitHub%E4%B8%8A%E4%B8%80%E4%B8%AA%E5%BE%88%E7%89%9B%E7%9A%84%E4%BB%A3%E7%A0%81%E5%BA%93%2F</url>
     <content type="text"><![CDATA[最近Github上出现了一个很牛的代码库30-seconds-of-code，短短一天就有了八千多个star. 这个代码库精心收集了不少有用的JavaScript代码片段，你可以在30秒或更少的时间内理解。实在是居家旅行搭公交坐地铁的必备良品。 戳这里可以看到这个代码库的文档。 在这个代码库里，我看到了之前写的一个算法的另一个实现。之前我写过这么一篇文章一道有趣的算法面试题 文章中描述了这么一个问题： 问题：已知一个字符串，请以字典序写出它的所有排列组合。例如：’asd’的所有排列组就是[“ads”, “asd”, “das”, “dsa”, “sad”, “sda”]；规定：字符串由小写字母组成，且无重复 我当时的写法是这样的： 123456789101112131415 function test (str)&#123; var str = str.split('').sort().join(''); var arr = []; function demo (str,i='')&#123; if(str.length===1)&#123; arr.push(i+str); return; &#125; for(var x=0;x&lt;str.length;x++)&#123; demo(str.substring(0,x)+str.substring(x+1),i+str[x]); &#125; &#125; demo(str); return arr ;&#125; 在30-seconds-of-code代码库里，我又发现了另一种优雅的实现，参考如下代码： 123456const anagrams = str =&gt; &#123; if (str.length &lt;= 2) return str.length === 2 ? [str, str[1] + str[0]] : [str]; return str.split('').reduce((acc, letter, i) =&gt; acc.concat(anagrams(str.slice(0, i) + str.slice(i + 1)).map(val =&gt; letter + val)), []);&#125;;// anagrams('abc') -&gt; ['abc','acb','bac','bca','cab','cba'] 里面用到了 map、reuduce ，代码一气呵成，实在是妙。戳这里可以看它的具体文档。 不过也有一点需要注意，可能是map、reuduce 的性能问题，这个算法的运行速度并没有王二之前所实现的那个算法的运行速度快。不过总的来说，用 map、reuduce 来实现这个算法确实很优雅。]]></content>
@@ -25,7 +36,7 @@
   <entry>
     <title><![CDATA[《理解国际冲突》读后感]]></title>
     <url>%2F2017%2F12%2F17%2F%E3%80%8A%E7%90%86%E8%A7%A3%E5%9B%BD%E9%99%85%E5%86%B2%E7%AA%81%E3%80%8B%E8%AF%BB%E5%90%8E%E6%84%9F%2F</url>
-    <content type="text"><![CDATA[过去一段时间，王二读了《理解国际冲突》这本书]]></content>
+    <content type="text"><![CDATA[过去一段时间，王二读了《理解国际冲突》这本书 最近读了《理解国际冲突》这本书，教科书式的书写风格。王二太年轻，资历尚浅，所以有些章节读的昏昏欲睡，但是这本书仍然带着很多好货，特别是，以下做一个分享： 一、安全困境在无政府状态下，一个国家追求安全的独立行为可能导致所有的国家更不安全。正如伯罗奔尼撒战争的根源，乃是雅典力量的增长及其引起的斯巴达的恐惧。（这里的无政府状态指主权国家之上没有更高一级的权威） 二、思考国际问题的框架——三个层次分析法三层次分析法由肯尼斯·沃尔兹(Kenneth N.Waltz)教授在《个人、国家和战争》(Man, the State, and War)一书中首先提出。这三个层次分别为：个人、国家和国际体系。个人层面指决策者的个人性格倾向，国家层面指国家的国内政治情况，国际体系指当时的国际社会的政治体系。 三、第一次世界大战的起源用三个层次分析法来分析：（1）、在机构层次上：德国的崛起和同盟体系的僵化。原因： 民族主义的兴起 人们对和平产生了自满情绪 德国的政策是含糊不清的（2）、在国内社会和内部政治的层次上：一个正在衰落的奥匈帝国和奥斯曼帝国的内部危及，另一个是德国的国内政治形势。（3）、在个人层次上： 奥匈皇帝是一个疲惫的老人，受康拉将军以及表里不一的外交大臣左右 俄国沙皇尼古拉二世是一个与世隔绝的贵族，深受其多病且神经质妻子影响 德国皇帝是一个有很强自卑感、脾气暴躁的人，特别情感用事 王二认为，关于第一点和第二点我们同胞也需要特别留意。民族主义不是坏事，但是不要让民族主义裹挟着政府行事。和平来之不易，国家虽然强大了，导弹精度提高了，五对负重轮也变六对了，我们的腰板也挺直了不少，但也不要想随便弄你弄他的。 四、因果联系的复杂性由于因果具有复杂的特性，所以人们容易在考虑不清因果联系的情况下，把两件看似有关但实则无关联的事情画上连接符号，做出不明智的选择。比如“汉堡包论调”，认为自己在学校餐厅少吃肉就能一定程度上缓解世界粮食短缺的问题，其实不吃汉堡包生下来的粮食并不能到达孟加拉饥民的受众，反而会引起美国市场的商品过剩，更可能引起国内市场价格下跌、农民减少产量等一系列影响。所以，没能看到因果联系的复杂性，可能会使处于良好意愿的行动与其结果向背离。 就像之前砸日系车、堵在肯德基门口不让别人进去吃饭，我们的同胞抗日、抗美的出发点是好的，但是实现方式上出现了偏差。不是我们这边一砸，日本就经济危机了，不是我们不吃肯德基，美国就发不出军费了。好好工作，努力创作税收，要比上面的方法强多了。 五、相互关联的误导性相互关联的现象并不一定包含真实的因果关系。例如活在和救火车的出现显然是相互关联的，但是我们不能认为救火车引起了火灾。认为民主国家之间不会发生战争也是这样的思维模式在作怪，因为这个现象之所以会产生的原因也可能在于，民主国家一般是富裕国家，而富裕国家倾向于从事贸易，而根据贸易自由主义理论，富裕国家不太可能交战。即不能简单地有现象引到一个结论，现象有可能与和他最近接的结论并不一致，而是拐了很多的弯，从而和其他结论相连接。 举个例子：]]></content>
       <categories>
         <category>王二说</category>
       </categories>
@@ -63,8 +74,8 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>ES6</tag>
         <tag>JS</tag>
+        <tag>ES6</tag>
       </tags>
   </entry>
   <entry>
@@ -75,8 +86,8 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>ES6</tag>
         <tag>JS</tag>
+        <tag>ES6</tag>
       </tags>
   </entry>
   <entry>
@@ -428,8 +439,8 @@
       </categories>
       <tags>
         <tag>CSS</tag>
-        <tag>转载</tag>
         <tag>前端备忘</tag>
+        <tag>转载</tag>
         <tag>HTML</tag>
       </tags>
   </entry>
@@ -454,8 +465,8 @@
       </categories>
       <tags>
         <tag>JS</tag>
-        <tag>转载</tag>
         <tag>前端备忘</tag>
+        <tag>转载</tag>
         <tag>HTML</tag>
       </tags>
   </entry>
@@ -490,8 +501,8 @@
       </categories>
       <tags>
         <tag>JS</tag>
-        <tag>转载</tag>
         <tag>前端备忘</tag>
+        <tag>转载</tag>
         <tag>HTML</tag>
       </tags>
   </entry>
@@ -596,8 +607,8 @@
       </categories>
       <tags>
         <tag>JS</tag>
-        <tag>转载</tag>
         <tag>前端备忘</tag>
+        <tag>转载</tag>
       </tags>
   </entry>
   <entry>
@@ -656,8 +667,8 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>ES6</tag>
         <tag>JS</tag>
+        <tag>ES6</tag>
       </tags>
   </entry>
   <entry>
