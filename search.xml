@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[《黑镜》第四季观后感]]></title>
+    <url>%2F2018%2F01%2F03%2F%E3%80%8A%E9%BB%91%E9%95%9C%E3%80%8B%E7%AC%AC%E5%9B%9B%E5%AD%A3%E8%A7%82%E5%90%8E%E6%84%9F%2F</url>
+    <content type="text"><![CDATA[最近《黑镜》第四季上映，王二这两天断断续续把它看完了，在这里写一个观后感。 先说一个王二看完最直接的感受，拍的没有第一季、第二季好看了。 以下轻微剧透。 《黑镜》有一个共通的主题是都以极端的黑色幽默来讽刺和探讨科技对人类生活产生的影响。 但是第四季与第一季第二季有一个很大的不同点是，第四季里很多地方是架空的科技想象，比如在你的太阳穴上放一个小的意识提取器，过一会儿就能提取你的全部记忆，这种技术恐怕在我们的有生之年都不会看到，就算实现了恐怕也不会如此简单的就能提取全部的记忆。而且第四季更多的感觉是在看科幻片，对人性伦理的讨论不多。 而第一季、第二季（加圣诞篇）更多是将剧情限定在当下的技术或者即将实现的技术来进行讨论，情节的设定上颇具科幻意味，但其内核却完全指涉现实，互联网暴民、娱乐致死、科技对隐私的侵犯、虚拟意识有没有人权…无不一一都是我们当下或者不久的将来需要直面的问题。 回到《黑镜》第四季，这一季黑镜不够黑，也不够深刻，但是仍然值得一看。 其中： “USS Callister” 卡李斯特号–可谓是另类版《星际迷航》。 “Arkangel” 大天使–由朱迪·福斯特执导，主要讲述了一位保护欲极强的母亲在其女儿脑部植入了一个智能软件的故事。 “Crocodile” 鳄鱼–聚焦于这样一个未来：那时的设备将有权限访问人类的记忆。 “Hang the DJ” 绞死DJ–将会带观众们进入该剧版本的爱情“喜剧”，想象一下这样一个世界吧：某种高科技服务会为你的所有人际关系创设相应的播放列表。 “Metalhead” 铁头–这是一部黑白特集，其中会出现一只令人畏惧的智能机械犬，因此会充满更原始的快节奏和紧张感。 “Black Museum” 暗黑博物馆–和《辛普森一家：万圣节特辑之恐怖树屋》已经被进行过比较。 还有一点不得不提，在第一集里程序员实在是被黑的太惨了，王二要给程序员正名，程序员哪有这么阴暗扭曲、心里变态的，大概是这一季的编剧对程序员心存偏见吧。 最后送一波福利，戳这里查看《黑镜》第四季影视资源（密码:kp6u）。]]></content>
+      <categories>
+        <category>王二说</category>
+      </categories>
+      <tags>
+        <tag>美剧</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[如何简单地在本地启动一个HTTP服务，并将其映射到外网环境]]></title>
     <url>%2F2018%2F01%2F02%2F%E5%A6%82%E4%BD%95%E7%AE%80%E5%8D%95%E5%9C%B0%E5%9C%A8%E6%9C%AC%E5%9C%B0%E5%90%AF%E5%8A%A8%E4%B8%80%E4%B8%AAHTTP%E6%9C%8D%E5%8A%A1%EF%BC%8C%E5%B9%B6%E5%B0%86%E5%85%B6%E6%98%A0%E5%B0%84%E5%88%B0%E5%A4%96%E7%BD%91%E7%8E%AF%E5%A2%83%2F</url>
     <content type="text"><![CDATA[文本旨在告诉读者如何简单的启动一个HTTP Server，并将其映射到外网，让外网访问者也能通过浏览器访问自己本地的服务。其中关键词有 http-server 、web server for chrome 、ngrok 有时候，我们想要测试一下打包好的项目，但是直接点开index.html文件不管用，因为依赖的路径不正确，这时候就需要启动一个HTTP服务来打开项目。我们可以使用 http-server 或者 web server for chrome 来解决这个问题。 有时候，我们还想要外网也能访问我们本地的服务，这时候我们可以使用 ngrok 来解决这个问题。 一、如何简单地在本地启动一个HTTP服务1、http-serverhttp-server 是一个简单的，零配置的命令行http服务器。它足够强大,可以用于生产环境，但它很简单，可以用来测试，本地开发和学习。 使用 http-server 很简单： 12345//全局安装http-servernpm install http-server -g//找到你要运行的文件目录下，敲下http-server，项目就顺利运行起来了http-server 关于http-server 的具体说明： 123http-server [path] [options]//[path]默认路径为./public，如果没有./public文件夹，则路径为./。 http-server还有更多的配置项，可以戳这里来详细了解它。 2、web server for chromeweb server for chrome 是谷歌浏览器的一个插件，使用它也可以很方便的启动本地HTTP服务。它长下面这个样子： 你可以戳这里来获取它，不过需要注意的的是，由于这个链接访问的是谷歌商店，所以需要科学上网。如果你还不知道如何科学上网，戳这里,蓝灯或许能帮助到你。 安装好后打开 web server for chrome，它长下面这个样子： 这时候就可以手动配置来轻松使用它了。 一、如何将本地服务映射到外网环境1、ngrokngrok是一个反向代理，它会在本地的Web服务和公共端点之间创建一个安全的通道。 使用它也很简单，先到他的官方网站上找到对应的下载地址，解压并运行ngrok, 12//敲下ngrok http 8080，本地的8080端口就会被映射到外网环境ngrok http 8080 如下图： 我们还可以到它的官方网站或者github更详细地了解它。]]></content>
@@ -141,8 +152,8 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>JS</tag>
         <tag>ES6</tag>
+        <tag>JS</tag>
       </tags>
   </entry>
   <entry>
@@ -153,8 +164,8 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>JS</tag>
         <tag>ES6</tag>
+        <tag>JS</tag>
       </tags>
   </entry>
   <entry>
@@ -734,8 +745,8 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>JS</tag>
         <tag>ES6</tag>
+        <tag>JS</tag>
       </tags>
   </entry>
   <entry>
