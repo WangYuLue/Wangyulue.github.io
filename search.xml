@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[如何使用JavaScript编写的PDF阅读器]]></title>
+    <url>%2F2018%2F01%2F05%2F%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8JavaScript%E7%BC%96%E5%86%99%E7%9A%84PDF%E9%98%85%E8%AF%BB%E5%99%A8%2F</url>
+    <content type="text"><![CDATA[最近公司碰到一个棘手的需求，需要用浏览器在线浏览PDF文件，这个在PC端不是问题，浏览器可以直接打开以.pdf结尾的文件，在ios端的浏览器上也能正常打开，但是如果是安卓设备，则会直接将.pdf结尾的文件下载下来，如果安卓设备上没有相应的PDF阅读器，还不能正常打开。这次要解决的问题就是：判断是否是安卓设备，如果是安卓设备，则将.pdf结尾的文件用js的PDF阅读器打开 一、判断是否是安卓设备(1)、判断是否是安卓设备很简单，只要判断它的userAgent是否包含android就能搞定，一个可运行的代码如下： 12345678// 返回true表示是安卓设备，flase表示不是安卓设备；function isAndroid()&#123; if(navigator.userAgent.toLowerCase().indexOf("android") &gt; -1)&#123; return true ; &#125;else&#123; return false ; &#125;&#125; (2)、顺便再说一下如何判断是否是IE浏览器，一个可运行的代码如下： 12345678function isIE() &#123; var userAgent = navigator.userAgent.toLowerCase(); if (userAgent.indexOf("msie") &gt; -1 || userAgent.indexOf("rv:11") &gt; -1) &#123; return true; &#125;else&#123; return false; &#125;&#125; 二、怎么使用用js的PDF阅读器这里使用的是Github上一个比较火的项目–mozilla/pdf.js。不过王二搞了半天都没清楚怎么用它。 王二的需求很简单，给王二一个.html文件，然后王二会在.html文件后面加上对应的pdf文件的绝对路径，然后就可以正常访问这个pdf文件，链接类似下面这样： http://localhost/static/pdf_read/web/viewer.html?pdf=/media/resume/7/test.pdf 王二期望的是点开上面的链接，就可以顺利地访问test.pdf文件。 于是王二在mozilla/pdf.js打包后的文件夹下稍微做了一些修改，以达到上面的目的，有这方面需求读者可以直接戳这里来查看相关代码。]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>JS</tag>
+        <tag>前端备忘</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[《黑镜》第四季观后感]]></title>
     <url>%2F2018%2F01%2F03%2F%E3%80%8A%E9%BB%91%E9%95%9C%E3%80%8B%E7%AC%AC%E5%9B%9B%E5%AD%A3%E8%A7%82%E5%90%8E%E6%84%9F%2F</url>
     <content type="text"><![CDATA[最近《黑镜》第四季上映，王二这两天断断续续把它看完了，在这里写一个观后感。 先说一个王二看完最直接的感受，拍的没有第一季、第二季好看了。 以下轻微剧透。 《黑镜》有一个共通的主题是都以极端的黑色幽默来讽刺和探讨科技对人类生活产生的影响。 但是第四季与第一季第二季有一个很大的不同点是，第四季里很多地方是架空的科技想象，比如在你的太阳穴上放一个小的意识提取器，过一会儿就能提取你的全部记忆，这种技术恐怕在我们的有生之年都不会看到，就算实现了恐怕也不会如此简单的就能提取全部的记忆。而且第四季更多的感觉是在看科幻片，对人性伦理的讨论不多。 而第一季、第二季（加圣诞篇）更多是将剧情限定在当下的技术或者即将实现的技术来进行讨论，情节的设定上颇具科幻意味，但其内核却完全指涉现实，互联网暴民、娱乐致死、科技对隐私的侵犯、虚拟意识有没有人权…无不一一都是我们当下或者不久的将来需要直面的问题。 回到《黑镜》第四季，这一季黑镜不够黑，也不够深刻，但是仍然值得一看。 其中： “USS Callister” 卡李斯特号–可谓是另类版《星际迷航》。 “Arkangel” 大天使–由朱迪·福斯特执导，主要讲述了一位保护欲极强的母亲在其女儿脑部植入了一个智能软件的故事。 “Crocodile” 鳄鱼–聚焦于这样一个未来：那时的设备将有权限访问人类的记忆。 “Hang the DJ” 绞死DJ–将会带观众们进入该剧版本的爱情“喜剧”，想象一下这样一个世界吧：某种高科技服务会为你的所有人际关系创设相应的播放列表。 “Metalhead” 铁头–这是一部黑白特集，其中会出现一只令人畏惧的智能机械犬，因此会充满更原始的快节奏和紧张感。 “Black Museum” 暗黑博物馆–和《辛普森一家：万圣节特辑之恐怖树屋》已经被进行过比较。 还有一点不得不提，在第一集里程序员实在是被黑的太惨了，王二要给程序员正名，程序员哪有这么阴暗扭曲、心里变态的，大概是这一季的编剧对程序员心存偏见吧。 最后送一波福利，戳这里查看《黑镜》第四季影视资源（密码:kp6u）。]]></content>
@@ -152,8 +164,8 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>ES6</tag>
         <tag>JS</tag>
+        <tag>ES6</tag>
       </tags>
   </entry>
   <entry>
@@ -164,8 +176,8 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>ES6</tag>
         <tag>JS</tag>
+        <tag>ES6</tag>
       </tags>
   </entry>
   <entry>
@@ -745,8 +757,8 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>ES6</tag>
         <tag>JS</tag>
+        <tag>ES6</tag>
       </tags>
   </entry>
   <entry>
