@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[推荐一些好用的油猴脚本]]></title>
+    <url>%2F2018%2F01%2F06%2F%E6%8E%A8%E8%8D%90%E4%B8%80%E4%BA%9B%E5%A5%BD%E7%94%A8%E7%9A%84%E6%B2%B9%E7%8C%B4%E8%84%9A%E6%9C%AC%2F</url>
+    <content type="text"><![CDATA[最近试了几个油猴脚本，功能都很好用，以下做一个分享 首先明确一个概念：为什么要用油猴脚本？ 因为油猴脚本可以为我们增强对浏览体验的控制权。在安装之后，它们可自动为您访问的网站添加功能，或使其更加强大、易用。 说白了就是一群写JS的程序员觉得WEB端的网页不够好用，然后自己写一段JS代码，然后在不使网页报错的情况下，使网页的功能更加强大。 我们先需要安装一个用户脚本管理器，然后才可以在里面安装相应的用户脚本，来实现我们的需求。 那咱们就开始吧！ 一、安装一个用户脚本管理器首先需要安装一个用户脚本管理器，这里推荐猴脚本管理器，它是一款免费的浏览器扩展和最为流行的用户脚本管理器，它适用于 Chrome, Microsoft Edge, Safari, Opera Next, 和 Firefox。 下载油猴脚本管理器的地址戳这里 二、哪些用户脚本比较好用？我们可以用它来干什么？以王二为例，王二可以用它来做以下事情： 1、豆瓣和IMDb互相显示评分 脚本地址戳这里 2、去除百度的多余广告 它可以为我们屏蔽掉百度的广告，脚本地址戳这里 这里再强烈推荐一个的去除网页上广告的Chrome插件–AdBlock，绝对好用顶呱呱。 3、英文不太好的同学使用GitHub可以用油猴脚本汉化 脚本地址戳这里 4、百度网盘直接下载助手可以直接下载百度网盘和百度网盘分享的文件,避免下载文件时调用百度网盘客户端,获取网盘文件的直接下载地址，就像下面这样： 脚本地址戳这里 5、破解VIP会员视频可以破解[优酷|腾讯|乐视|爱奇艺|芒果|AB站|音悦台]等VIP或会员视频，而且挺好用的，就像下面这样： 以后绝大部分电影就能随便看了，脚本地址戳这里 更多的脚本可以戳这里探索 相关链接： “油猴脚本管理器”下载地址 科学上网可以试试蓝灯 相应脚本下载地址 知乎问题”有哪些超神的油猴脚本？”]]></content>
+      <categories>
+        <category>王二说</category>
+      </categories>
+      <tags>
+        <tag>油猴脚本</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[如何使用JavaScript编写的PDF阅读器]]></title>
     <url>%2F2018%2F01%2F05%2F%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8JavaScript%E7%BC%96%E5%86%99%E7%9A%84PDF%E9%98%85%E8%AF%BB%E5%99%A8%2F</url>
     <content type="text"><![CDATA[最近公司碰到一个棘手的需求，需要用浏览器在线浏览PDF文件，这个在PC端不是问题，浏览器可以直接打开以.pdf结尾的文件，在ios端的浏览器上也能正常打开，但是如果是安卓设备，则会直接将.pdf结尾的文件下载下来，如果安卓设备上没有相应的PDF阅读器，还不能正常打开。这次要解决的问题就是：判断是否是安卓设备，如果是安卓设备，则将.pdf结尾的文件用js的PDF阅读器打开 一、判断是否是安卓设备(1)、判断是否是安卓设备很简单，只要判断它的userAgent是否包含android就能搞定，一个可运行的代码如下： 12345678// 返回true表示是安卓设备，flase表示不是安卓设备；function isAndroid()&#123; if(navigator.userAgent.toLowerCase().indexOf("android") &gt; -1)&#123; return true ; &#125;else&#123; return false ; &#125;&#125; (2)、顺便再说一下如何判断是否是IE浏览器，一个可运行的代码如下： 12345678function isIE() &#123; var userAgent = navigator.userAgent.toLowerCase(); if (userAgent.indexOf("msie") &gt; -1 || userAgent.indexOf("rv:11") &gt; -1) &#123; return true; &#125;else&#123; return false; &#125;&#125; 二、怎么使用用js的PDF阅读器这里使用的是Github上一个比较火的项目–mozilla/pdf.js。不过王二搞了半天都没清楚怎么用它。 王二的需求很简单，给王二一个.html文件，然后王二会在.html文件后面加上对应的pdf文件的绝对路径，然后就可以正常访问这个pdf文件，链接类似下面这样： http://localhost/static/pdf_read/web/viewer.html?pdf=/media/resume/7/test.pdf 王二期望的是点开上面的链接，就可以顺利地访问test.pdf文件。 于是王二在mozilla/pdf.js打包后的文件夹下稍微做了一些修改，以达到上面的目的，有这方面需求读者可以直接戳这里来查看相关代码。]]></content>
@@ -164,8 +175,8 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>JS</tag>
         <tag>ES6</tag>
+        <tag>JS</tag>
       </tags>
   </entry>
   <entry>
@@ -176,8 +187,8 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>JS</tag>
         <tag>ES6</tag>
+        <tag>JS</tag>
       </tags>
   </entry>
   <entry>
@@ -757,8 +768,8 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>JS</tag>
         <tag>ES6</tag>
+        <tag>JS</tag>
       </tags>
   </entry>
   <entry>
