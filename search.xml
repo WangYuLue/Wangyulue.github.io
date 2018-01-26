@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Hexo渲染时排除部分目录]]></title>
+    <url>%2F2018%2F01%2F26%2FHexo%E6%B8%B2%E6%9F%93%E6%97%B6%E6%8E%92%E9%99%A4%E9%83%A8%E5%88%86%E6%96%87%E4%BB%B6%E6%88%96%E7%9B%AE%E5%BD%95%2F</url>
+    <content type="text"><![CDATA[最近想再自己的Hexo博客上放一些js文件以便网络请求使用，却发现在Hexo里的js文件怎么引用都会脚本出错，后来才发现Hexo渲染时也会将这些js渲染进去，这时候我们就需要额外进行配置来跳过部分文件或目录的渲染 我们需要修改根目录下的 _config.yml 文件，其中又一个 skip_render 字段，假设 source 文件夹下有一个 assets文件夹 ,如果要将 assets 整个文件夹跳过渲染，就要进行如下配置： 12skip_render: - "assets/**" 当然还可以设置排除单个文件、多个文件或者有特定后缀的文件，感兴趣的同学可以参考这篇文章]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>博客搭建</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[如何将一个URL转为二维码并配上文字说明再将其转为图片下载下来]]></title>
     <url>%2F2018%2F01%2F26%2F%E4%B8%80%E4%B8%AA%E5%B0%86URL%E8%BD%AC%E4%B8%BA%E4%BA%8C%E7%BB%B4%E7%A0%81%E5%B9%B6%E9%85%8D%E4%B8%8A%E6%96%87%E5%AD%97%E8%AF%B4%E6%98%8E%E7%9A%84js%E6%96%B9%E6%B3%95%2F</url>
     <content type="text"><![CDATA[最近公司业务有一个需求，在页面上需要将一个URL转为二维码并配上文字说明，并提供一个下载按钮，可以下载带有文字说明的二维码图片。 如果说只要一个二维码图片，Github上的qrcodejs库就能帮我们实现； 但是如果再加上文字说明，情况就变得有那么一丝复杂。 王二之前尝试过直接在canvas里绘画文字，但是canvas里文字不会换行，虽然可以通过js控制每行文字的数量来换行，但是文字有宽有窄，终究不是一个好的解决方案； 然后又上网找解决方案，然后听说用svg可以直接将一个div整个画出来。王二也尝试了，svg确实可以将div整个画出来，再导入到canvas里。这时候二维码和文字说明都在一张canvas里，而且文字实际上可以用css的样式来控制。但是在最后一步，将canvas转换为base64再导出图片的时候栽了跟头，在canvas里用svg画出来的部分最后转为图片的时候不会呈现，这条思路似乎又走不通了。 然后又上网找解决方案，最后在Github发现了html2canvas这个神奇的库，它可以将一个div绘画成canvas，那么思路也随之而来了。 王二写了如下的一串html代码，并对 qrcode、html2canvas 进行了一个简单的封装，以下代码可以直接运行，有兴趣可以直接拷贝到本地看看运行效果： 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108109110111112113114115116117118119120121122123124125&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;head&gt; &lt;title&gt;&lt;/title&gt; &lt;meta charset="utf-8"/&gt;&lt;/head&gt;&lt;body&gt;&lt;div id="QRcode"&gt;&lt;/div&gt;&lt;a class="QR-download" href="#" download&gt;下载&lt;/a&gt;&lt;script src="http://www.wangyulue.com/assets/js/qrcode.js"&gt;&lt;/script&gt;&lt;script src="http://www.wangyulue.com/assets/js/html2canvas.min.js"&gt;&lt;/script&gt;&lt;script&gt; /** * 输出一个带有文字说明的二维码。 * * @param &#123;Object&#125; obj 相关配置， * obj = &#123; dom : "QRcode", // url : "http://www.wangyulue.com", //二维码网址 text : ["王玉略的个人网站","Stay Hungry, Stay Foolish."], //二维码的文字说明 pic_size : 300, // 图片的尺寸大小 font_size : 16, //说明文字的字体大小 &#125; * 回调函数中返回一个base64形式的图片，以便在回调中注入到&lt;a&gt;标签中下载使用 * */ function getQRcodeImg(obj,fn)&#123; var url = obj.url, size = obj.pic_size || 256; font_size = obj.font_size || 18; dom = document.getElementById(obj.dom); dom.innerHTML = generateHTML(obj.text,size,font_size); var $qrcode = dom.getElementsByClassName("QR-qrcode")[0], $main = dom.getElementsByClassName("QR-main")[0]; new QRCode($qrcode, &#123; text: url, width: size, height: size, &#125;); html2canvas($main).then(function(canvas) &#123; var base64 = concatCanvas(dom,$qrcode.getElementsByTagName("canvas")[0],canvas,20); fn &amp;&amp; fn(base64); &#125;); /** * 根据配置拼凑要处理的html代码 * * @param &#123;Array&#125; arr 要添加的文字，以数组传入 * */ function generateHTML(arr,size,font_size)&#123; var out = "",temp = ""; arr.forEach(function(item)&#123; temp += "&lt;div style='text-align:center;font-size:" +font_size+ "px;'&gt;"+ item +"&lt;/div&gt;" ; &#125;) out = "&lt;div style='position:absolute;opacity:0;'&gt;" + "&lt;div class='QR-main' style='width: " +size+ "px;'&gt;" + temp + "&lt;/div&gt;" + "&lt;/div&gt;" + "&lt;div class='QR-qrcode' style='display:none;'&gt;&lt;/div&gt;"; return out ; &#125; /** * 将两个canvas合并在一起 * * @param &#123;Object&#125; dom canvas要添加的dom对象 * @param &#123;Object&#125; canvas1 第一个canvas * @param &#123;Object&#125; canvas2 第二个canvas * @param &#123;Number&#125; padding 图片的padding，默认20 * @return &#123;String&#125; 返回base64字符串 * */ function concatCanvas(dom,canvas1,canvas2,padding)&#123; var c1h = canvas1.height, c1w = canvas1.width, // c2h = canvas2.height, // c2w = canvas2.width, /* 说明：将以上两行代码改为以下两行代码； * 原因：以上两行代码在window下显示是好的，但是放到Mac下显示会出一些问题， * 仔细发现是在Mac下,html2canvas的API返回的canvas不符合预期，在MAC环境canvas返回如下： * html2canvas($main).then(function(canvas) &#123; * console.log(canvas); //&lt;canvas width="600" height="88" style="width: 300px; height: 44px;"&gt;&lt;/canvas&gt; * &#125;); * 可以看到看到canvas的width和height值和其style里的width和height的值有所不同， * 于是采用以下的方法来获得canvas的宽度和高度 * 王二认为出现以上问题可能是因为分辨率的问题 */ c2h = Number(canvas2.style.height.slice(0,-2)); c2w = Number(canvas2.style.width.slice(0,-2)); canvas = document.createElement("canvas"); padding = padding || 20 ; /** 根据二维码、文字两个canvas，再加上padding计算出新的canvas的宽度和高度 **/ canvas.height = c1h + c2h + 2.5 * padding ; canvas.width = Math.max(c1w,c2w) + 2 * padding ; /** end **/ dom.appendChild(canvas); /** 将canvas画上白色背景 **/ context = canvas.getContext("2d"); context.fillStyle ="white"; context.fillRect(0,0,canvas.width,canvas.height); /** end **/ /** 将二维码、文字两个canvas绘画到一个canvas里 **/ context.drawImage(canvas1, padding, padding, c1w ,c1h); context.drawImage(canvas2, padding, 1.5 * padding+c1h, c2w ,c2h); /** end **/ /** 返回base64,用于注入到a标签里以便下载 **/ return canvas.toDataURL('image/jpeg',1); /** end **/ &#125; &#125; var obj = &#123; dom : "QRcode", url : "http://www.wangyulue.com", text : ["王玉略的个人网站","Stay Hungry, Stay Foolish."], pic_size : 300, font_size : 16, &#125; getQRcodeImg(obj,function(base64)&#123; document.getElementsByClassName("QR-download")[0].href = base64 ; &#125;); &lt;/script&gt;&lt;/body&gt;&lt;/html&gt; 下载后的图片就像下面这样： 对于很长的文字，它也能很完美的换行，并且图片的高度自适应，就像下面这样： 这样来看，这个需求算是被完美解决了。]]></content>
@@ -212,8 +223,8 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>JS</tag>
         <tag>ES6</tag>
+        <tag>JS</tag>
       </tags>
   </entry>
   <entry>
@@ -224,8 +235,8 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>JS</tag>
         <tag>ES6</tag>
+        <tag>JS</tag>
       </tags>
   </entry>
   <entry>
@@ -805,8 +816,8 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>JS</tag>
         <tag>ES6</tag>
+        <tag>JS</tag>
       </tags>
   </entry>
   <entry>
@@ -889,8 +900,8 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>转载</tag>
         <tag>博客搭建</tag>
+        <tag>转载</tag>
       </tags>
   </entry>
 </search>
