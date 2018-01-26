@@ -84,7 +84,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="JS,前端备忘,转载," />
+  <meta name="keywords" content="JS,前端备忘," />
 
 
 
@@ -100,18 +100,21 @@
 
 
 
-<meta name="description" content="浏览器中，由于有 同源策略 的存在，ajax跨域请求数据往往失败，这时候JSONP或许会帮到我们">
-<meta name="keywords" content="JS,前端备忘,转载">
+<meta name="description" content="最近公司业务有一个需求，在页面上需要将一个URL转为二维码并配上文字说明，并提供一个下载按钮，可以下载带有文字说明的二维码图片。">
+<meta name="keywords" content="JS,前端备忘">
 <meta property="og:type" content="article">
-<meta property="og:title" content="jsonp的一般原理">
-<meta property="og:url" content="http://yoursite.com/2017/08/14/jsonp的一般原理/index.html">
+<meta property="og:title" content="如何将一个URL转为二维码并配上文字说明再将其转为图片下载下来">
+<meta property="og:url" content="http://yoursite.com/2018/01/26/一个将URL转为二维码并配上文字说明的js方法/index.html">
 <meta property="og:site_name" content="王玉略的个人网站">
-<meta property="og:description" content="浏览器中，由于有 同源策略 的存在，ajax跨域请求数据往往失败，这时候JSONP或许会帮到我们">
+<meta property="og:description" content="最近公司业务有一个需求，在页面上需要将一个URL转为二维码并配上文字说明，并提供一个下载按钮，可以下载带有文字说明的二维码图片。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-09-16T15:34:12.000Z">
+<meta property="og:image" content="https://github.com/WangYuLue/pic_of_blog/blob/master/1801/8.png?raw=true">
+<meta property="og:image" content="https://github.com/WangYuLue/pic_of_blog/blob/master/1801/9.png?raw=true">
+<meta property="og:updated_time" content="2018-01-26T14:40:41.848Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="jsonp的一般原理">
-<meta name="twitter:description" content="浏览器中，由于有 同源策略 的存在，ajax跨域请求数据往往失败，这时候JSONP或许会帮到我们">
+<meta name="twitter:title" content="如何将一个URL转为二维码并配上文字说明再将其转为图片下载下来">
+<meta name="twitter:description" content="最近公司业务有一个需求，在页面上需要将一个URL转为二维码并配上文字说明，并提供一个下载按钮，可以下载带有文字说明的二维码图片。">
+<meta name="twitter:image" content="https://github.com/WangYuLue/pic_of_blog/blob/master/1801/8.png?raw=true">
 
 
 
@@ -139,13 +142,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/08/14/jsonp的一般原理/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/01/26/一个将URL转为二维码并配上文字说明的js方法/"/>
 
 
 
 
 
-  <title>jsonp的一般原理 | 王玉略的个人网站</title>
+  <title>如何将一个URL转为二维码并配上文字说明再将其转为图片下载下来 | 王玉略的个人网站</title>
   
 
 
@@ -342,7 +345,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/08/14/jsonp的一般原理/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/26/一个将URL转为二维码并配上文字说明的js方法/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="王二">
@@ -359,7 +362,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">jsonp的一般原理</h1>
+          <h1 class="post-title" itemprop="name headline">如何将一个URL转为二维码并配上文字说明再将其转为图片下载下来</h1>
         
 
         <div class="post-meta">
@@ -371,8 +374,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-08-14T21:27:16+08:00">
-                2017-08-14
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-26T21:25:05+08:00">
+                2018-01-26
               </time>
             
 
@@ -411,7 +414,7 @@
 
           
           
-             <span id="/2017/08/14/jsonp的一般原理/" class="leancloud_visitors" data-flag-title="jsonp的一般原理">
+             <span id="/2018/01/26/一个将URL转为二维码并配上文字说明的js方法/" class="leancloud_visitors" data-flag-title="如何将一个URL转为二维码并配上文字说明再将其转为图片下载下来">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -437,7 +440,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  2,225 字
+                  1,183 字
                 </span>
               
 
@@ -453,7 +456,7 @@
                   <span class="post-meta-item-text">阅读时长</span>
                 
                 <span title="阅读时长">
-                  8 分钟
+                  5 分钟
                 </span>
               
             </div>
@@ -471,34 +474,21 @@
       
 
       
-        <blockquote class="blockquote-center"><p>浏览器中，由于有 <code>同源策略</code> 的存在，ajax跨域请求数据往往失败，这时候JSONP或许会帮到我们</p>
+        <blockquote class="blockquote-center"><p>最近公司业务有一个需求，在页面上需要将一个URL转为二维码并配上文字说明，并提供一个下载按钮，可以下载带有文字说明的二维码图片。 </p>
 </blockquote>
 <a id="more"></a>
-<blockquote>
-<p>由于<a href="https://baike.baidu.com/item/%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5/3927875?fr=aladdin" target="_blank" rel="external">同源策略</a>，一般来说位于server1.example.com的网页无法与不是 server1.example.com的服务器沟通,这时候Jsonp可以帮助我们进行跨域的数据交互,另一个解决这个问题的新方法是<a href="https://baike.baidu.com/item/CORS/16411212#viewPageContent" target="_blank" rel="external">CORS</a>，咱们今天主要聊聊Jsonp。</p>
-</blockquote>
-<h4 id="一、JSONP是怎么产生的"><a href="#一、JSONP是怎么产生的" class="headerlink" title="一、JSONP是怎么产生的"></a>一、JSONP是怎么产生的</h4><p>1、由于同源策略的存在，Ajax直接请求数据存在跨域无权限访问的问题。<br>2、但我们又发现，Web页面上调用js文件时则不受是否跨域的影响（不仅如此，我们还发现凡是拥有”src”这个属性的标签都拥有跨域的能力，比如<code>&lt;script&gt;</code>、<code>&lt;img&gt;</code>、<code>&lt;iframe&gt;</code>）；<br>3、于是可以判断，当前阶段如果想通过纯web端（ActiveX控件、服务端代理、属于未来的HTML5之Websocket等方式不算）跨域访问数据就只有一种可能，那就是在远程服务器上设法把数据装进js格式的文件里，供客户端调用和进一步处理；<br>4、恰巧我们已经知道有一种叫做JSON的纯字符数据格式可以简洁的描述复杂数据，更妙的是JSON还被js原生支持，所以在客户端几乎可以随心所欲的处理这种格式的数据；<br>5、这样子解决方案就呼之欲出了，web客户端通过与调用脚本一模一样的方式，来调用跨域服务器上动态生成的js格式文件（一般以JSON为后缀），显而易见，服务器之所以要动态生成JSON文件，目的就在于把客户端需要的数据装入进去。<br>6、客户端在对JSON文件调用成功之后，也就获得了自己所需的数据，剩下的就是按照自己需求进行处理和展现了，这种获取远程数据的方式看起来非常像AJAX，但其实并不一样。<br>7、为了便于客户端使用数据，逐渐形成了一种非正式传输协议，人们把它称作JSONP，该协议的一个要点就是允许用户传递一个callback参数给服务端，然后服务端返回数据时会将这个callback参数作为函数名来包裹住JSON数据，这样客户端就可以随意定制自己的函数来自动处理返回数据了。</p>
-<h4 id="二、JSONP的客户端具体实现"><a href="#二、JSONP的客户端具体实现" class="headerlink" title="二、JSONP的客户端具体实现"></a>二、JSONP的客户端具体实现</h4><p>不管jQuery也好，extjs也罢，又或者是其他支持jsonp的框架，他们幕后所做的工作都是一样的，下面我来循序渐进的说明一下jsonp在客户端的实现：</p>
-<p>1、我们知道，哪怕跨域js文件中的代码（当然指符合web脚本安全策略的），web页面也是可以无条件执行的。<br>远程服务器remoteserver.com根目录下有个remote.js文件代码如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">alert(<span class="string">'我是远程文件'</span>);</div></pre></td></tr></table></figure></p>
-<p>本地服务器localserver.com下有个jsonp.html页面代码如下：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span><span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"http://remoteserver.com/remote.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure></p>
-<p>毫无疑问，页面将会弹出一个提示窗体，显示跨域调用成功。</p>
-<p>2、现在我们在jsonp.html页面定义一个函数，然后在远程remote.js中传入数据进行调用。<br>远程服务器remoteserver.com根目录下remote.js文件代码如下：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">localHandler(&#123;<span class="string">"result"</span>:<span class="string">"我是远程js带来的数据"</span>&#125;);</div></pre></td></tr></table></figure></p>
-<p>本地服务器localserver.com下jsonp.html页面代码如下：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span><span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="undefined"></span></div><div class="line"><span class="javascript">    <span class="keyword">var</span> localHandler = <span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</span></div><div class="line"><span class="javascript">        alert(<span class="string">'我是本地函数，可以被跨域的remote.js文件调用，远程js带来的数据是：'</span> + data.result);</span></div><div class="line"><span class="undefined">    &#125;;</span></div><div class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span> <span class="attr">src</span>=<span class="string">"http://remoteserver.com/remote.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure></p>
-<p>运行之后查看结果，页面成功弹出提示窗口，显示本地函数被跨域的远程js调用成功，并且还接收到了远程js带来的数据。很欣喜，跨域远程获取数据的目的基本实现了，但是又一个问题出现了，我怎么让远程js知道它应该调用的本地函数叫什么名字呢？毕竟是jsonp的服务者都要面对很多服务对象，而这些服务对象各自的本地函数都不相同啊？我们接着往下看。</p>
-<p>3、聪明的开发者很容易想到，只要服务端提供的js脚本是动态生成的就行了呗，这样调用者可以传一个参数过去告诉服务端“我想要一段调用XXX函数的js代码，请你返回给我”，于是服务器就可以按照客户端的需求来生成js脚本并响应了。<br>看jsonp.html页面的代码：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span>&gt;</div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span><span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="undefined"></span></div><div class="line"><span class="javascript">    <span class="comment">// 得到航班信息查询结果后的回调函数</span></span></div><div class="line"><span class="javascript">    <span class="keyword">var</span> flightHandler = <span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</span></div><div class="line"><span class="javascript">        alert(<span class="string">'你查询的航班结果是：票价 '</span> + data.price + <span class="string">' 元，'</span> + <span class="string">'余票 '</span> + data.tickets + <span class="string">' 张。'</span>);</span></div><div class="line"><span class="undefined">    &#125;;</span></div><div class="line"><span class="javascript">    <span class="comment">// 提供jsonp服务的url地址（不管是什么类型的地址，最终生成的返回值都是一段javascript代码）</span></span></div><div class="line"><span class="javascript">    <span class="keyword">var</span> url = <span class="string">"http://flightQuery.com/jsonp/flightResult.aspx?code=CA1998&amp;callback=flightHandler"</span>;</span></div><div class="line"><span class="javascript">    <span class="comment">// 创建script标签，设置其属性</span></span></div><div class="line"><span class="javascript">    <span class="keyword">var</span> script = <span class="built_in">document</span>.createElement(<span class="string">'script'</span>);</span></div><div class="line"><span class="javascript">    script.setAttribute(<span class="string">'src'</span>, url);</span></div><div class="line"><span class="javascript">    <span class="comment">// 把script标签加入head，此时调用开始</span></span></div><div class="line"><span class="javascript">    <span class="built_in">document</span>.getElementsByTagName(<span class="string">'head'</span>)[<span class="number">0</span>].appendChild(script); </span></div><div class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure></p>
-<p>这次的代码变化比较大，不再直接把远程js文件写死，而是编码实现动态查询，而这也正是jsonp客户端实现的核心部分，本例中的重点也就在于如何完成jsonp调用的全过程。<br>我们看到调用的url中传递了一个code参数，告诉服务器我要查的是CA1998次航班的信息，而callback参数则告诉服务器，我的本地回调函数叫做<strong>flightHandler</strong>，所以请把查询结果传入这个函数中进行调用。<br>OK，服务器很聪明，这个叫做flightResult.aspx的页面生成了一段这样的代码提供给jsonp.html（服务端的实现这里就不演示了，与你选用的语言无关，说到底就是拼接字符串）：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">flightHandler(&#123;</div><div class="line">    <span class="string">"code"</span>: <span class="string">"CA1998"</span>,</div><div class="line">    <span class="string">"price"</span>: <span class="number">1780</span>,</div><div class="line">    <span class="string">"tickets"</span>: <span class="number">5</span></div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
-<p>我们看到，传递给flightHandler函数的是一个json，它描述了航班的基本信息。运行一下页面，成功弹出提示窗口，jsonp的执行全过程顺利完成！</p>
-<p>4、到这里为止的话，相信你已经能够理解jsonp的客户端实现原理了吧？剩下的就是如何把代码封装一下，以便于与用户界面交互，从而实现多次和重复调用。</p>
-<p>什么？你用的是jQuery，想知道jQuery如何实现jsonp调用？好吧，那我就好人做到底，再给你一段jQuery使用jsonp的代码（我们依然沿用上面那个航班信息查询的例子，假定返回jsonp结果不变）：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">title</span>&gt;</span><span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"http://libs.baidu.com/jquery/2.0.0/jquery.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></div><div class="line"><span class="javascript">        jQuery(<span class="built_in">document</span>).ready(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123; </span></div><div class="line"><span class="javascript">            $.ajax(&#123;</span></div><div class="line"><span class="javascript">                type: <span class="string">"get"</span>,</span></div><div class="line"><span class="javascript">                <span class="keyword">async</span>: <span class="literal">false</span>,</span></div><div class="line"><span class="javascript">                url: <span class="string">"http://flightQuery.com/jsonp/flightResult.aspx?code=CA1998"</span>,</span></div><div class="line"><span class="javascript">                dataType: <span class="string">"jsonp"</span>,</span></div><div class="line"><span class="javascript">                jsonp: <span class="string">"callback"</span>,<span class="comment">//传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名(一般默认为:callback)</span></span></div><div class="line"><span class="javascript">                jsonpCallback:<span class="string">"flightHandler"</span>,<span class="comment">//自定义的jsonp回调函数名称，默认为jQuery自动生成的随机函数名，也可以写"?"，jQuery会自动为你处理数据</span></span></div><div class="line"><span class="javascript">                success: <span class="function"><span class="keyword">function</span>(<span class="params">json</span>)</span>&#123;</span></div><div class="line"><span class="javascript">                    alert(<span class="string">'您查询到航班信息：票价： '</span> + json.price + <span class="string">' 元，余票： '</span> + json.tickets + <span class="string">' 张。'</span>);</span></div><div class="line"><span class="undefined">                &#125;,</span></div><div class="line"><span class="javascript">                error: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span></div><div class="line"><span class="javascript">                    alert(<span class="string">'fail'</span>);</span></div><div class="line"><span class="undefined">                &#125;</span></div><div class="line"><span class="undefined">            &#125;);</span></div><div class="line"><span class="undefined">        &#125;);</span></div><div class="line"><span class="undefined">        </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure>
-<p>这里没有写flightHandler这个函数，但是也运行成功了，这就是jQuery的功劳了，jquery在处理jsonp类型的ajax时自动帮你生成回调函数并把数据取出来供success属性方法来调用。</p>
-<h4 id="三、其他注意点"><a href="#三、其他注意点" class="headerlink" title="三、其他注意点"></a>三、其他注意点</h4><p>1、ajax和jsonp这两种技术在调用方式上“看起来”很像，目的也一样，都是请求一个url，然后把服务器返回的数据进行处理，因此jquery和ext等框架都把jsonp作为ajax的一种形式进行了封装；</p>
-<p>2、但ajax和jsonp其实本质上是不同的东西。ajax的核心是通过XmlHttpRequest获取非本页内容，而jsonp的核心则是动态添加<code>&lt;script&gt;</code>标签来调用服务器提供的js脚本。</p>
-<p>3、所以说，其实ajax与jsonp的区别不在于是否跨域，ajax通过服务端代理一样可以实现跨域，jsonp本身也不排斥同域的数据的获取。</p>
-<p>4、还有就是，jsonp是一种方式或者说非强制性协议，如同ajax一样，它也不一定非要用json格式来传递数据，如果你愿意，字符串都行，只不过这样不利于用jsonp提供公开服务。</p>
-<blockquote>
-<p>文章转载自<a href="http://www.cnblogs.com/dowinning/archive/2012/04/19/json-jsonp-jquery.html" target="_blank" rel="external">“随它去吧”的博客</a></p>
-</blockquote>
+<p>如果说只要一个二维码图片，Github上的<a href="https://github.com/davidshimjs/qrcodejs" target="_blank" rel="external">qrcodejs</a>库就能帮我们实现；</p>
+<p>但是如果再加上文字说明，情况就变得有那么一丝复杂。</p>
+<p>王二之前尝试过直接在canvas里绘画文字，但是canvas里文字不会换行，虽然可以通过js控制每行文字的数量来换行，但是文字有宽有窄，终究不是一个好的解决方案；</p>
+<p>然后又上网找解决方案，然后听说用svg可以直接将一个div整个画出来。王二也尝试了，svg确实可以将div整个画出来，再导入到canvas里。这时候二维码和文字说明都在一张canvas里，而且文字实际上可以用css的样式来控制。但是在最后一步，将canvas转换为base64再导出图片的时候栽了跟头，在canvas里用svg画出来的部分最后转为图片的时候不会呈现，这条思路似乎又走不通了。</p>
+<p>然后又上网找解决方案，最后在Github发现了<a href="https://github.com/niklasvh/html2canvas" target="_blank" rel="external">html2canvas</a>这个神奇的库，它可以将一个div绘画成canvas，那么思路也随之而来了。</p>
+<p>王二写了如下的一串html代码，并对 <code>qrcode</code>、<code>html2canvas</code> 进行了一个简单的封装，<strong>以下代码可以直接运行</strong>，有兴趣可以直接拷贝到本地看看运行效果：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span><span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>/&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"QRcode"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">class</span>=<span class="string">"QR-download"</span> <span class="attr">href</span>=<span class="string">"#"</span> <span class="attr">download</span>&gt;</span>下载<span class="tag">&lt;/<span class="name">a</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"http://www.wangyulue.com/assets/js/qrcode.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"http://www.wangyulue.com/assets/js/html2canvas.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></div><div class="line"><span class="undefined">    /**</span></div><div class="line"><span class="undefined">     *  输出一个带有文字说明的二维码。</span></div><div class="line"><span class="undefined">     * </span></div><div class="line"><span class="javascript">     *  @param &#123;<span class="built_in">Object</span>&#125; obj 相关配置，</span></div><div class="line"><span class="undefined">     *  obj = &#123;</span></div><div class="line"><span class="javascript">            dom : <span class="string">"QRcode"</span>,     <span class="comment">//</span></span></div><div class="line"><span class="javascript">            url : <span class="string">"http://www.wangyulue.com"</span>,  <span class="comment">//二维码网址</span></span></div><div class="line"><span class="javascript">            text : [<span class="string">"王玉略的个人网站"</span>,<span class="string">"Stay Hungry, Stay Foolish."</span>], <span class="comment">//二维码的文字说明</span></span></div><div class="line"><span class="javascript">            pic_size : <span class="number">300</span>, <span class="comment">// 图片的尺寸大小</span></span></div><div class="line"><span class="javascript">            font_size : <span class="number">16</span>, <span class="comment">//说明文字的字体大小</span></span></div><div class="line"><span class="undefined">        &#125;</span></div><div class="line"><span class="xml">     *  回调函数中返回一个base64形式的图片，以便在回调中注入到<span class="tag">&lt;<span class="name">a</span>&gt;</span>标签中下载使用</span></div><div class="line"><span class="undefined">     * </span></div><div class="line"><span class="undefined">     */</span></div><div class="line"><span class="javascript">    <span class="function"><span class="keyword">function</span> <span class="title">getQRcodeImg</span>(<span class="params">obj,fn</span>)</span>&#123;</span></div><div class="line"><span class="javascript">        <span class="keyword">var</span> url = obj.url,</span></div><div class="line"><span class="undefined">            size = obj.pic_size || 256;</span></div><div class="line"><span class="undefined">            font_size = obj.font_size || 18;</span></div><div class="line"><span class="javascript">        dom = <span class="built_in">document</span>.getElementById(obj.dom);</span></div><div class="line"><span class="undefined">        dom.innerHTML = generateHTML(obj.text,size,font_size);</span></div><div class="line"><span class="javascript">        <span class="keyword">var</span> $qrcode = dom.getElementsByClassName(<span class="string">"QR-qrcode"</span>)[<span class="number">0</span>],</span></div><div class="line"><span class="javascript">            $main = dom.getElementsByClassName(<span class="string">"QR-main"</span>)[<span class="number">0</span>];</span></div><div class="line"><span class="javascript">        <span class="keyword">new</span> QRCode($qrcode, &#123;</span></div><div class="line"><span class="undefined">            text: url,</span></div><div class="line"><span class="undefined">            width: size,</span></div><div class="line"><span class="undefined">            height: size,</span></div><div class="line"><span class="undefined">        &#125;);</span></div><div class="line"><span class="javascript">        html2canvas($main).then(<span class="function"><span class="keyword">function</span>(<span class="params">canvas</span>) </span>&#123;</span></div><div class="line"><span class="javascript">            <span class="keyword">var</span> base64 = concatCanvas(dom,$qrcode.getElementsByTagName(<span class="string">"canvas"</span>)[<span class="number">0</span>],canvas,<span class="number">20</span>);</span></div><div class="line"><span class="undefined">            fn &amp;&amp; fn(base64);</span></div><div class="line"><span class="undefined">        &#125;);</span></div><div class="line"><span class="undefined">        /**</span></div><div class="line"><span class="undefined">        * 根据配置拼凑要处理的html代码</span></div><div class="line"><span class="undefined">        * </span></div><div class="line"><span class="javascript">        * @param &#123;<span class="built_in">Array</span>&#125; arr 要添加的文字，以数组传入</span></div><div class="line"><span class="undefined">        *  </span></div><div class="line"><span class="undefined">        */</span></div><div class="line"><span class="javascript">        <span class="function"><span class="keyword">function</span> <span class="title">generateHTML</span>(<span class="params">arr,size,font_size</span>)</span>&#123;</span></div><div class="line"><span class="javascript">            <span class="keyword">var</span> out = <span class="string">""</span>,temp = <span class="string">""</span>;</span></div><div class="line"><span class="javascript">            arr.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">item</span>)</span>&#123;</span></div><div class="line"><span class="javascript">                temp += <span class="string">"&lt;div style='text-align:center;font-size:"</span> +font_size+ <span class="string">"px;'&gt;"</span>+ item +<span class="string">"&lt;/div&gt;"</span> ;</span></div><div class="line"><span class="undefined">            &#125;) </span></div><div class="line"><span class="undefined">            out =</span></div><div class="line"><span class="xml">                "<span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">'position:absolute;opacity:0;'</span>&gt;</span>" +</span></div><div class="line"><span class="xml">                    "<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">'QR-main'</span> <span class="attr">style</span>=<span class="string">'width: " +size+ "px;'</span>&gt;</span>" +</span></div><div class="line"><span class="undefined">                        temp +</span></div><div class="line"><span class="javascript">                    <span class="string">"&lt;/div&gt;"</span> +</span></div><div class="line"><span class="javascript">                <span class="string">"&lt;/div&gt;"</span> +</span></div><div class="line"><span class="xml">                "<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">'QR-qrcode'</span> <span class="attr">style</span>=<span class="string">'display:none;'</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span>";</span></div><div class="line"><span class="javascript">            <span class="keyword">return</span> out ;</span></div><div class="line"><span class="undefined">        &#125;</span></div><div class="line"><span class="undefined">        /**</span></div><div class="line"><span class="undefined">        * 将两个canvas合并在一起</span></div><div class="line"><span class="undefined">        * </span></div><div class="line"><span class="javascript">        * @param &#123;<span class="built_in">Object</span>&#125; dom canvas要添加的dom对象</span></div><div class="line"><span class="javascript">        * @param &#123;<span class="built_in">Object</span>&#125; canvas1 第一个canvas</span></div><div class="line"><span class="javascript">        * @param &#123;<span class="built_in">Object</span>&#125; canvas2 第二个canvas</span></div><div class="line"><span class="javascript">        * @param &#123;<span class="built_in">Number</span>&#125; padding 图片的padding，默认<span class="number">20</span></span></div><div class="line"><span class="javascript">        * @<span class="keyword">return</span> &#123;<span class="built_in">String</span>&#125; 返回base64字符串</span></div><div class="line"><span class="undefined">        *  </span></div><div class="line"><span class="undefined">        */</span></div><div class="line"><span class="javascript">        <span class="function"><span class="keyword">function</span> <span class="title">concatCanvas</span>(<span class="params">dom,canvas1,canvas2,padding</span>)</span>&#123;</span></div><div class="line"><span class="javascript">            <span class="keyword">var</span> c1h = canvas1.height,</span></div><div class="line"><span class="undefined">                c1w = canvas1.width,</span></div><div class="line"><span class="javascript">            <span class="comment">//    c2h = canvas2.height, </span></span></div><div class="line"><span class="javascript">            <span class="comment">//    c2w = canvas2.width,</span></span></div><div class="line"><span class="undefined">            /*    说明：将以上两行代码改为以下两行代码；</span></div><div class="line"><span class="javascript">             *    原因：以上两行代码在<span class="built_in">window</span>下显示是好的，但是放到Mac下显示会出一些问题，</span></div><div class="line"><span class="undefined">             *         仔细发现是在Mac下,html2canvas的API返回的canvas不符合预期，在MAC环境canvas返回如下：</span></div><div class="line"><span class="javascript">             *         html2canvas($main).then(<span class="function"><span class="keyword">function</span>(<span class="params">canvas</span>) </span>&#123;</span></div><div class="line"><span class="xml">             *             console.log(canvas); //<span class="tag">&lt;<span class="name">canvas</span> <span class="attr">width</span>=<span class="string">"600"</span> <span class="attr">height</span>=<span class="string">"88"</span> <span class="attr">style</span>=<span class="string">"width: 300px; height: 44px;"</span>&gt;</span><span class="tag">&lt;/<span class="name">canvas</span>&gt;</span></span></div><div class="line"><span class="undefined">             *         &#125;);</span></div><div class="line"><span class="undefined">             *         可以看到看到canvas的width和height值和其style里的width和height的值有所不同，</span></div><div class="line"><span class="undefined">             *         于是采用以下的方法来获得canvas的宽度和高度</span></div><div class="line"><span class="undefined">             *         王二认为出现以上问题可能是因为分辨率的问题</span></div><div class="line"><span class="undefined">             */</span></div><div class="line"><span class="javascript">                c2h = <span class="built_in">Number</span>(canvas2.style.height.slice(<span class="number">0</span>,<span class="number">-2</span>));</span></div><div class="line"><span class="javascript">                c2w = <span class="built_in">Number</span>(canvas2.style.width.slice(<span class="number">0</span>,<span class="number">-2</span>));</span></div><div class="line"><span class="javascript">                canvas = <span class="built_in">document</span>.createElement(<span class="string">"canvas"</span>);</span></div><div class="line"><span class="undefined">                padding = padding || 20 ;</span></div><div class="line"><span class="javascript">            <span class="comment">/** 根据二维码、文字两个canvas，再加上padding计算出新的canvas的宽度和高度 **/</span></span></div><div class="line"><span class="undefined">            canvas.height = c1h + c2h + 2.5 * padding ;</span></div><div class="line"><span class="javascript">            canvas.width = <span class="built_in">Math</span>.max(c1w,c2w) + <span class="number">2</span> * padding ;</span></div><div class="line"><span class="javascript">            <span class="comment">/** end **/</span></span></div><div class="line"><span class="undefined">            dom.appendChild(canvas);</span></div><div class="line"><span class="javascript">            <span class="comment">/** 将canvas画上白色背景 **/</span></span></div><div class="line"><span class="javascript">            context = canvas.getContext(<span class="string">"2d"</span>);</span></div><div class="line"><span class="javascript">            context.fillStyle =<span class="string">"white"</span>;</span></div><div class="line"><span class="undefined">            context.fillRect(0,0,canvas.width,canvas.height);</span></div><div class="line"><span class="javascript">            <span class="comment">/** end **/</span></span></div><div class="line"><span class="javascript">            <span class="comment">/** 将二维码、文字两个canvas绘画到一个canvas里 **/</span></span></div><div class="line"><span class="undefined">            context.drawImage(canvas1, padding, padding, c1w ,c1h);</span></div><div class="line"><span class="undefined">            context.drawImage(canvas2, padding, 1.5 * padding+c1h, c2w ,c2h);</span></div><div class="line"><span class="javascript">            <span class="comment">/** end **/</span></span></div><div class="line"><span class="javascript">            <span class="comment">/** 返回base64,用于注入到a标签里以便下载 **/</span></span></div><div class="line"><span class="javascript">            <span class="keyword">return</span> canvas.toDataURL(<span class="string">'image/jpeg'</span>,<span class="number">1</span>);</span></div><div class="line"><span class="javascript">            <span class="comment">/** end **/</span></span></div><div class="line"><span class="undefined">        &#125;</span></div><div class="line"><span class="undefined">    &#125;</span></div><div class="line"><span class="javascript">    <span class="keyword">var</span> obj = &#123;</span></div><div class="line"><span class="javascript">        dom : <span class="string">"QRcode"</span>,</span></div><div class="line"><span class="javascript">        url : <span class="string">"http://www.wangyulue.com"</span>,</span></div><div class="line"><span class="javascript">        text : [<span class="string">"王玉略的个人网站"</span>,<span class="string">"Stay Hungry, Stay Foolish."</span>], </span></div><div class="line"><span class="undefined">        pic_size : 300, </span></div><div class="line"><span class="undefined">        font_size : 16, </span></div><div class="line"><span class="undefined">    &#125;</span></div><div class="line"><span class="javascript">    getQRcodeImg(obj,<span class="function"><span class="keyword">function</span>(<span class="params">base64</span>)</span>&#123;</span></div><div class="line"><span class="javascript">        <span class="built_in">document</span>.getElementsByClassName(<span class="string">"QR-download"</span>)[<span class="number">0</span>].href = base64 ;</span></div><div class="line"><span class="undefined">    &#125;);</span></div><div class="line"><span class="undefined">    </span></div><div class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>下载后的图片就像下面这样：</p>
+<p><img src="https://github.com/WangYuLue/pic_of_blog/blob/master/1801/8.png?raw=true" alt="Alt text"></p>
+<p>对于很长的文字，它也能很完美的换行，并且图片的高度自适应，就像下面这样：</p>
+<p><img src="https://github.com/WangYuLue/pic_of_blog/blob/master/1801/9.png?raw=true" alt="Alt text"></p>
+<p>这样来看，这个需求算是被完美解决了。</p>
 
       
     </div>
@@ -547,8 +537,6 @@
           
             <a href="/tags/前端备忘/" rel="tag"><i class="fa fa-tag"></i> 前端备忘</a>
           
-            <a href="/tags/转载/" rel="tag"><i class="fa fa-tag"></i> 转载</a>
-          
         </div>
       
 
@@ -560,8 +548,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/08/14/将特殊英文字符转为中文字符/" rel="next" title="将特殊英文字符转为中文字符">
-                <i class="fa fa-chevron-left"></i> 将特殊英文字符转为中文字符
+              <a href="/2018/01/21/《大而不到》读后感-回顾十年前的次贷危机/" rel="next" title="《大而不倒》读后感--回顾十年前的次贷危机">
+                <i class="fa fa-chevron-left"></i> 《大而不倒》读后感--回顾十年前的次贷危机
               </a>
             
           </div>
@@ -569,10 +557,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2017/09/12/js验证身份证的合法性/" rel="prev" title="JS验证身份证的合法性">
-                JS验证身份证的合法性 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -622,17 +606,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel">
+      <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.png"
@@ -770,22 +745,6 @@
 
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#一、JSONP是怎么产生的"><span class="nav-number">1.</span> <span class="nav-text">一、JSONP是怎么产生的</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#二、JSONP的客户端具体实现"><span class="nav-number">2.</span> <span class="nav-text">二、JSONP的客户端具体实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#三、其他注意点"><span class="nav-number">3.</span> <span class="nav-text">三、其他注意点</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
