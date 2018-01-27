@@ -1,0 +1,1501 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-flash.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="JS,PWA,Service Worker," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="前段时间在公司的内部分享会上简单地介绍了一些关于PWA的技术，不过当时用的是思维导图版本的，现在整理成博客分享给大家">
+<meta name="keywords" content="JS,PWA,Service Worker">
+<meta property="og:type" content="article">
+<meta property="og:title" content="简单介绍一下Progressive Web App(PWA)">
+<meta property="og:url" content="http://yoursite.com/2018/01/27/简单介绍一下Progressive-Web-App-PWA/index.html">
+<meta property="og:site_name" content="王玉略的个人网站">
+<meta property="og:description" content="前段时间在公司的内部分享会上简单地介绍了一些关于PWA的技术，不过当时用的是思维导图版本的，现在整理成博客分享给大家">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://github.com/WangYuLue/pic_of_blog/blob/master/1801/10.png?raw=true">
+<meta property="og:image" content="https://github.com/WangYuLue/pic_of_blog/blob/master/1801/12.png?raw=true">
+<meta property="og:image" content="https://github.com/WangYuLue/pic_of_blog/blob/master/1801/13.png?raw=true">
+<meta property="og:image" content="https://github.com/WangYuLue/pic_of_blog/blob/master/1801/14.png?raw=true">
+<meta property="og:image" content="https://github.com/WangYuLue/pic_of_blog/blob/master/1801/15.png?raw=true">
+<meta property="og:image" content="https://github.com/WangYuLue/pic_of_blog/blob/master/1801/16.png?raw=true">
+<meta property="og:image" content="https://github.com/WangYuLue/pic_of_blog/blob/master/1801/17.png?raw=true">
+<meta property="og:image" content="https://github.com/WangYuLue/pic_of_blog/blob/master/1801/18.png?raw=true">
+<meta property="og:image" content="https://github.com/WangYuLue/pic_of_blog/blob/master/1801/19.png?raw=true">
+<meta property="og:image" content="https://github.com/WangYuLue/pic_of_blog/blob/master/1801/20.png?raw=true">
+<meta property="og:image" content="https://github.com/WangYuLue/pic_of_blog/blob/master/1801/21.png?raw=true">
+<meta property="og:image" content="https://github.com/WangYuLue/pic_of_blog/blob/master/1801/11.png?raw=true">
+<meta property="og:updated_time" content="2018-01-27T14:02:36.544Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="简单介绍一下Progressive Web App(PWA)">
+<meta name="twitter:description" content="前段时间在公司的内部分享会上简单地介绍了一些关于PWA的技术，不过当时用的是思维导图版本的，现在整理成博客分享给大家">
+<meta name="twitter:image" content="https://github.com/WangYuLue/pic_of_blog/blob/master/1801/10.png?raw=true">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/01/27/简单介绍一下Progressive-Web-App-PWA/"/>
+
+
+
+
+
+  <title>简单介绍一下Progressive Web App(PWA) | 王玉略的个人网站</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?bbdd67cdf143b6f0fa6fd027081a9abe";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+  <style>
+    @media screen and (max-width: 1240px) { 
+      .fork-me-on-github{
+        display: none;
+      }
+    } 
+    .fork-me-on-github{
+      position: absolute;
+      top: 0;
+      left: 0;
+      border: 0;
+      z-index: 10;
+    }
+  </style>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+    <a href="https://github.com/WangYuLue"><img class="fork-me-on-github" src="https://camo.githubusercontent.com/c6625ac1f3ee0a12250227cf83ce904423abf351/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_gray_6d6d6d.png"></a>
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">王玉略的个人网站</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Stay Hungry, Stay Foolish.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404.html" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/01/27/简单介绍一下Progressive-Web-App-PWA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="王二">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="王玉略的个人网站">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">简单介绍一下Progressive Web App(PWA)</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-27T09:44:40+08:00">
+                2018-01-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/前端/" itemprop="url" rel="index">
+                    <span itemprop="name">前端</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/01/27/简单介绍一下Progressive-Web-App-PWA/" class="leancloud_visitors" data-flag-title="简单介绍一下Progressive Web App(PWA)">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  2,143 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  8 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote class="blockquote-center"><p>前段时间在公司的内部分享会上简单地介绍了一些关于PWA的技术，不过当时用的是思维导图版本的，现在整理成博客分享给大家 </p>
+</blockquote>
+<a id="more"></a>
+<h1 id="Progressive-Web-App-PWA"><a href="#Progressive-Web-App-PWA" class="headerlink" title="Progressive Web App(PWA)"></a>Progressive Web App(PWA)</h1><h2 id="一、前期介绍"><a href="#一、前期介绍" class="headerlink" title="一、前期介绍"></a>一、前期介绍</h2><h3 id="1、王二为什么要将PWA作为本次的技术分享"><a href="#1、王二为什么要将PWA作为本次的技术分享" class="headerlink" title="1、王二为什么要将PWA作为本次的技术分享"></a>1、王二为什么要将PWA作为本次的技术分享</h3><p>2017年11月份，谷歌在上海举办了一个开发者大会，期间在很多会场都有关于<code>PWA</code>的介绍，王二认为谷歌在致力于推行这项技术，那么技术上还是很先进的，于是有了如下分享。</p>
+<h3 id="2、简单介绍"><a href="#2、简单介绍" class="headerlink" title="2、简单介绍"></a>2、简单介绍</h3><p>PWA的中文名叫做<strong>渐进式网页应用</strong>，早在2014年， W3C 公布过 <code>Service Worker</code> 的相关草案，但是其在生产环境被 <code>Chrome</code> 支持是在 2015 年。因此，如果我们把 PWA 的关键技术之一 <code>Service Worker</code> 的出现作为 <code>PWA</code> 的诞生时间，那就应该是 2015 年。</p>
+<p>自 2015 年以来，<code>PWA</code> 相关的技术不断升级优化，在用户体验和用户留存两方面都提供了非常好的解决方案。<code>PWA</code> 可以将 <code>Web</code> 和 <code>App</code> 各自的优势融合在一起：渐进式、可响应、可离线、实现类似 <code>App</code> 的交互、即时更新、安全、可以被搜索引擎检索、可推送、可安装、可链接。</p>
+<p><strong>需要特别说明的是，<code>PWA</code> 不是特指某一项技术，而是应用了多项技术的 <code>Web App</code>。其核心技术包括 <code>App Manifest</code>、<code>Service Worker</code>、<code>Web Push</code>，等等。</strong></p>
+<h3 id="3、为什么W3C和谷歌在推广这项技术"><a href="#3、为什么W3C和谷歌在推广这项技术" class="headerlink" title="3、为什么W3C和谷歌在推广这项技术"></a>3、为什么W3C和谷歌在推广这项技术</h3><p>这就要从前端的现状说起：</p>
+<p>Native APP 用起来很流畅，但是也有其天然的基因缺陷：</p>
+<blockquote>
+<ul>
+<li>由于其天生封闭的基因，内容无法被索引</li>
+<li>用户 80% 的时间被 Top3 的超级 App 占据，对于站点来说，应用分发的性价比也越来越不划算</li>
+<li>要使用它，首先还需要下载几十兆上百着兆的安装包</li>
+</ul>
+</blockquote>
+<p>WEB前端虽然天生具有开放的基因，但是很多时候页面会卡顿，用户体验不佳。虽然社区之前也做过很多努力，例如<code>virtual dom</code>、<code>spa</code>、混合编程、用<code>canvas</code>将整个页面画出来，用户体验也有了很大的改善，但是仍然无法解决几个重要的问题：</p>
+<blockquote>
+<ul>
+<li>离线时用户无法使用</li>
+<li>无法接收消息推送</li>
+<li>移动端没有一级入口</li>
+</ul>
+</blockquote>
+<p>W3C和谷歌看到了这些问题，于是推出了<code>PWA</code>。</p>
+<h3 id="4、PWA的核心目标"><a href="#4、PWA的核心目标" class="headerlink" title="4、PWA的核心目标"></a>4、PWA的核心目标</h3><p><code>PWA</code>的核心目标就是提升 Web App 的性能，改善 Web App 的用户体验。媲美native的流畅体验，将网络之长与应用之长相结合。</p>
+<h2 id="二、特点"><a href="#二、特点" class="headerlink" title="二、特点"></a>二、特点</h2><h3 id="1、PWA的特点"><a href="#1、PWA的特点" class="headerlink" title="1、PWA的特点"></a>1、PWA的特点</h3><p>PWA具有以下一些特点：</p>
+<p><img src="https://github.com/WangYuLue/pic_of_blog/blob/master/1801/10.png?raw=true" alt="Alt text"></p>
+<p>这边有一个关于PWA特点的<a href="https://developers.google.com/web/progressive-web-apps/checklist#exemplary" target="_blank" rel="external">列表清单</a>，有兴趣的同学可以点进去看看.</p>
+<h3 id="2、特点详解"><a href="#2、特点详解" class="headerlink" title="2、特点详解"></a>2、特点详解</h3><h4 id="（1）、可安装"><a href="#（1）、可安装" class="headerlink" title="（1）、可安装"></a>（1）、可安装</h4><p>1、可安装指的是可以像原生APP在主屏幕上留有图标。</p>
+<p>2、但是这需要我们提供 <code>Web app manifest</code>，<code>manifest.json</code> 是一个简单的JSON文件，我们在 <code>html</code> 页面如下引用他：</p>
+<p><img src="https://github.com/WangYuLue/pic_of_blog/blob/master/1801/12.png?raw=true" alt="Alt text"></p>
+<p>它描述了我们的图标在主屏幕上如何显示，以及图标点击进去的启动页是什么，它的JSON格式如下所示：</p>
+<p><img src="https://github.com/WangYuLue/pic_of_blog/blob/master/1801/13.png?raw=true" alt="Alt text"></p>
+<p>其中：</p>
+<blockquote>
+<ul>
+<li><code>start_url</code> 可以设置启动网址</li>
+<li><code>icons</code> 会帮我萌设置各个分辨率下页面的图标</li>
+<li><code>background_color</code> 会设置背景颜色， Chrome 在网络应用启动后会立即使用此颜色，这一颜色将保留在屏幕上，直至网络应用首次呈现为止。</li>
+<li><code>theme_color</code> 会设置主题颜色</li>
+<li><code>display</code> 设置启动样式</li>
+</ul>
+</blockquote>
+<p>关于<code>manifest.json</code>里字段更加具体的含义，感兴趣的同学可以参考<a href="https://developer.mozilla.org/en-US/docs/Web/Manifest" target="_blank" rel="external">MDN文档</a>或者谷歌开发者文档里的<a href="https://developers.google.com/web/fundamentals/web-app-manifest/" target="_blank" rel="external">这篇文章</a></p>
+<p>3、实际上 <a href="https://m.douban.com/page/vhn1tgl" target="_blank" rel="external">豆瓣移动端</a>就是一个<code>PWA</code>应用，如果我们用高版本的浏览器打开，就会发现有横幅提示，不过需要注意的是，IOS似乎还不支持，以下王二用安卓手机来做一个演示：</p>
+<p>打开豆瓣后，浏览器会提示添加到主屏幕：<br><img src="https://github.com/WangYuLue/pic_of_blog/blob/master/1801/14.png?raw=true" alt="Alt text"></p>
+<p>点击确定后，他会提示添加成功，然后在主屏幕上留有一个豆瓣的图标。</p>
+<p><img src="https://github.com/WangYuLue/pic_of_blog/blob/master/1801/15.png?raw=true" alt="Alt text"></p>
+<p><img src="https://github.com/WangYuLue/pic_of_blog/blob/master/1801/16.png?raw=true" alt="Alt text"></p>
+<h4 id="（2）、离线使用"><a href="#（2）、离线使用" class="headerlink" title="（2）、离线使用"></a>（2）、离线使用</h4><p>1、<code>PWA</code> 另一项令人兴奋的特性就是可以离线使用,其背后用到的技术是 <code>Service worker</code> ;</p>
+<p>2、<code>Service worker</code>实际上是一段脚本，在后台运行。作为一个独立的线程，运行环境与普通脚本不同，所以不能直接参与 Web 交互行为。<code>Service Worker</code> 的出现是正是为了使得 <code>Web App</code> 也可以做到像 <code>Native App</code> 那样可以离线使用、消息推送的功能。</p>
+<p>我们可以把<code>Service worker</code>当做是一种客户端代理，</p>
+<p><img src="https://github.com/WangYuLue/pic_of_blog/blob/master/1801/17.png?raw=true" alt="Alt text"></p>
+<p>3、我们来看看如何注册一个 <code>Service Worker</code></p>
+<p><img src="https://github.com/WangYuLue/pic_of_blog/blob/master/1801/18.png?raw=true" alt="Alt text"></p>
+<p>关于<code>Service Worker</code>更加详细的介绍，感兴趣的同学可以参考<a href="https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorker" target="_blank" rel="external">MDN文档</a>或者Github上的<a href="https://googlechrome.github.io/samples/service-worker/basic/index.html" target="_blank" rel="external">Basic Service Worker Sample</a>这篇介绍。</p>
+<p>4、 当然 <code>Service Worker</code> 也有生命周期，参考下图：</p>
+<p><img src="https://github.com/WangYuLue/pic_of_blog/blob/master/1801/19.png?raw=true" alt="Alt text"></p>
+<p>关于 <code>Service Worker</code> 生命周期的详细介绍可以参考下面这张图：</p>
+<p><img src="https://github.com/WangYuLue/pic_of_blog/blob/master/1801/20.png?raw=true" alt="Alt text"></p>
+<p>关于<code>Service Worker</code> 生命周期更加详细的介绍，感兴趣的同学可以参考<a href="https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API/Using_Service_Workers" target="_blank" rel="external">MDN文档</a></p>
+<h4 id="（3）、消息推送"><a href="#（3）、消息推送" class="headerlink" title="（3）、消息推送"></a>（3）、消息推送</h4><p>消息推送具体可以参考谷歌的官方教程<a href="https://developers.google.com/web/fundamentals/codelabs/push-notifications/" target="_blank" rel="external">Your First Web Push Notification</a>,里面有详细的代码Demo和说明，以及相应的后台配置（带好梯子）。</p>
+<h2 id="3、开发者如何了解是否具备这些特点"><a href="#3、开发者如何了解是否具备这些特点" class="headerlink" title="3、开发者如何了解是否具备这些特点"></a>3、开发者如何了解是否具备这些特点</h2><p>说了这么多，那我们开发者如何了解一个网页是否具备了 <code>PWA</code> 的一些特点呢？</p>
+<p>这时候谷歌开发者工具可以帮上我们的忙，在 <code>Chrome</code>浏览器的开发者工具里有一个<code>Audits</code>面板，它可以帮我们检测网页是否具备了PWA的一些特点：</p>
+<p><img src="https://github.com/WangYuLue/pic_of_blog/blob/master/1801/21.png?raw=true" alt="Alt text"></p>
+<h2 id="三、有哪些企业已经在使用PWA？"><a href="#三、有哪些企业已经在使用PWA？" class="headerlink" title="三、有哪些企业已经在使用PWA？"></a>三、有哪些企业已经在使用PWA？</h2><p>1、国内已经有<a href="https://m.douban.com/" target="_blank" rel="external">豆瓣</a>、<a href="https://h5.ele.me/" target="_blank" rel="external">饿了么</a>使用了部分PWA技术；</p>
+<p>2、国外用PWA的企业相对较多，例如<a href="https://mobile.twitter.com/home" target="_blank" rel="external">Twitter</a>、<a href="https://flipboard.com/" target="_blank" rel="external">Filpboard</a>;</p>
+<p>3、特别需要注意的是Twitter ，Twitter 在 2017 年上线了 <code>Twitter Lite PWA</code>，其获得了相当惊人的收益：</p>
+<blockquote>
+<ul>
+<li>平均用户停留时长增长 65%</li>
+<li>Web 站点发推的数量增长 75%</li>
+<li>跳出率降低 20%</li>
+</ul>
+</blockquote>
+<p>Twitter Lite 能取得这样的成绩，归功于 PWA 的新技术和用户体验至上的设计原则：它通过 Service Worker 缓存文件，让页面可以离线，同时降低网络消耗；通过 Web Push 接受服务器推送的消息；采用 App Shell 的设计模型，配合 Service Worker 能让页面瞬间展现。</p>
+<p>4、另外一些采用了PWA的网站可以参考<a href="https://pwa.rocks/" target="_blank" rel="external">这个链接</a></p>
+<h2 id="四、代码细节"><a href="#四、代码细节" class="headerlink" title="四、代码细节"></a>四、代码细节</h2><h3 id="1、代码可以参考的是谷歌的官方教程"><a href="#1、代码可以参考的是谷歌的官方教程" class="headerlink" title="1、代码可以参考的是谷歌的官方教程"></a>1、代码可以参考的是谷歌的官方教程</h3><p>1、<a href="https://developers.google.com/web/fundamentals/codelabs/your-first-pwapp/" target="_blank" rel="external">Your First Progressive Web App</a>会帮我们了解如何从头构建一个PWA应用。<br>2、<a href="https://developers.google.com/web/fundamentals/codelabs/debugging-service-workers/" target="_blank" rel="external">Debugging Service Workers</a>会辅导我们如何调试<code>Service Worker</code>。</p>
+<h3 id="2、缓存策略"><a href="#2、缓存策略" class="headerlink" title="2、缓存策略"></a>2、缓存策略</h3><p>有缓存可以优化用户体验，但是如果没有合理的缓存策略，我们会发现我们的网站将会很难更新。</p>
+<p>在用户重新加载新的<code>Service Worker</code>的时候，我们需要将之前旧的资源文件都删掉,如下图所示：</p>
+<p><img src="https://github.com/WangYuLue/pic_of_blog/blob/master/1801/11.png?raw=true" alt="Alt text"></p>
+<p>更多的缓存策略有兴趣的同学可以参考这篇文章 – <a href="https://jakearchibald.com/2014/offline-cookbook/#cache-then-network" target="_blank" rel="external">The offline cookbook</a></p>
+<h3 id="3、官方工具"><a href="#3、官方工具" class="headerlink" title="3、官方工具"></a>3、官方工具</h3><p>除了前面提到的手工编写 <code>Service Worker</code> 脚本, Google 提供了 <code>sw-toolbox</code> 和 <code>sw-precache</code> 两个工具方便快速生成 <code>service-worker.js</code> 文件:</p>
+<blockquote>
+<ul>
+<li><a href="https://github.com/GoogleChromeLabs/sw-precache" target="_blank" rel="external">sw-precache</a> 可以用来生成配置使 PWA 在安装时进行静态资源的缓存</li>
+<li><a href="https://github.com/GoogleChromeLabs/sw-toolbox" target="_blank" rel="external">sw-toolbox</a> 提供了动态缓存使用的通用策略, 这些动态的资源不合适用 sw-precache 预先缓存。</li>
+</ul>
+</blockquote>
+<h2 id="五、小结"><a href="#五、小结" class="headerlink" title="五、小结"></a>五、小结</h2><p>Progressive Web App仍处于初级阶段，国内普及度还不够，但我们不可忽视其背后的的技术，以及对前端全新的定位。或许它会像十年前的AJAX那样重新改变前端的生态。</p>
+<h2 id="参考文章（部分链接需要带好梯子）"><a href="#参考文章（部分链接需要带好梯子）" class="headerlink" title="参考文章（部分链接需要带好梯子）"></a>参考文章（部分链接需要带好梯子）</h2><p><a href="https://developers.google.com/s/results/?q=pwa&amp;p=%2Fweb%2F" target="_blank" rel="external">谷歌开发者网站关于PWA的搜索结果</a><br><a href="https://developers.google.com/web/fundamentals/codelabs/your-first-pwapp/" target="_blank" rel="external">Your First Progressive Web App</a><br><a href="https://developers.google.com/web/progressive-web-apps/checklist#exemplary" target="_blank" rel="external">Exemplary Progressive Web App Checklist</a><br><a href="https://jakearchibald.com/2014/offline-cookbook/#cache-then-network" target="_blank" rel="external">The offline cookbook</a><br><a href="https://developers.google.com/web/fundamentals/codelabs/push-notifications/" target="_blank" rel="external">Your First Web Push Notification</a><br><a href="https://developers.google.com/web/fundamentals/codelabs/debugging-service-workers/" target="_blank" rel="external">Debugging Service Workers</a><br><a href="https://pwa.rocks/" target="_blank" rel="external">PWA网站清单列表</a><br><a href="https://www.juhe.cn/news/index/id/2406" target="_blank" rel="external">PWA是否能带来新一轮大前端技术洗牌？</a><br><a href="https://zhuanlan.zhihu.com/p/25524382" target="_blank" rel="external">PWA 入门: 理解和创建 Service Worker 脚本</a><br><a href="https://developers.google.com/web/fundamentals/web-app-manifest/" target="_blank" rel="external">web-app-manifest</a><br><a href="https://googlechrome.github.io/samples/service-worker/basic/index.html" target="_blank" rel="external">Basic Service Worker Sample</a><br><a href="https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorker" target="_blank" rel="external">‘ServiceWorker’MDN文档</a><br><a href="https://developer.mozilla.org/en-US/docs/Web/Manifest" target="_blank" rel="external">‘ServiceWorker’MDN文档</a><br><a href="https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API/Using_Service_Workers" target="_blank" rel="external">‘Using_Service_Workers’MDN文档</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+      
+    </div>
+
+    <div>
+      
+        
+<div id="wechat_subscriber" style="display: block; padding: 10px 0; margin: 20px auto; width: 100%; text-align: center">
+    <img id="wechat_subscriber_qcode" src="/uploads/wechat-qcode.jpg" alt="王二 wechat" style="width: 200px; max-width: 100%;"/>
+    <div>上面是王二的微信公众号 —— 聪聪写字的地方</div>
+</div>
+
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JS/" rel="tag"><i class="fa fa-tag"></i> JS</a>
+          
+            <a href="/tags/PWA/" rel="tag"><i class="fa fa-tag"></i> PWA</a>
+          
+            <a href="/tags/Service-Worker/" rel="tag"><i class="fa fa-tag"></i> Service Worker</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/27/不要自称为程序员/" rel="next" title="不要自称为程序员">
+                <i class="fa fa-chevron-left"></i> 不要自称为程序员
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yOTgwOC82Mzc0"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="王二" />
+          <p class="site-author-name" itemprop="name">王二</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">80</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">28</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/WangYuLue" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/wang-yu-lue" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://zh-cn.facebook.com/people/%E7%8E%8B%E7%8E%89%E7%95%A5/100015123768748" target="_blank" title="FaceBook">
+                  
+                    <i class="fa fa-fw fa-facebook"></i>
+                  
+                  FaceBook
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.instagram.com/wanger_moose" target="_blank" title="Instagram">
+                  
+                    <i class="fa fa-fw fa-instagram"></i>
+                  
+                  Instagram
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-fire"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item" style="float: none;">
+                  <a href="https://developer.mozilla.org/zh-CN/" title="MDN web docs" target="_blank">MDN web docs</a>
+                </li>
+              
+                <li class="links-of-blogroll-item" style="float: none;">
+                  <a href="http://www.ruanyifeng.com/home.html" title="阮一峰的个人网站" target="_blank">阮一峰的个人网站</a>
+                </li>
+              
+                <li class="links-of-blogroll-item" style="float: none;">
+                  <a href="https://www.liaoxuefeng.com/" title="廖雪峰的官方网站" target="_blank">廖雪峰的官方网站</a>
+                </li>
+              
+                <li class="links-of-blogroll-item" style="float: none;">
+                  <a href="http://www.zhangxinxu.com/" title="张鑫旭的个人主页" target="_blank">张鑫旭的个人主页</a>
+                </li>
+              
+                <li class="links-of-blogroll-item" style="float: none;">
+                  <a href="http://es6.ruanyifeng.com/" title="阮一峰ES6语法" target="_blank">阮一峰ES6语法</a>
+                </li>
+              
+                <li class="links-of-blogroll-item" style="float: none;">
+                  <a href="https://developers.google.com/web/tools/chrome-devtools/" title="Chrome开发者工具" target="_blank">Chrome开发者工具</a>
+                </li>
+              
+                <li class="links-of-blogroll-item" style="float: none;">
+                  <a href="https://en.wikipedia.org/wiki/Main_Page" title="Wikipedia" target="_blank">Wikipedia</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Progressive-Web-App-PWA"><span class="nav-number">1.</span> <span class="nav-text">Progressive Web App(PWA)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#一、前期介绍"><span class="nav-number">1.1.</span> <span class="nav-text">一、前期介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、王二为什么要将PWA作为本次的技术分享"><span class="nav-number">1.1.1.</span> <span class="nav-text">1、王二为什么要将PWA作为本次的技术分享</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、简单介绍"><span class="nav-number">1.1.2.</span> <span class="nav-text">2、简单介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3、为什么W3C和谷歌在推广这项技术"><span class="nav-number">1.1.3.</span> <span class="nav-text">3、为什么W3C和谷歌在推广这项技术</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4、PWA的核心目标"><span class="nav-number">1.1.4.</span> <span class="nav-text">4、PWA的核心目标</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、特点"><span class="nav-number">1.2.</span> <span class="nav-text">二、特点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、PWA的特点"><span class="nav-number">1.2.1.</span> <span class="nav-text">1、PWA的特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、特点详解"><span class="nav-number">1.2.2.</span> <span class="nav-text">2、特点详解</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#（1）、可安装"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">（1）、可安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（2）、离线使用"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">（2）、离线使用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（3）、消息推送"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">（3）、消息推送</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3、开发者如何了解是否具备这些特点"><span class="nav-number">1.3.</span> <span class="nav-text">3、开发者如何了解是否具备这些特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、有哪些企业已经在使用PWA？"><span class="nav-number">1.4.</span> <span class="nav-text">三、有哪些企业已经在使用PWA？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、代码细节"><span class="nav-number">1.5.</span> <span class="nav-text">四、代码细节</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、代码可以参考的是谷歌的官方教程"><span class="nav-number">1.5.1.</span> <span class="nav-text">1、代码可以参考的是谷歌的官方教程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、缓存策略"><span class="nav-number">1.5.2.</span> <span class="nav-text">2、缓存策略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3、官方工具"><span class="nav-number">1.5.3.</span> <span class="nav-text">3、官方工具</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五、小结"><span class="nav-number">1.6.</span> <span class="nav-text">五、小结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文章（部分链接需要带好梯子）"><span class="nav-number">1.7.</span> <span class="nav-text">参考文章（部分链接需要带好梯子）</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">王二</span>
+</div>
+
+<!--
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+-->
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("mvz0WF7CL4oQdBxFY48Tvgqy-gzGzoHsz", "b3Owg9A7ta3W43WPBdCRtjNo");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
