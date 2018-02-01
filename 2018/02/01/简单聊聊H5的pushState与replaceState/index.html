@@ -108,7 +108,7 @@
 <meta property="og:site_name" content="王玉略的个人网站">
 <meta property="og:description" content="之前一直不熟悉history上的pushState与replaceState方法，今天抽空了解一下，这篇文章很大一部分转载了MDN的Manipulating the browser history以及window.onpopstate中的内容，有兴趣的同学可以直接参考这些文章">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-02-01T15:24:20.690Z">
+<meta property="og:updated_time" content="2018-02-01T15:28:57.440Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="简单聊聊H5的pushState与replaceState">
 <meta name="twitter:description" content="之前一直不熟悉history上的pushState与replaceState方法，今天抽空了解一下，这篇文章很大一部分转载了MDN的Manipulating the browser history以及window.onpopstate中的内容，有兴趣的同学可以直接参考这些文章">
@@ -475,7 +475,7 @@
 </blockquote>
 <a id="more"></a>
 <h3 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h3><p>HTML5引入了 <a href="https://developer.mozilla.org/en-US/docs/Web/API/History_API#The_pushState(" target="_blank" rel="external">history.pushState()</a>_method) 和 <a href="https://developer.mozilla.org/en-US/docs/Web/API/History_API#The_replaceState(" target="_blank" rel="external">history.replaceState()</a>_method) 方法，它们分别可以添加和修改历史记录条目。这些方法通常与<a href="https://developer.mozilla.org/en-US/docs/Web/API/WindowEventHandlers/onpopstate" target="_blank" rel="external">window.onpopstate</a> 配合使用。</p>
-<h3 id="二、pushState-方法的例子"><a href="#二、pushState-方法的例子" class="headerlink" title="二、pushState() 方法的例子"></a>二、pushState() 方法的例子</h3><p>假设在 <a href="http://mozilla.org/foo.html" target="_blank" rel="external">http://mozilla.org/foo.html</a> 中执行了以下 JavaScript 代码:</p>
+<h3 id="二、pushState-方法的例子"><a href="#二、pushState-方法的例子" class="headerlink" title="二、pushState() 方法的例子"></a>二、pushState() 方法的例子</h3><p>假设在 <code>http://mozilla.org/foo.html</code> 中执行了以下 JavaScript 代码:</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> stateObj = &#123; <span class="attr">foo</span>: <span class="string">"bar"</span> &#125;;</div><div class="line">history.pushState(stateObj, <span class="string">"page 2"</span>, <span class="string">"bar.html"</span>);</div></pre></td></tr></table></figure>
 <p>这将使浏览器地址栏显示为 <code>http://mozilla.org/bar.html</code>，但并不会导致浏览器加载 <code>bar.html</code> ，甚至不会检查<code>bar.html</code> 是否存在。</p>
 <p>假设现在用户又访问了 <code>http://google.com</code>，然后点击了返回按钮。此时，地址栏将显示 <code>http://mozilla.org/bar.html</code>，同时页面会触发 <code>popstate</code> 事件，事件对象state中包含了 <code>stateObj</code> 的一份拷贝。页面本身与 <code>foo.html</code> 一样，尽管其在 <code>popstate</code>  事件中可能会修改自身的内容。</p>
