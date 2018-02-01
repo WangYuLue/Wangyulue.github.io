@@ -108,7 +108,7 @@
 <meta property="og:site_name" content="王玉略的个人网站">
 <meta property="og:description" content="之前一直不熟悉history上的pushState与replaceState方法，今天抽空了解一下，这篇文章很大一部分转载了MDN的Manipulating the browser history以及window.onpopstate中的内容，有兴趣的同学可以直接参考这些文章">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-02-01T15:28:57.440Z">
+<meta property="og:updated_time" content="2018-02-01T15:34:16.080Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="简单聊聊H5的pushState与replaceState">
 <meta name="twitter:description" content="之前一直不熟悉history上的pushState与replaceState方法，今天抽空了解一下，这篇文章很大一部分转载了MDN的Manipulating the browser history以及window.onpopstate中的内容，有兴趣的同学可以直接参考这些文章">
@@ -437,7 +437,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  1,547 字
+                  1,516 字
                 </span>
               
 
@@ -492,7 +492,7 @@
 <p>如果需要，可以不必改变URL就能创建一条历史记录。而设置 <code>window.location = &quot;#foo&quot;</code>;,只有在当前哈希不是 <code>#foo</code> 的情况下， 才会创建一个新的历史记录项。</p>
 <p>我们可以为新的历史记录项关联任意数据。而基于哈希值的方式，则必须将所有相关数据编码到一个短字符串里。</p>
 </blockquote>
-<h3 id="五、replaceState-方法"><a href="#五、replaceState-方法" class="headerlink" title="五、replaceState() 方法"></a>五、replaceState() 方法</h3><p><code>history.replaceState()</code> 的使用与 <code>history.pushState()</code> 非常相似，区别在于 <code>replaceState()</code> 是修改了当前的历史记录项而不是新建一个。 注意这并不会阻止其在全局浏览器历史记录中创建一个新的历史记录项。</p>
+<h3 id="五、replaceState-方法"><a href="#五、replaceState-方法" class="headerlink" title="五、replaceState() 方法"></a>五、replaceState() 方法</h3><p><code>history.replaceState()</code> 的使用与 <code>history.pushState()</code> 非常相似，区别在于 <code>replaceState()</code> 是修改了当前的历史记录项而不是新建一个。</p>
 <h3 id="六、popstate-事件"><a href="#六、popstate-事件" class="headerlink" title="六、popstate 事件"></a>六、popstate 事件</h3><p>每当处于激活状态的历史记录条目发生变化时,<code>popstate</code> 事件就会在对应window对象上触发。 如果当前处于激活状态的历史记录条目是由<code>history.pushState()</code>方法创建,或者由<code>history.replaceState()</code>方法修改过的, 则<code>popstate</code>事件对象的<code>state</code>属性包含了这个历史记录条目的state对象的一个拷贝。</p>
 <p>我们也可以直接在history对象上获取<code>state</code>，如下：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> currentState = history.state;</div></pre></td></tr></table></figure></p>
 <p>需要注意的是，调用 <code>history.pushState()</code> 或者 <code>history.replaceState()</code> 不会触发 <code>popstate</code> 事件。 <code>opstate</code>事件只会在浏览器某些行为下触发， 比如点击后退、前进按钮(或者在JavaScript中调用<code>history.back()</code>、<code>history.forward()</code>、<code>history.go()</code>方法)。</p>
