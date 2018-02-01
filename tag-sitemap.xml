@@ -170,13 +170,6 @@
     </url>
 
     <url>
-        <loc>http://yoursite.com/tags/JS/</loc>
-        <lastmod>2018-01-27T14:02:36.544Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>http://yoursite.com/tags/PWA/</loc>
         <lastmod>2018-01-27T14:02:36.544Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -192,7 +185,14 @@
 
     <url>
         <loc>http://yoursite.com/tags/%E8%AF%BB%E4%B9%A6/</loc>
-        <lastmod>2018-01-28T14:53:35.277Z</lastmod>
+        <lastmod>2018-01-28T15:32:26.667Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://yoursite.com/tags/JS/</loc>
+        <lastmod>2018-02-01T15:24:20.690Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
