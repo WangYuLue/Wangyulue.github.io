@@ -44,13 +44,6 @@
     </url>
 
     <url>
-        <loc>http://yoursite.com/tags/canvas/</loc>
-        <lastmod>2017-11-04T01:16:36.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>http://yoursite.com/tags/git/</loc>
         <lastmod>2017-11-12T08:38:22.000Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -177,13 +170,6 @@
     </url>
 
     <url>
-        <loc>http://yoursite.com/tags/JS/</loc>
-        <lastmod>2018-02-06T09:28:44.900Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>http://yoursite.com/tags/%E5%89%8D%E7%AB%AF%E5%A4%87%E5%BF%98/</loc>
         <lastmod>2018-02-06T09:28:44.900Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -191,8 +177,36 @@
     </url>
 
     <url>
+        <loc>http://yoursite.com/tags/JS/</loc>
+        <lastmod>2018-02-07T16:43:45.226Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://yoursite.com/tags/canvas/</loc>
+        <lastmod>2018-02-07T16:43:45.226Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
         <loc>http://yoursite.com/tags/Chrome/</loc>
-        <lastmod>2018-02-07T03:13:46.207Z</lastmod>
+        <lastmod>2018-02-07T16:43:45.233Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://yoursite.com/tags/VS-Code/</loc>
+        <lastmod>2018-02-07T16:54:49.462Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://yoursite.com/tags/%E5%BF%AB%E6%8D%B7%E9%94%AE/</loc>
+        <lastmod>2018-02-07T16:54:49.462Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
