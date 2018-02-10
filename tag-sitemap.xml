@@ -206,14 +206,14 @@
 
     <url>
         <loc>http://yoursite.com/tags/Chrome/</loc>
-        <lastmod>2018-02-10T15:31:22.099Z</lastmod>
+        <lastmod>2018-02-10T15:36:03.083Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
         <loc>http://yoursite.com/tags/%E5%BF%AB%E6%8D%B7%E9%94%AE/</loc>
-        <lastmod>2018-02-10T15:31:22.099Z</lastmod>
+        <lastmod>2018-02-10T15:36:03.083Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
