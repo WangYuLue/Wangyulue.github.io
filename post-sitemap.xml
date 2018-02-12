@@ -7,6 +7,14 @@
     </url>
 
     <url>
+        <loc>http://yoursite.com/2018/02/12/%E7%8E%8B%E4%BA%8C%E7%9A%84%E7%B2%BE%E7%A5%9E%E9%94%99%E4%B9%B1%E7%97%87/</loc>
+        <lastmod>2018-02-12T13:54:35.300Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>http://yoursite.com/2018/02/12/%E4%BA%86%E8%A7%A3Puppeteer/</loc>
         <lastmod>2018-02-12T08:05:20.168Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -519,7 +527,7 @@
     </url>
 
     <url>
-        <loc>http://yoursite.com/2017/10/10/JS%E4%B8%ADObject-defineProperty%E4%B8%8EObject-create%E7%9A%84%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/</loc>
+        <loc>http://yoursite.com/2017/10/10/JS%E4%B8%ADObject-defineProperty%E4%B8%8EObject-create%E7%9A%84%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%952/</loc>
         <lastmod>2017-10-13T06:58:57.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -527,7 +535,7 @@
     </url>
 
     <url>
-        <loc>http://yoursite.com/2017/10/10/JS%E4%B8%ADObject-defineProperty%E4%B8%8EObject-create%E7%9A%84%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%952/</loc>
+        <loc>http://yoursite.com/2017/10/10/JS%E4%B8%ADObject-defineProperty%E4%B8%8EObject-create%E7%9A%84%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/</loc>
         <lastmod>2017-10-13T06:58:57.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
