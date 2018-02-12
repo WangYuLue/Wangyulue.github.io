@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[了解Puppeteer]]></title>
+    <url>%2F2018%2F02%2F12%2F%E4%BA%86%E8%A7%A3Puppeteer%2F</url>
+    <content type="text"><![CDATA[最近谷歌官方出了个挺火的库 – Puppeteer，我们来了解一下它 一、什么是 Puppeteer ?Puppeteer 是 Google Chrome 团队官方的无界面（Headless）Chrome 工具。Chrome 作为浏览器市场的领头羊，Chrome Headless 将成为 web 应用 自动化测试 的行业标杆。所以我们很有必要来了解一下它 无头浏览器是指没有窗口的浏览器 二、用它能做什么?通过 Puppeteer 我们可以让浏览器帮我们自动完成很多事情,例如 ： 生成页面的截图或者PDF 自动表单提交，UI测试，键盘输入 创建自动化测试环境 三、如何安装 Puppeteer ?安装 Puppeteer 很简单，如下： 12npm i --save puppeteer# or "yarn add puppeteer" 需要注意的是，由于用到了ES7的 async/await 语法 ，node 版本最好是v7.6.0或以上 四、一些实例1、屏幕截图12345678910const puppeteer = require('puppeteer');(async () =&gt; &#123; const browser = await puppeteer.launch(); const page = await browser.newPage(); await page.goto('http://www.wangyulue.com'); await page.screenshot(&#123;path: 'wanger.png'&#125;); await browser.close();&#125;)(); 需要注意的是，Puppeteer将默认页面大小为800px x 600px，该大小定义了屏幕截图的大小。我们可以通过 Page.setViewport() 来设置截图页面大小。 2、将网页保存为PDF12345678910const puppeteer = require('puppeteer');(async () =&gt; &#123; const browser = await puppeteer.launch(); const page = await browser.newPage(); await page.goto('https://github.com/GoogleChrome/puppeteer/blob/master/docs/api.md', &#123;waitUntil: 'networkidle2'&#125;); await page.pdf(&#123;path: 'api.pdf', format: 'A4'&#125;); await browser.close();&#125;)(); 关于 page.pdf() 的更多可配置项，感兴趣的同学可以戳这里 3、模拟登录GitHub123456789101112131415161718/** * @desc Logs into Github. Provide your username and password as environment variables when running the script, i.e: * `GITHUB_USER=myuser GITHUB_PWD=mypassword node github.js` */const puppeteer = require('puppeteer')const screenshot = 'github.png';(async () =&gt; &#123; const browser = await puppeteer.launch(&#123;headless: true&#125;) const page = await browser.newPage() await page.goto('https://github.com/login') await page.type('#login_field', process.env.GITHUB_USER) await page.type('#password', process.env.GITHUB_PWD) await page.click('[name="commit"]') await page.waitForNavigation() await page.screenshot(&#123; path: screenshot &#125;) browser.close() console.log('See screenshot: ' + screenshot)&#125;)() 在GitHub上专门有一个 puppeteer 的demo集合库，感兴趣的同学可以戳这里了解 五、详细的 Puppeteer API关于 Puppeteer 详细的API文档，感兴趣的同学可以戳这里 六、参考阅读GoogleChrome/puppeteer Puppeteer 与 Chrome Headless —— 从入门到爬虫 Puppeteer API checkly/puppeteer-examples]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>JS</tag>
+        <tag>Chrome</tag>
+        <tag>自动化测试</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Chrome快捷键使用小记录]]></title>
     <url>%2F2018%2F02%2F10%2FChrome%E5%BF%AB%E6%8D%B7%E9%94%AE%E4%BD%BF%E7%94%A8%E5%B0%8F%E8%AE%B0%E5%BD%95%2F</url>
     <content type="text"><![CDATA[这两天抽空了解了一下 Chrome 的快捷键，这里做一个记录 Chrome常用的快捷键标签页和窗口快捷键 快捷键 作用 ⌘ + t 打开新的标签页，并跳转到该标签页 ⌘ + w 关闭当前标签页 ⌘ + Shift + t 重新打开最后关闭的标签页，并跳转到该标签页 ⌘ + ←(或→) 跳转到历史记录上一页（或下一页） ⌘ + 1(至9) 跳转到特定标签页，⌘ + 9 跳转到最后一个标签页 开发快捷键 快捷键 作用 ⌘ + Shift + j 打开开发者工具 ⌘ + Shift + delete 打开清除浏览数据选项 ⌘ + r 重新加载当前网页 ⌘ + Shift + r 忽略缓存重新加载当前网页 网页快捷键 快捷键 作用 ⌘ + d 将当前网页保存为书签 ⌘ + Shift + d 将所有打开的标签页以书签的形式保存在新文件夹中 ⌘ + p 打印当前网页 ⌘ + o 使用Chrome打开计算机中的文件 ⌘ + l 将光标定位到地址栏 鼠标快捷键 快捷键 作用 ⌘ + 点击链接 在新的后台标签页中打开链接 ⌘ + Shift + 点击链接 在新的后台标签页中打开链接，并跳转到该链接 ⌥ + 点击链接 下载链接目标 相关推荐阅读： 谷歌官方文档(需要科学上网)]]></content>
@@ -27,7 +40,7 @@
   <entry>
     <title><![CDATA[VS Code快捷键使用小记录]]></title>
     <url>%2F2018%2F02%2F08%2FVS-Code%E5%BF%AB%E6%8D%B7%E9%94%AE%E4%BD%BF%E7%94%A8%E5%B0%8F%E8%AE%B0%E5%BD%95%2F</url>
-    <content type="text"><![CDATA[用 VS Code 开发有一段时间了，可是还没有好好地了解过它，这两天抽空先简单了解一下 VS Code 的一些常用快捷键 需要注意到是，以下内容是王二结合自己的使用体验，着重突出的一些个快捷键。关于 Vimium 快捷键更加全面的介绍，感兴趣的同学可以参考官方文档 VS Code 的常用快捷键页面内快捷键 快捷键 作用 ⌥ + up/down 移动行上下 Shift + ⌥ + up(或者down) 在当前行上下复制当前行 ⌘ + I 选中当前行 ⌘ + Shift + K 删除当前行 ⌘ + Enter 在当前行下插入新的一行 ⌘ + Shift + Enter 在当前行上插入新的一行 ⌘ + Shift + \ 匹配花括号的闭合处，跳转 ⌥ + Z 行代码过长全都可见 ⌥ + left（或者right) 跳过单词向前或向后 ⌥ + Shift + left（或者right) 选中跳过的单词向前或向后 ⌥ + Enter 选中所有出现在查询中的,结合⌘ + F使用 多行光标同时操作快捷键 快捷键 作用 ⌥ + Click 插入光标-支持多个 ⌘ + U 撤销最后一次光标操作 ⌘ + Shift + L 选择所有出现在当前选中的词或者行 ⌘ + D 匹配当前选中的词汇或者行，再次使用这个快捷键，可以匹配到下一个这个词或者行，并可以同时修改他们 ⌘ + K + ⌘ + D 结合上一个快捷键使用，如果有一个匹配到的词或者行你想跳过它们，就可以使用这个快捷键 语言操作快捷键 快捷键 作用 Shift + ⌥ + F 格式化代码 ⌘ + K + ⌘ + F 格式化选中部分的代码 F12 跳转到定义处 ⌥ + F12 代码片段显示定义 ⌥ + K + F12 在其他窗口打开定义处 Shift + F12 显示所有引用 ⌘ + K + ⌘ + X 移除空白字符 ⌘ + K + P 复制当前文件的存放路径 ⌘ + K + R 打开当前文件的存放位置 编辑器管理快捷键 快捷键 作用 ⌘ + Shift + [（或者]） 标签页左右切换 ⌥ + ⌘ + left（或者right) (与上面快捷键的作用相同)标签页左右切换 ⌘ + W 关闭当前页面 ⌘ + Shift + W 关闭编辑器 ⌘ + \ 切割编辑窗口 ⌘ + 1(或者2、3) 在不同的编辑窗口切换 ⌘ + J 打开或关闭控制台 ⌘ + B 侧边栏显示隐藏 ⌘ + Shift+P 展示全局命令面板 ⌘ + P 快速打开最近打开的文件 ⌘ + Shift + F 打开全局搜索 文件管理快捷键 快捷键 作用 ⌘ + N 新建文件 ⌘ + Shift + S 另存为 其他 快捷键 作用 ⌘ + K + ⌘ + S 查看所有快捷方式 ⌘ + Shift + V 预览Markdown文件 ⌘ + K + v 在边栏打开Markdown渲染后的视图 相关推荐阅读： VS code官方文档’Key Bindings for Visual Studio Code’ 掘金“CRPER”的文章《VS Code折腾记 - (2) 快捷键大全，没有更全》]]></content>
+    <content type="text"><![CDATA[用 VS Code 开发有一段时间了，可是还没有好好地了解过它，这两天抽空先简单了解一下 VS Code 的一些常用快捷键 需要注意到是，以下内容是王二结合自己的使用体验，着重突出的一些个快捷键。关于 Vimium 快捷键更加全面的介绍，感兴趣的同学可以参考官方文档 VS Code 的常用快捷键页面内快捷键 快捷键 作用 ⌥ + up/down 移动行上下 Shift + ⌥ + up(或者down) 在当前行上下复制当前行 ⌘ + I 选中当前行 ⌘ + Shift + K 删除当前行 ⌘ + Enter 在当前行下插入新的一行 ⌘ + Shift + Enter 在当前行上插入新的一行 ⌘ + Shift + \ 匹配花括号的闭合处，跳转 ⌥ + Z 行代码过长全都可见 ⌥ + left（或者right) 跳过单词向前或向后 ⌥ + Shift + left（或者right) 选中跳过的单词向前或向后 ⌥ + Enter 选中所有出现在查询中的,结合⌘ + F使用 多行光标同时操作快捷键 快捷键 作用 ⌥ + Click 插入光标-支持多个 ⌘ + U 撤销最后一次光标操作 ⌘ + Shift + L 选择所有出现在当前选中的词或者行 ⌘ + D 匹配当前选中的词汇或者行，再次使用这个快捷键，可以匹配到下一个这个词或者行，并可以同时修改他们 ⌘ + K + ⌘ + D 结合上一个快捷键使用，如果有一个匹配到的词或者行你想跳过它们，就可以使用这个快捷键 语言操作快捷键 快捷键 作用 Shift + ⌥ + F 格式化代码 ⌘ + K + ⌘ + F 格式化选中部分的代码 F12 跳转到定义处 ⌥ + F12 代码片段显示定义 ⌥ + K + F12 在其他窗口打开定义处 Shift + F12 显示所有引用 ⌘ + K + ⌘ + X 移除空白字符 ⌘ + K + P 复制当前文件的存放路径 ⌘ + K + R 打开当前文件的存放位置 编辑器管理快捷键 快捷键 作用 ⌘ + Shift + [（或者]） 标签页左右切换 ⌥ + ⌘ + left（或者right) (与上面快捷键的作用相同)标签页左右切换 ⌘ + W 关闭当前页面 ⌘ + Shift + W 关闭编辑器 ⌘ + \ 切割编辑窗口 ⌘ + 1(或者2、3) 在不同的编辑窗口切换 ⌘ + J 打开或关闭控制台 ⌘ + B 侧边栏显示隐藏 ⌘ + Shift+P 展示全局命令面板 ⌘ + P 快速打开最近打开的文件 ⌘ + Shift + F 打开全局搜索 文件管理快捷键 快捷键 作用 ⌘ + N 新建文件 ⌘ + Shift + S 另存为 其他 快捷键 作用 ⌘ + K + ⌘ + S 查看所有快捷方式 ⌘ + Shift + V 预览Markdown文件 ⌘ + K + v 在边栏打开Markdown渲染后的视图 相关推荐阅读： VS code官方文档’Key Bindings for Visual Studio Code’ 掘金“CRPER”的文章《VS Code折腾记 - (2) 快捷键大全，没有更全》]]></content>
       <categories>
         <category>工具</category>
       </categories>
@@ -318,8 +331,8 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>ES6</tag>
         <tag>JS</tag>
+        <tag>ES6</tag>
       </tags>
   </entry>
   <entry>
@@ -330,8 +343,8 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>ES6</tag>
         <tag>JS</tag>
+        <tag>ES6</tag>
       </tags>
   </entry>
   <entry>
@@ -911,8 +924,8 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>ES6</tag>
         <tag>JS</tag>
+        <tag>ES6</tag>
       </tags>
   </entry>
   <entry>
