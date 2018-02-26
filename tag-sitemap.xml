@@ -170,20 +170,6 @@
     </url>
 
     <url>
-        <loc>http://yoursite.com/tags/%E5%BF%AB%E6%8D%B7%E9%94%AE/</loc>
-        <lastmod>2018-02-12T08:04:24.893Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
-        <loc>http://yoursite.com/tags/VS-Code/</loc>
-        <lastmod>2018-02-12T08:04:24.893Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>http://yoursite.com/tags/Chrome/</loc>
         <lastmod>2018-02-12T08:05:20.168Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -205,14 +191,14 @@
     </url>
 
     <url>
-        <loc>http://yoursite.com/tags/ES6/</loc>
+        <loc>http://yoursite.com/tags/JS/</loc>
         <lastmod>2018-02-13T02:41:44.881Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://yoursite.com/tags/JS/</loc>
+        <loc>http://yoursite.com/tags/ES6/</loc>
         <lastmod>2018-02-13T02:41:44.881Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
@@ -235,6 +221,20 @@
     <url>
         <loc>http://yoursite.com/tags/SCSS/</loc>
         <lastmod>2018-02-26T13:44:15.810Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://yoursite.com/tags/%E5%BF%AB%E6%8D%B7%E9%94%AE/</loc>
+        <lastmod>2018-02-26T14:33:47.383Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://yoursite.com/tags/VS-Code/</loc>
+        <lastmod>2018-02-26T14:33:47.383Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
