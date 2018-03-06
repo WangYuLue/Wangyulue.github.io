@@ -7,6 +7,14 @@
     </url>
 
     <url>
+        <loc>http://yoursite.com/2018/03/04/%E3%80%8A%E4%BA%BA%E6%83%85%E3%80%81%E9%9D%A2%E5%AD%90%E4%B8%8E%E6%9D%83%E5%88%A9%E7%9A%84%E5%86%8D%E7%94%9F%E4%BA%A7%E3%80%8B%E8%AF%BB%E5%90%8E%E6%84%9F%E4%B8%89/</loc>
+        <lastmod>2018-03-06T13:48:16.631Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
         <loc>http://yoursite.com/2018/03/01/%E3%80%8A%E4%BA%BA%E6%83%85%E3%80%81%E9%9D%A2%E5%AD%90%E4%B8%8E%E6%9D%83%E5%88%A9%E7%9A%84%E5%86%8D%E7%94%9F%E4%BA%A7%E3%80%8B%E8%AF%BB%E5%90%8E%E6%84%9F%E4%B8%80-%E4%B8%AD%E5%9B%BD%E4%BA%BA%E9%99%85%E5%85%B3%E7%B3%BB%E6%A8%A1%E5%BC%8F/</loc>
         <lastmod>2018-03-05T16:08:08.379Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -17,14 +25,6 @@
     <url>
         <loc>http://yoursite.com/2018/03/05/ajax%E5%8A%A0%E8%BD%BD%E5%8A%A8%E7%94%BB%E5%BC%B9%E5%87%BA%E7%AD%96%E7%95%A5/</loc>
         <lastmod>2018-03-05T16:05:02.247Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
-        <loc>http://yoursite.com/2018/03/04/%E3%80%8A%E4%BA%BA%E6%83%85%E3%80%81%E9%9D%A2%E5%AD%90%E4%B8%8E%E6%9D%83%E5%88%A9%E7%9A%84%E5%86%8D%E7%94%9F%E4%BA%A7%E3%80%8B%E8%AF%BB%E5%90%8E%E6%84%9F%E4%B8%89/</loc>
-        <lastmod>2018-03-05T14:28:30.458Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
 
@@ -495,7 +495,7 @@
     </url>
 
     <url>
-        <loc>http://yoursite.com/2017/10/30/python%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%E5%B0%8F%E7%BB%93%EF%BC%88%E4%BA%94%EF%BC%89/</loc>
+        <loc>http://yoursite.com/2017/10/21/python%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%E5%B0%8F%E7%BB%93%EF%BC%88%E4%BA%8C%EF%BC%89/</loc>
         <lastmod>2017-11-02T15:40:15.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -503,7 +503,7 @@
     </url>
 
     <url>
-        <loc>http://yoursite.com/2017/10/21/python%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%E5%B0%8F%E7%BB%93%EF%BC%88%E4%BA%8C%EF%BC%89/</loc>
+        <loc>http://yoursite.com/2017/10/30/python%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%E5%B0%8F%E7%BB%93%EF%BC%88%E4%BA%94%EF%BC%89/</loc>
         <lastmod>2017-11-02T15:40:15.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -591,7 +591,7 @@
     </url>
 
     <url>
-        <loc>http://yoursite.com/2017/10/10/JS%E4%B8%ADObject-defineProperty%E4%B8%8EObject-create%E7%9A%84%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%952/</loc>
+        <loc>http://yoursite.com/2017/10/10/JS%E4%B8%ADObject-defineProperty%E4%B8%8EObject-create%E7%9A%84%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/</loc>
         <lastmod>2017-10-13T06:58:57.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -599,7 +599,7 @@
     </url>
 
     <url>
-        <loc>http://yoursite.com/2017/10/10/JS%E4%B8%ADObject-defineProperty%E4%B8%8EObject-create%E7%9A%84%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/</loc>
+        <loc>http://yoursite.com/2017/10/10/JS%E4%B8%ADObject-defineProperty%E4%B8%8EObject-create%E7%9A%84%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%952/</loc>
         <lastmod>2017-10-13T06:58:57.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
