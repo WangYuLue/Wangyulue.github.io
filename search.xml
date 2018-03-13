@@ -1,6 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[Vue单页应用如何在页面刷新时保留状态数据]]></title>
+    <url>%2F2018%2F03%2F13%2FVue%E5%8D%95%E9%A1%B5%E5%BA%94%E7%94%A8%E5%A6%82%E4%BD%95%E5%9C%A8%E9%A1%B5%E9%9D%A2%E5%88%B7%E6%96%B0%E6%97%B6%E4%BF%9D%E7%95%99%E7%8A%B6%E6%80%81%E6%95%B0%E6%8D%AE%2F</url>
+    <content type="text"><![CDATA[在Vue单页应用中，如果在某一个具体路由的具体页面下点击刷新，那么刷新后，页面的状态信息可能就会丢失掉。这时候应该怎么处理呢？如果你也有次疑惑，这篇文章或许能够帮助到你 一、问题现在产品上有个需求：走到某个具体的页面，然后点击刷新后，刷新的页面要与刷新前的页面要保持一致。 这时候就需要我们保存刷新之前页面的状态。 二、一种解决方案在这个Vue单页应用中，王二是用Vuex作为状态管理的，一开始王二的思路是将Vuex里的数据同步更新到localStorage里。 即：一改变vuex里的数据,便触发localStorage.setItem 方法，参考如下代码： 123456789101112131415161718192021222324252627282930import Vue from 'vue'import Vuex from "vuex";Vue.use(Vuex)function storeLocalStore (state) &#123; window.localStorage.setItem("userMsg",JSON.stringify(state));&#125;export default new Vuex.Store(&#123; state: &#123; username: "王二", schedulename: "标题", scheduleid: 0, &#125;, mutations: &#123; storeUsername (state,name) &#123; state.username = name storeLocalStore (state) &#125;, storeSchedulename (state,name) &#123; state.schedulename = name storeLocalStore (state) &#125;, storeScheduleid (state,id) &#123; state.scheduleid = Number(id) storeLocalStore (state) &#125;, &#125;&#125;) 然后在页面加载时再从localStorage里将数据取回来放到vuex里，于是王二在 App,vue 的 created 钩子函数里写下了如下代码： 123localStorage.getItem("userMsg") &amp;&amp; this.$store.replaceState(JSON.parse(localStorage.getItem("userMsg")));//考虑到第一次加载项目时localStorage里没有userMsg的信息，所以在前面要先做判断 这样就能比较圆满的解决问题了。 三、另一种解决方案以上的解决方法由于要频繁地触发 localStorage.setItem 方法，所以对性能很不友好。而且如果一直同步vuex里的数据到localStorage里，我们直接用localStorage做状态管理好了，似乎也没有必要再用vuex。 这时候王二想，如果有什么方法能够监听到页面的刷新事件，然后在那个监听方法里将Vuex里的数据储存到localStorage里，那该多好。 很幸运，还真有这样的监听事件，我们可以用 beforeunload 来达到以上目的，于是王二在 App,vue 的 created 钩子函数里写下了如下代码： 1234567//在页面加载时读取localStorage里的状态信息localStorage.getItem("userMsg") &amp;&amp; this.$store.replaceState(JSON.parse(localStorage.getItem("userMsg")));//在页面刷新时将vuex里的信息保存到localStorage里window.addEventListener("beforeunload",()=&gt;&#123; localStorage.setItem("userMsg",JSON.stringify(this.$store.state))&#125;) 这样的话，似乎就比较完美了。]]></content>
+      <categories>
+        <category>前端备忘</category>
+      </categories>
+      <tags>
+        <tag>JS</tag>
+        <tag>易面打分端重构</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[简单实现函数去抖与函数节流]]></title>
+    <url>%2F2018%2F03%2F13%2F%E7%AE%80%E5%8D%95%E5%AE%9E%E7%8E%B0%E5%87%BD%E6%95%B0%E5%8E%BB%E6%8A%96%E4%B8%8E%E5%87%BD%E6%95%B0%E8%8A%82%E6%B5%81%2F</url>
+    <content type="text"><![CDATA[输入框里的值需要事实提交到后台，为了避免频繁发送请求，给服务端压力，王二使用了函数去抖 一、问题以下场景往往由于事件频繁被触发，因而频繁执行DOM操作、资源加载等重行为，导致UI停顿甚至浏览器崩溃。 window对象的 resize、scroll事件 拖拽时的 mousemove事件 射击游戏中的 mousedown、keydown事件 文字输入、自动完成的 keyup 事件 实际上对于 window 的 resize事件，实际需求大多为停止改变大小n毫秒后执行后续处理；而其他事件大多的需求是以一定的频率执行后续处理。针对这两种需求就出现了debounce 和 throttle 两种解决办法。 二、解决方法在函数库 underscore 里有函数去抖的实现方法，但是王二认为没有必要因此引用一个库，于是结合网上资料写了一个简单的函数去抖与函数节流的实现，参考如下代码(可以直接运行)： 1234567891011121314151617181920212223242526272829303132333435363738394041424344&lt;html&gt; &lt;input id="a" type="text"&gt; &lt;input id="b" type="text"&gt;&lt;/html&gt;&lt;script&gt; /** * 空闲控制 返回函数连续调用时，空闲时间必须大于或等于 delay，func 才会执行 * @param delay &#123;number&#125; 空闲时间，单位毫秒 * @param func &#123;function&#125; 请求关联函数，实际应用需要调用的函数 * @return &#123;function&#125; 返回客户调用函数 */ function debounce (func, delay) &#123; var timer return function (...args) &#123; timer &amp;&amp; clearTimeout(timer) timer = setTimeout(() =&gt; &#123; func.apply(this, args) &#125;, delay) &#125; &#125; /** * 频率控制 返回函数连续调用时，func 执行频率限定为 delay 毫秒一次 * @param delay &#123;number&#125; 延迟时间，单位毫秒 * @param func &#123;function&#125; 请求关联函数，实际应用需要调用的函数 * @return &#123;function&#125; 返回客户调用函数 */ function throttle (func,delay) &#123; var last = 0 return function(...args)&#123; var curr = +new Date() if (curr - last &gt; delay)&#123; func.apply(this, args) last = curr &#125; &#125; &#125; document.getElementById("a").addEventListener("input",debounce(() =&gt; &#123; console.log("函数节流") &#125;, 500)) document.getElementById("b").addEventListener("input",throttle(() =&gt; &#123; console.log("函数去抖") &#125;, 500))&lt;/script&gt; 三、参考文章“^_^肥仔John”的博客圆文章“anetin”的segmentfault文章]]></content>
+      <categories>
+        <category>前端备忘</category>
+      </categories>
+      <tags>
+        <tag>JS</tag>
+        <tag>易面打分端重构</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[《你不知道的Javascript》书中有趣的知识点一]]></title>
     <url>%2F2018%2F03%2F10%2F%E3%80%8A%E4%BD%A0%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84Javascript%E3%80%8B%E4%B9%A6%E4%B8%AD%E6%9C%89%E8%B6%A3%E7%9A%84%E7%9F%A5%E8%AF%86%E7%82%B9%2F</url>
     <content type="text"><![CDATA[最近在看《你不知道的Javascript》，里面有不少有趣的知识点，在这里做一个分享 一、LHS查询与RHS查询1、当变量出现在赋值操作的左侧时进行LHS查询，出现在右侧时进行RHS查询。 讲得更准确一点，RHS查询与简单地查找某个变量的值别无二致，而LHS查询则是试图找到变量的容器本身，从而可以对其赋值。从这个角度说，RHS并不是真正意义上的“赋值操作的右侧”，更准确地说是“非左侧”。 2、例如： 1console.log( a ); 其中对 a 的引用是一个RHS引用，因为这里 a 并没有赋予任何值。相应地，需要查找并取得 a 的值，这样才能将值传递给console.log(..)。 3、再例如： 1a = 2; 这里对 a 的引用则是LHS引用，因为实际上我们并不关心当前的值是什么，只是想要为 = 2 这个赋值操作找到一个目标。 4、LHS和RHS的含义是“赋值操作的左侧或右侧”并不一定意味着就是“=赋值操作符的左侧或右侧”。赋值操作还有其他几种形式，因此在概念上最好将其理解为“赋值操作的目标是谁（LHS）”以及“谁是赋值操作的源头（RHS）” 5、小测试，试试以下代码有几处LHS查询以及RHS查询： 12345function foo(a) &#123; var b = a; return a + b; &#125; var c = foo( 2 ); 答案是有3处LHS查询以及以及有4处RHS查询。 二、块作用域1、参考for循环的例子： 12345for (var i=0; i&lt;10; i++) &#123; console.log( i ); &#125;console.log( i ); //10 这时候在for循环内部使用（至少是应该只在内部使用）的变量i污染到整个函数作用域中了。 2、使用 let 可以避免这种情况： 1234for (let i=0; i&lt;10; i++) &#123; console.log( i ); &#125; console.log( i ); // ReferenceError 三、函数声明提升1、参考如下代码： 1234foo(); // hellofunction foo() &#123; console.log("hello")&#125;; 由于变量提升，以上函数能够正常运行。 2、再参考如下代码： 1234foo(); // 不是ReferenceError, 而是TypeError! var foo = function bar() &#123; console.log("hello")&#125;; 由于变量提升，foo在刚开始运行代码时便被申明，因此 foo() 不会导致 ReferenceError 。但是 foo 此时并没有赋值，因此抛出TypeError异常。 3、再参考如下代码： 12345foo(); // TypeError bar(); // ReferenceError var foo = function bar() &#123; console.log("hello")&#125;; 这里 bar() 报 ReferenceError 错是因为函数表达式不会被提升，即使是具名的函数表达式也是如此。 4、另外，一个普通块内部的函数声明通常会被提升到所在作用域的顶部，这个过程不会像下面的代码暗示的那样可以被条件判断所控制： 1234567foo(); // "b" var a = true; if (a) &#123; function foo() &#123; console.log("a"); &#125; &#125; else &#123; function foo() &#123; console.log("b"); &#125; &#125; 四、参考资料github’You-Dont-Know-JS’ 你不知道的Javascript(上)（中文版） 密码:x7ge]]></content>
@@ -46,8 +70,8 @@
       </categories>
       <tags>
         <tag>JS</tag>
-        <tag>vue</tag>
         <tag>易面打分端重构</tag>
+        <tag>vue</tag>
       </tags>
   </entry>
   <entry>
@@ -72,8 +96,8 @@
       </categories>
       <tags>
         <tag>JS</tag>
-        <tag>vue</tag>
         <tag>易面打分端重构</tag>
+        <tag>vue</tag>
       </tags>
   </entry>
   <entry>
@@ -174,8 +198,8 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>JS</tag>
         <tag>Chrome</tag>
+        <tag>JS</tag>
         <tag>自动化测试</tag>
       </tags>
   </entry>
@@ -861,10 +885,10 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>CSS</tag>
         <tag>前端备忘</tag>
         <tag>转载</tag>
         <tag>HTML</tag>
+        <tag>CSS</tag>
       </tags>
   </entry>
   <entry>
@@ -1137,9 +1161,9 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>CSS</tag>
         <tag>前端备忘</tag>
         <tag>HTML</tag>
+        <tag>CSS</tag>
       </tags>
   </entry>
   <entry>
