@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title><![CDATA[Vue单页应用如何在页面刷新时保留状态数据]]></title>
+    <title><![CDATA[vue单页应用如何在页面刷新时保留状态数据]]></title>
     <url>%2F2018%2F03%2F13%2FVue%E5%8D%95%E9%A1%B5%E5%BA%94%E7%94%A8%E5%A6%82%E4%BD%95%E5%9C%A8%E9%A1%B5%E9%9D%A2%E5%88%B7%E6%96%B0%E6%97%B6%E4%BF%9D%E7%95%99%E7%8A%B6%E6%80%81%E6%95%B0%E6%8D%AE%2F</url>
-    <content type="text"><![CDATA[在Vue单页应用中，如果在某一个具体路由的具体页面下点击刷新，那么刷新后，页面的状态信息可能就会丢失掉。这时候应该怎么处理呢？如果你也有次疑惑，这篇文章或许能够帮助到你 一、问题现在产品上有个需求：走到某个具体的页面，然后点击刷新后，刷新的页面要与刷新前的页面要保持一致。 这时候就需要我们保存刷新之前页面的状态。 二、一种解决方案在这个Vue单页应用中，王二是用Vuex作为状态管理的，一开始王二的思路是将Vuex里的数据同步更新到localStorage里。 即：一改变vuex里的数据,便触发localStorage.setItem 方法，参考如下代码： 123456789101112131415161718192021222324252627282930import Vue from 'vue'import Vuex from "vuex";Vue.use(Vuex)function storeLocalStore (state) &#123; window.localStorage.setItem("userMsg",JSON.stringify(state));&#125;export default new Vuex.Store(&#123; state: &#123; username: "王二", schedulename: "标题", scheduleid: 0, &#125;, mutations: &#123; storeUsername (state,name) &#123; state.username = name storeLocalStore (state) &#125;, storeSchedulename (state,name) &#123; state.schedulename = name storeLocalStore (state) &#125;, storeScheduleid (state,id) &#123; state.scheduleid = Number(id) storeLocalStore (state) &#125;, &#125;&#125;) 然后在页面加载时再从localStorage里将数据取回来放到vuex里，于是王二在 App,vue 的 created 钩子函数里写下了如下代码： 123localStorage.getItem("userMsg") &amp;&amp; this.$store.replaceState(JSON.parse(localStorage.getItem("userMsg")));//考虑到第一次加载项目时localStorage里没有userMsg的信息，所以在前面要先做判断 这样就能比较圆满的解决问题了。 三、另一种解决方案以上的解决方法由于要频繁地触发 localStorage.setItem 方法，所以对性能很不友好。而且如果一直同步vuex里的数据到localStorage里，我们直接用localStorage做状态管理好了，似乎也没有必要再用vuex。 这时候王二想，如果有什么方法能够监听到页面的刷新事件，然后在那个监听方法里将Vuex里的数据储存到localStorage里，那该多好。 很幸运，还真有这样的监听事件，我们可以用 beforeunload 来达到以上目的，于是王二在 App,vue 的 created 钩子函数里写下了如下代码： 1234567//在页面加载时读取localStorage里的状态信息localStorage.getItem("userMsg") &amp;&amp; this.$store.replaceState(JSON.parse(localStorage.getItem("userMsg")));//在页面刷新时将vuex里的信息保存到localStorage里window.addEventListener("beforeunload",()=&gt;&#123; localStorage.setItem("userMsg",JSON.stringify(this.$store.state))&#125;) 这样的话，似乎就比较完美了。]]></content>
+    <content type="text"><![CDATA[在Vue单页应用中，如果在某一个具体路由的具体页面下点击刷新，那么刷新后，页面的状态信息可能就会丢失掉。这时候应该怎么处理呢？如果你也有这个疑惑，这篇文章或许能够帮助到你 一、问题现在产品上有个需求：走到某个具体的页面，然后点击刷新后，刷新的页面要与刷新前的页面要保持一致。 这时候就需要我们保存刷新之前页面的状态。 二、一种解决方案在这个Vue单页应用中，王二是用Vuex作为状态管理的，一开始王二的思路是将Vuex里的数据同步更新到localStorage里。 即：一改变vuex里的数据,便触发localStorage.setItem 方法，参考如下代码： 123456789101112131415161718192021222324252627282930import Vue from 'vue'import Vuex from "vuex";Vue.use(Vuex)function storeLocalStore (state) &#123; window.localStorage.setItem("userMsg",JSON.stringify(state));&#125;export default new Vuex.Store(&#123; state: &#123; username: "王二", schedulename: "标题", scheduleid: 0, &#125;, mutations: &#123; storeUsername (state,name) &#123; state.username = name storeLocalStore (state) &#125;, storeSchedulename (state,name) &#123; state.schedulename = name storeLocalStore (state) &#125;, storeScheduleid (state,id) &#123; state.scheduleid = Number(id) storeLocalStore (state) &#125;, &#125;&#125;) 然后在页面加载时再从localStorage里将数据取回来放到vuex里，于是王二在 App,vue 的 created 钩子函数里写下了如下代码： 123localStorage.getItem("userMsg") &amp;&amp; this.$store.replaceState(JSON.parse(localStorage.getItem("userMsg")));//考虑到第一次加载项目时localStorage里没有userMsg的信息，所以在前面要先做判断 这样就能比较圆满的解决问题了。 三、另一种解决方案以上的解决方法由于要频繁地触发 localStorage.setItem 方法，所以对性能很不友好。而且如果一直同步vuex里的数据到localStorage里，我们直接用localStorage做状态管理好了，似乎也没有必要再用vuex。 这时候王二想，如果有什么方法能够监听到页面的刷新事件，然后在那个监听方法里将Vuex里的数据储存到localStorage里，那该多好。 很幸运，还真有这样的监听事件，我们可以用 beforeunload 来达到以上目的，于是王二在 App,vue 的 created 钩子函数里写下了如下代码： 1234567//在页面加载时读取localStorage里的状态信息localStorage.getItem("userMsg") &amp;&amp; this.$store.replaceState(JSON.parse(localStorage.getItem("userMsg")));//在页面刷新时将vuex里的信息保存到localStorage里window.addEventListener("beforeunload",()=&gt;&#123; localStorage.setItem("userMsg",JSON.stringify(this.$store.state))&#125;) 这样的话，似乎就比较完美了。]]></content>
       <categories>
         <category>前端备忘</category>
       </categories>
       <tags>
         <tag>JS</tag>
+        <tag>vue</tag>
         <tag>易面打分端重构</tag>
       </tags>
   </entry>
@@ -70,8 +71,8 @@
       </categories>
       <tags>
         <tag>JS</tag>
-        <tag>易面打分端重构</tag>
         <tag>vue</tag>
+        <tag>易面打分端重构</tag>
       </tags>
   </entry>
   <entry>
@@ -96,8 +97,8 @@
       </categories>
       <tags>
         <tag>JS</tag>
-        <tag>易面打分端重构</tag>
         <tag>vue</tag>
+        <tag>易面打分端重构</tag>
       </tags>
   </entry>
   <entry>
@@ -198,8 +199,8 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>Chrome</tag>
         <tag>JS</tag>
+        <tag>Chrome</tag>
         <tag>自动化测试</tag>
       </tags>
   </entry>
@@ -885,10 +886,10 @@
         <category>前端</category>
       </categories>
       <tags>
+        <tag>CSS</tag>
         <tag>前端备忘</tag>
         <tag>转载</tag>
         <tag>HTML</tag>
-        <tag>CSS</tag>
       </tags>
   </entry>
   <entry>
@@ -1161,9 +1162,9 @@
         <category>前端</category>
       </categories>
       <tags>
+        <tag>CSS</tag>
         <tag>前端备忘</tag>
         <tag>HTML</tag>
-        <tag>CSS</tag>
       </tags>
   </entry>
   <entry>
@@ -1198,8 +1199,8 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>博客搭建</tag>
         <tag>转载</tag>
+        <tag>博客搭建</tag>
       </tags>
   </entry>
 </search>
