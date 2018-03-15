@@ -254,15 +254,15 @@
     </url>
 
     <url>
-        <loc>http://yoursite.com/tags/ES6/</loc>
-        <lastmod>2018-03-14T15:41:46.236Z</lastmod>
+        <loc>http://yoursite.com/tags/JS/</loc>
+        <lastmod>2018-03-15T16:06:28.709Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://yoursite.com/tags/JS/</loc>
-        <lastmod>2018-03-14T16:25:21.460Z</lastmod>
+        <loc>http://yoursite.com/tags/ES6/</loc>
+        <lastmod>2018-03-15T16:06:28.709Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>

@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[理解JS中的this]]></title>
+    <url>%2F2018%2F03%2F15%2F%E7%90%86%E8%A7%A3JS%E4%B8%AD%E7%9A%84this%2F</url>
+    <content type="text"><![CDATA[今天来啃一个硬骨头，this 一、开始最近阅读《你不知道的javascript》，里面有关于 this 的详细介绍，王二受益匪浅，于是在这里做一个分享。 关于JS中的 this 到底是什么，知乎中轮子哥这样说到： this 在js的函数里面只是一个参数，是通过 Fuck.Shit(Bitches) 这种语法来传递的，点号前面的表达式就算 this。 轮子哥说的没错，通常来说，想要确定 this 就是寻找“函数被调用的位置”，但是这做起来并没有这么简单，因为某些编程模式可能会隐藏真正的调用位置。 划分到具体，js中有四条绑定规则来确定 this 的绑定对象。 二、四条绑定规则假设我们已经找到函数的被调用位置，我们还要确定用下面四条绑定规则中的哪一条，来确定 this 的绑定对象。在这里，王二首先会分别解释这四条规则，然后解释多条规则都可用时它们的优先级如何排列。 第一条规则：默认绑定1、默认绑定下 this 会指向全局对象 12345function foo() &#123; console.log( this.a ); &#125; var a = 2; foo(); // 2 2、但是如果使用严格模式（strict mode），那么全局对象将无法使用默认绑定，this 会绑定到 undefined,因此以上的代码会报错： 123456"use strict";function foo() &#123; console.log( this.a ); &#125; var a = 2; foo(); // TypeError: this is undefined 3、但是如果我们显式地用 window 调用 foo 函数，则以上代码不会报错： 123456"use strict";function foo() &#123; console.log( this.a ); &#125; var a = 2; window.foo(); // 2 这是因为我们应用了第二条规则——隐式绑定 第二条规则：隐式绑定如果一个函数中有 this ，这个函数有被上一级的对象所调用，那么 this 指向的就是上一级的对象；this 是在运行时被确定，而不是在定义时被确定。 1、参考如下代码： 12345678function foo() &#123; console.log( this.a ); &#125; var obj = &#123; a: 2, foo: foo &#125;;obj.foo(); // 2 2、this 指向的是被调用方法的上一级对象，而不是它的最外层对象， 参考如下代码： 123456789101112function foo() &#123; console.log( this.a ); &#125; var obj2 = &#123; a: 22, foo: foo &#125;; var obj1 = &#123; a: 12, obj2: obj2 &#125;; obj1.obj2.foo(); // 22 3、this 是在运行时被确定，而不是在定义时被确定， 参考如下代码： 12345678910function foo() &#123; console.log( this.a ); &#125; var obj = &#123; a: 2, foo: foo &#125;; var bar = obj.foo; // 函数别名！ var a = "oops, global"; // a是全局对象的属性bar(); // "oops, global" 4、在方法的参数中传入函数时也需要特别注意，传入函数的 this 也指向其方法被调用的上一级对象 参考如下代码： 123456789101112function foo() &#123; console.log( this.a ); &#125;function doFoo(fn) &#123; // fn其实引用的是foo fn(); // &lt;-- 调用位置！ &#125; var obj = &#123; a: 2, foo: foo &#125;; var a = "oops, global"; // a是全局对象的属性doFoo( obj.foo ); // "oops, global" 再例如： 123456789function foo() &#123; console.log( this.a ); &#125; var obj = &#123; a: 2, foo: foo &#125;; var a = "oops, global"; // a是全局对象的属性setTimeout( obj.foo, 100 ); // "oops, global" 在上面的的代码片段中，有时候我们就想打印 obj 中的 a 属性，这时候我们应该怎么修改呢？ 这就需要我们应用第三条规则——显式绑定 第三条规则：显式绑定以上的代码可以如下修改来访问到 obj 中的 a 属性： 123456789function foo() &#123; console.log( this.a ); &#125; var obj = &#123; a: 2, foo: foo &#125;; var a = "oops, global"; // a是全局对象的属性setTimeout( obj.foo.bind(obj), 100 ); // 2 这个代码片段中用了 bind（） 方法来显式修改 this 的指向，与 bind（） 方法有类似功能的还有 call（） 方法和 apply（） 方法，他们都可以改变 this的指向； 但是它们之间也有重要的区别：bind（） 是返回对应函数，便于稍后调用；call（） 、apply（） 则是立即调用 。关于这三个方法更详细的介绍，感兴趣的同学可以参考王二之前写过的一篇文章——JS中apply、call、bind的用法 第四条规则：new绑定参考如下代码： 12345function foo(a) &#123; this.a = a; &#125; var bar = new foo(2);console.log( bar.a ); // 2 使用 new 来调用函数，或者说发生构造函数调用时，会自动执行下面的操作。 创建（或者说构造）一个全新的对象。 这个新对象会被执行[[原型]]连接。 这个新对象会绑定到函数调用的 this 上。 如果函数没有返回其他对象，那么 new 表达式中的函数调用会自动返回这个新对象。 其中第二步操作，王二这里暂不讨论。 更具第一步和第三部操作，我们可以知道使用 new 来调用 foo(..) 时，我们会构造一个新对象并把它绑定到 foo(..) 调用中的 this 上。 关于第四步操作，我们需要额外注意，王二接下来提供一些示例代码以供参考（此代码来自‘追梦子’的博客）： 示例代码一: 1234567function fn() &#123; this.user = '追梦子'; return &#123;&#125;; &#125;var a = new fn; console.log(a.user); //undefined 示例代码二: 1234567function fn() &#123; this.user = '追梦子'; return function()&#123;&#125;;&#125;var a = new fn; console.log(a.user); //undefined 示例代码三: 1234567function fn() &#123; this.user = '追梦子'; return 1;&#125;var a = new fn; console.log(a.user); //追梦子 示例代码四: 1234567function fn() &#123; this.user = '追梦子'; return undefined;&#125;var a = new fn; console.log(a.user); //追梦子 也就是说：如果返回值是一个对象，那么 this 指向的就是那个返回的对象，如果返回值不是一个对象那么 this 还是指向函数的实例。 三、四条绑定规则的优先级现在我们可以根据优先级来判断函数在某个调用位置应用的是哪条规则。可以按照下面的顺序来进行判断： 1、 函数是否在 new 中调用（new绑定）？如果是的话this绑定的是新创建的对象。 1var bar = new foo() 2、 函数是否通过 call、apply、bind（显式绑定）调用？如果是的话，this 绑定的是指定的对象。 1var bar = foo.call(obj) 3、函数是否在某个上下文对象中调用（隐式绑定）？如果是的话，this 绑定的是那个上下文对象。 1var bar = obj.foo() 4、如果都不是的话，使用默认绑定。如果在严格模式下，就绑定到 undefined ，否则绑定到全局对象。 1var bar = foo() 四、箭头函数里的this箭头函数不使用 this 的四种标准规则，而是根据外层（函数或者全局）作用域来决定 this 。 参考如下代码： 12345678910111213function foo() &#123; // 返回一个箭头函数 return () =&gt; &#123; //this继承自foo() console.log( this.a ); &#125;&#125; var obj1 = &#123; a:2 &#125;; var obj2 = &#123; a:3 &#125;; var bar = foo.call( obj1 ); bar.call( obj2 ); // 2, 不是3！ 如果将箭头函数换为普通函数，则打印的是3: 12345678910111213function foo() &#123; return function () &#123; console.log( this.a ); &#125;&#125; var obj1 = &#123; a:2 &#125;; var obj2 = &#123; a:3 &#125;; var bar = foo.call( obj1 ); bar.call( obj2 ); // 3 五、参考阅读你不知道的Javascript(上)（中文版） 密码:x7ge “追梦子”的博客 知乎关于this的问题]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>JS</tag>
+        <tag>ES6</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[JS解出最近比较火的刑侦推理题]]></title>
     <url>%2F2018%2F03%2F15%2FJS%E8%A7%A3%E5%87%BA%E6%9C%80%E8%BF%91%E6%AF%94%E8%BE%83%E7%81%AB%E7%9A%84%E5%88%91%E4%BE%A6%E6%8E%A8%E7%90%86%E9%A2%98%2F</url>
     <content type="text"><![CDATA[晚上闲着无聊，来做一做最近比较火的刑侦推理题 最近网上出了一个比较火的刑侦推理题，王二比较感兴趣，于是抽空做了做。 一、推理题如下 二、遇到的问题刚开始，王二写下了如下代码： 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108109110111112113114115116117118119120121122123124125126127128129130131132133134135136137138139140141142143144145146147148149150151152153154155156157158159160161162163164165166167168169170171172173174175176177178179180181182183184185186187188189190191192193194195196197198199&lt;script&gt; var arr = new Array(10).fill("A"); recursion(); function a1 ()&#123; return true; &#125; function a2 ()&#123; switch(arr[1]) &#123; case "A": return arr[4] === "C" case "B": return arr[4] === "D" case "C": return arr[4] === "A" case "D": return arr[4] === "B" default: return false; &#125; &#125; function a3 ()&#123; switch(arr[2]) &#123; case "A": return arr[5] === arr[1] &amp;&amp; arr[5] === arr[3] case "B": return arr[2] === arr[1] &amp;&amp; arr[2] === arr[3] case "C": return arr[5] === arr[2] &amp;&amp; arr[5] === arr[3] case "D": return arr[5] === arr[1] &amp;&amp; arr[5] === arr[2] default: return false; &#125; &#125; function a4 ()&#123; var f1 = arr[0] === arr[4] , f2 = arr[1] === arr[6] , f3 = arr[0] === arr[8] , f4 = arr[5] === arr[9] ; switch(arr[3]) &#123; case "A": return f1 &amp;&amp; !f2 &amp;&amp; !f3 &amp;&amp; !f4 case "B": return !f1 &amp;&amp; f2 &amp;&amp; !f3 &amp;&amp; !f4 case "C": return !f1 &amp;&amp; !f2 &amp;&amp; f3 &amp;&amp; !f4 case "D": return !f1 &amp;&amp; !f2 &amp;&amp; !f3 &amp;&amp; f4 default: return false; &#125; &#125; function a5 ()&#123; switch(arr[4]) &#123; case "A": return arr[7] === "A" case "B": return arr[3] === "B" case "C": return arr[8] === "C" case "D": return arr[6] === "D" default: return false; &#125; &#125; function a6 ()&#123; var f1 = arr[7] === arr[1] &amp;&amp; arr[7] === arr[3] , f2 = arr[7] === arr[0] &amp;&amp; arr[7] === arr[5] , f3 = arr[7] === arr[2] &amp;&amp; arr[7] === arr[9] , f4 = arr[7] === arr[4] &amp;&amp; arr[7] === arr[8] ; switch(arr[5]) &#123; case "A": return f1 &amp;&amp; !f2 &amp;&amp; !f3 &amp;&amp; !f4 case "B": return !f1 &amp;&amp; f2 &amp;&amp; !f3 &amp;&amp; !f4 case "C": return !f1 &amp;&amp; !f2 &amp;&amp; f3 &amp;&amp; !f4 case "D": return !f1 &amp;&amp; !f2 &amp;&amp; !f3 &amp;&amp; f4 default: return false; &#125; &#125; function a7 ()&#123; var c1 = arr.filter((i)=&gt;&#123;return i === "A"&#125;).length , c2 = arr.filter((i)=&gt;&#123;return i === "B"&#125;).length , c3 = arr.filter((i)=&gt;&#123;return i === "C"&#125;).length , c4 = arr.filter((i)=&gt;&#123;return i === "D"&#125;).length ; switch(arr[6]) &#123; case "A": return Math.min(c1,c2,c3,c4) === c3 case "B": return Math.min(c1,c2,c3,c4) === c2 case "C": return Math.min(c1,c2,c3,c4) === c1 case "D": return Math.min(c1,c2,c3,c4) === c4 default: return false; &#125; &#125; function a8 ()&#123; switch(arr[7]) &#123; case "A": return Math.abs(arr[0].charCodeAt(0) - arr[6].charCodeAt(0))&gt;=2 case "B": return Math.abs(arr[0].charCodeAt(0) - arr[4].charCodeAt(0))&gt;=2 case "C": return Math.abs(arr[0].charCodeAt(0) - arr[1].charCodeAt(0))&gt;=2 case "D": return Math.abs(arr[0].charCodeAt(0) - arr[9].charCodeAt(0))&gt;=2 default: return false; &#125; &#125; function a9 ()&#123; var flag = arr[0] === arr[5], f1 = (arr[4] === arr[5]) === !flag , f2 = (arr[4] === arr[9]) === !flag , f3 = (arr[4] === arr[1]) === !flag , f4 = (arr[4] === arr[8]) === !flag ; switch(arr[8]) &#123; case "A": return f1 &amp;&amp; !f2 &amp;&amp; !f3 &amp;&amp; !f4 case "B": return !f1 &amp;&amp; f2 &amp;&amp; !f3 &amp;&amp; !f4 case "C": return !f1 &amp;&amp; !f2 &amp;&amp; f3 &amp;&amp; !f4 case "D": return !f1 &amp;&amp; !f2 &amp;&amp; !f3 &amp;&amp; f4 default: return false; &#125; &#125; function a10 ()&#123; var c1 = arr.filter((i)=&gt;&#123;return i === "A"&#125;).length , c2 = arr.filter((i)=&gt;&#123;return i === "B"&#125;).length , c3 = arr.filter((i)=&gt;&#123;return i === "C"&#125;).length , c4 = arr.filter((i)=&gt;&#123;return i === "D"&#125;).length ; switch(arr[9]) &#123; case "A": return Math.max(c1,c2,c3,c4) - Math.min(c1,c2,c3,c4) === 3 case "B": return Math.max(c1,c2,c3,c4) - Math.min(c1,c2,c3,c4) === 2 case "C": return Math.max(c1,c2,c3,c4) - Math.min(c1,c2,c3,c4) === 4 case "D": return Math.max(c1,c2,c3,c4) - Math.min(c1,c2,c3,c4) === 1 default: return false; &#125; &#125; function vali () &#123; return a1() &amp;&amp; a2() &amp;&amp; a3() &amp;&amp; a4() &amp;&amp; a5() &amp;&amp; a6() &amp;&amp; a7() &amp;&amp; a8() &amp;&amp; a9() &amp;&amp; a10() ; &#125; //递归遍历arr的所有排列组合 function recursion ()&#123; if(vali())&#123; console.log(arr); &#125; for(var x=0 ; x&lt;arr.length ; x++)&#123; switch(arr[x]) &#123; case "A": arr[x] = "B" ; recursion () ; return ; case "B": arr[x] = "C" recursion () ; return ; case "C": arr[x] = "D" ; recursion () ; return ; case "D": if(x===9) return ; arr[x] = "A" ; continue ; default: return ; &#125; &#125; &#125;&lt;/script&gt; 以上的代码逻辑上没有问题，但是还是报了个错——栈溢出 虽然王二也试着用尾递归优化来尝试解决问题，但依然报错 三、解决方法后来王二躺床上又寻思怎么才能解决这恶心的报错，然后想到try catch 可以捕获错误，或许我们能递归调用 try catch 来解决这个问题。按照这个思路王二又在代码片段中添加了如下的代码： 12345678910111213var flag = true ;function run () &#123; try &#123; if(flag)&#123; flag = false ; recursion() ; &#125; &#125; catch (err) &#123; flag = true; run(); &#125;&#125; 意思是如果栈溢出报错，则在 catch 再次调用 run() 方法 ，直到它不报错为止，不报错也就意味着arr数组所有排列组合的可能性都被遍历完了。 执行后，还真他娘的起作用了。 完整的代码片段如下所示（可以拷贝下来尝试运行）： 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108109110111112113114115116117118119120121122123124125126127128129130131132133134135136137138139140141142143144145146147148149150151152153154155156157158159160161162163164165166167168169170171172173174175176177178179180181182183184185186187188189190191192193194195196197198199200201202203204205206207208209210211212&lt;script&gt; var arr = new Array(10).fill("A"); var flag = true ; run(); // ["B", "C", "A", "C", "A", "C", "D", "A", "B", "A"] function run () &#123; try &#123; if(flag)&#123; flag = false ; recursion() ; &#125; &#125; catch (err) &#123; flag = true; run(); &#125; &#125; function a1 ()&#123; return true; &#125; function a2 ()&#123; switch(arr[1]) &#123; case "A": return arr[4] === "C" case "B": return arr[4] === "D" case "C": return arr[4] === "A" case "D": return arr[4] === "B" default: return false; &#125; &#125; function a3 ()&#123; switch(arr[2]) &#123; case "A": return arr[5] === arr[1] &amp;&amp; arr[5] === arr[3] case "B": return arr[2] === arr[1] &amp;&amp; arr[2] === arr[3] case "C": return arr[5] === arr[2] &amp;&amp; arr[5] === arr[3] case "D": return arr[5] === arr[1] &amp;&amp; arr[5] === arr[2] default: return false; &#125; &#125; function a4 ()&#123; var f1 = arr[0] === arr[4] , f2 = arr[1] === arr[6] , f3 = arr[0] === arr[8] , f4 = arr[5] === arr[9] ; switch(arr[3]) &#123; case "A": return f1 &amp;&amp; !f2 &amp;&amp; !f3 &amp;&amp; !f4 case "B": return !f1 &amp;&amp; f2 &amp;&amp; !f3 &amp;&amp; !f4 case "C": return !f1 &amp;&amp; !f2 &amp;&amp; f3 &amp;&amp; !f4 case "D": return !f1 &amp;&amp; !f2 &amp;&amp; !f3 &amp;&amp; f4 default: return false; &#125; &#125; function a5 ()&#123; switch(arr[4]) &#123; case "A": return arr[7] === "A" case "B": return arr[3] === "B" case "C": return arr[8] === "C" case "D": return arr[6] === "D" default: return false; &#125; &#125; function a6 ()&#123; var f1 = arr[7] === arr[1] &amp;&amp; arr[7] === arr[3] , f2 = arr[7] === arr[0] &amp;&amp; arr[7] === arr[5] , f3 = arr[7] === arr[2] &amp;&amp; arr[7] === arr[9] , f4 = arr[7] === arr[4] &amp;&amp; arr[7] === arr[8] ; switch(arr[5]) &#123; case "A": return f1 &amp;&amp; !f2 &amp;&amp; !f3 &amp;&amp; !f4 case "B": return !f1 &amp;&amp; f2 &amp;&amp; !f3 &amp;&amp; !f4 case "C": return !f1 &amp;&amp; !f2 &amp;&amp; f3 &amp;&amp; !f4 case "D": return !f1 &amp;&amp; !f2 &amp;&amp; !f3 &amp;&amp; f4 default: return false; &#125; &#125; function a7 ()&#123; var c1 = arr.filter((i)=&gt;&#123;return i === "A"&#125;).length , c2 = arr.filter((i)=&gt;&#123;return i === "B"&#125;).length , c3 = arr.filter((i)=&gt;&#123;return i === "C"&#125;).length , c4 = arr.filter((i)=&gt;&#123;return i === "D"&#125;).length ; switch(arr[6]) &#123; case "A": return Math.min(c1,c2,c3,c4) === c3 case "B": return Math.min(c1,c2,c3,c4) === c2 case "C": return Math.min(c1,c2,c3,c4) === c1 case "D": return Math.min(c1,c2,c3,c4) === c4 default: return false; &#125; &#125; function a8 ()&#123; switch(arr[7]) &#123; case "A": return Math.abs(arr[0].charCodeAt(0) - arr[6].charCodeAt(0))&gt;=2 case "B": return Math.abs(arr[0].charCodeAt(0) - arr[4].charCodeAt(0))&gt;=2 case "C": return Math.abs(arr[0].charCodeAt(0) - arr[1].charCodeAt(0))&gt;=2 case "D": return Math.abs(arr[0].charCodeAt(0) - arr[9].charCodeAt(0))&gt;=2 default: return false; &#125; &#125; function a9 ()&#123; var flag = arr[0] === arr[5], f1 = (arr[4] === arr[5]) === !flag , f2 = (arr[4] === arr[9]) === !flag , f3 = (arr[4] === arr[1]) === !flag , f4 = (arr[4] === arr[8]) === !flag ; switch(arr[8]) &#123; case "A": return f1 &amp;&amp; !f2 &amp;&amp; !f3 &amp;&amp; !f4 case "B": return !f1 &amp;&amp; f2 &amp;&amp; !f3 &amp;&amp; !f4 case "C": return !f1 &amp;&amp; !f2 &amp;&amp; f3 &amp;&amp; !f4 case "D": return !f1 &amp;&amp; !f2 &amp;&amp; !f3 &amp;&amp; f4 default: return false; &#125; &#125; function a10 ()&#123; var c1 = arr.filter((i)=&gt;&#123;return i === "A"&#125;).length , c2 = arr.filter((i)=&gt;&#123;return i === "B"&#125;).length , c3 = arr.filter((i)=&gt;&#123;return i === "C"&#125;).length , c4 = arr.filter((i)=&gt;&#123;return i === "D"&#125;).length ; switch(arr[9]) &#123; case "A": return Math.max(c1,c2,c3,c4) - Math.min(c1,c2,c3,c4) === 3 case "B": return Math.max(c1,c2,c3,c4) - Math.min(c1,c2,c3,c4) === 2 case "C": return Math.max(c1,c2,c3,c4) - Math.min(c1,c2,c3,c4) === 4 case "D": return Math.max(c1,c2,c3,c4) - Math.min(c1,c2,c3,c4) === 1 default: return false; &#125; &#125; function vali () &#123; return a1() &amp;&amp; a2() &amp;&amp; a3() &amp;&amp; a4() &amp;&amp; a5() &amp;&amp; a6() &amp;&amp; a7() &amp;&amp; a8() &amp;&amp; a9() &amp;&amp; a10() ; &#125; //递归遍历arr的所有排列组合 function recursion ()&#123; if(vali())&#123; console.log(arr); &#125; for(var x=0 ; x&lt;arr.length ; x++)&#123; switch(arr[x]) &#123; case "A": arr[x] = "B" ; recursion () ; return ; case "B": arr[x] = "C" recursion () ; return ; case "C": arr[x] = "D" ; recursion () ; return ; case "D": if(x===9) return ; arr[x] = "A" ; continue ; default: return ; &#125; &#125; &#125;&lt;/script&gt; 这样的写话栈溢出的问题似乎就比较完美的被解决了。]]></content>
@@ -8,18 +20,6 @@
         <category>算法</category>
       </categories>
       <tags>
-        <tag>JS</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[理解JS中的this]]></title>
-    <url>%2F2018%2F03%2F13%2F%E7%90%86%E8%A7%A3JS%E4%B8%AD%E7%9A%84this%2F</url>
-    <content type="text"><![CDATA[今天来啃一个硬骨头，this 未完待续。。。]]></content>
-      <categories>
-        <category>前端</category>
-      </categories>
-      <tags>
-        <tag>ES6</tag>
         <tag>JS</tag>
       </tags>
   </entry>
@@ -199,8 +199,8 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>ES6</tag>
         <tag>JS</tag>
+        <tag>ES6</tag>
       </tags>
   </entry>
   <entry>
@@ -222,8 +222,8 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>Chrome</tag>
         <tag>JS</tag>
+        <tag>Chrome</tag>
         <tag>自动化测试</tag>
       </tags>
   </entry>
@@ -545,8 +545,8 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>ES6</tag>
         <tag>JS</tag>
+        <tag>ES6</tag>
       </tags>
   </entry>
   <entry>
@@ -557,8 +557,8 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>ES6</tag>
         <tag>JS</tag>
+        <tag>ES6</tag>
       </tags>
   </entry>
   <entry>
@@ -1138,8 +1138,8 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>ES6</tag>
         <tag>JS</tag>
+        <tag>ES6</tag>
       </tags>
   </entry>
   <entry>
