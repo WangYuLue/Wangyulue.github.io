@@ -100,18 +100,18 @@
 
 
 
-<meta name="description" content="最近要画一个页面，需要设置父盒子有透明度，但是子盒子没有透明度，王二之前遇到过类似的因此遇到了点麻烦   王二一开始是类似下面这样写的： 1234div.father&amp;#123;    background-color: black;    opacity: 0.75;&amp;#125; 但是这样写的话,子元素会受到父元素 opacity 的影响，也会有0.5的透明度。这时候哪怕子元素的 opacity">
+<meta name="description" content="最近要画一个页面，需要设置父盒子有透明度，但是子盒子没有透明度，王二之前遇到过类似的因此遇到了点麻烦">
 <meta name="keywords" content="JS">
 <meta property="og:type" content="article">
 <meta property="og:title" content="如何设置父元素透明度但不影响子元素透明度">
 <meta property="og:url" content="http://yoursite.com/2018/04/02/如何设置父元素透明度但不影响子元素透明度/index.html">
 <meta property="og:site_name" content="王玉略的个人网站">
-<meta property="og:description" content="最近要画一个页面，需要设置父盒子有透明度，但是子盒子没有透明度，王二之前遇到过类似的因此遇到了点麻烦   王二一开始是类似下面这样写的： 1234div.father&amp;#123;    background-color: black;    opacity: 0.75;&amp;#125; 但是这样写的话,子元素会受到父元素 opacity 的影响，也会有0.5的透明度。这时候哪怕子元素的 opacity">
+<meta property="og:description" content="最近要画一个页面，需要设置父盒子有透明度，但是子盒子没有透明度，王二之前遇到过类似的因此遇到了点麻烦">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-02T14:33:00.291Z">
+<meta property="og:updated_time" content="2018-04-06T08:20:39.167Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="如何设置父元素透明度但不影响子元素透明度">
-<meta name="twitter:description" content="最近要画一个页面，需要设置父盒子有透明度，但是子盒子没有透明度，王二之前遇到过类似的因此遇到了点麻烦   王二一开始是类似下面这样写的： 1234div.father&amp;#123;    background-color: black;    opacity: 0.75;&amp;#125; 但是这样写的话,子元素会受到父元素 opacity 的影响，也会有0.5的透明度。这时候哪怕子元素的 opacity">
+<meta name="twitter:description" content="最近要画一个页面，需要设置父盒子有透明度，但是子盒子没有透明度，王二之前遇到过类似的因此遇到了点麻烦">
 
 
 
@@ -473,6 +473,7 @@
       
         <blockquote class="blockquote-center"><p>最近要画一个页面，需要设置父盒子有透明度，但是子盒子没有透明度，王二之前遇到过类似的因此遇到了点麻烦 </p>
 </blockquote>
+<a id="more"></a>
 <p>王二一开始是类似下面这样写的：</p>
 <figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">div</span><span class="selector-class">.father</span>&#123;</div><div class="line">    <span class="attribute">background-color</span>: black;</div><div class="line">    <span class="attribute">opacity</span>: <span class="number">0.75</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>但是这样写的话,子元素会受到父元素 <code>opacity</code> 的影响，也会有0.5的透明度。这时候哪怕子元素的 <code>opacity</code> 设置为一也没有用，因为子元素的 <code>opacity:1</code> 也是在父元素的 <code>opacity:0.5</code> 的基础上设置的，因此子元素的 <code>opacity</code> 还是0.5。</p>

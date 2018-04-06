@@ -100,18 +100,18 @@
 
 
 
-<meta name="description" content="最先项目上要实现点击一个按钮要复制一段内容到粘贴板上的功能，之前没有做过，上网查查浏览器还真有这样的API,以下做一个备忘   12345678910&amp;lt;script type=&quot;text/javascript&quot;&amp;gt;    function copyUrl()    &amp;#123;    var Url2=document.getElementById(&quot;biao&quot;);    Url2.se">
+<meta name="description" content="最先项目上要实现点击一个按钮要复制一段内容到粘贴板上的功能，之前没有做过，上网查查浏览器还真有这样的API,以下做一个备忘">
 <meta name="keywords" content="JS">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JS实现复制到粘贴板">
 <meta property="og:url" content="http://yoursite.com/2018/04/02/JS实现复制到粘贴板/index.html">
 <meta property="og:site_name" content="王玉略的个人网站">
-<meta property="og:description" content="最先项目上要实现点击一个按钮要复制一段内容到粘贴板上的功能，之前没有做过，上网查查浏览器还真有这样的API,以下做一个备忘   12345678910&amp;lt;script type=&quot;text/javascript&quot;&amp;gt;    function copyUrl()    &amp;#123;    var Url2=document.getElementById(&quot;biao&quot;);    Url2.se">
+<meta property="og:description" content="最先项目上要实现点击一个按钮要复制一段内容到粘贴板上的功能，之前没有做过，上网查查浏览器还真有这样的API,以下做一个备忘">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-02T14:33:00.287Z">
+<meta property="og:updated_time" content="2018-04-06T08:20:33.758Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JS实现复制到粘贴板">
-<meta name="twitter:description" content="最先项目上要实现点击一个按钮要复制一段内容到粘贴板上的功能，之前没有做过，上网查查浏览器还真有这样的API,以下做一个备忘   12345678910&amp;lt;script type=&quot;text/javascript&quot;&amp;gt;    function copyUrl()    &amp;#123;    var Url2=document.getElementById(&quot;biao&quot;);    Url2.se">
+<meta name="twitter:description" content="最先项目上要实现点击一个按钮要复制一段内容到粘贴板上的功能，之前没有做过，上网查查浏览器还真有这样的API,以下做一个备忘">
 
 
 
@@ -473,6 +473,7 @@
       
         <blockquote class="blockquote-center"><p>最先项目上要实现点击一个按钮要复制一段内容到粘贴板上的功能，之前没有做过，上网查查浏览器还真有这样的API,以下做一个备忘 </p>
 </blockquote>
+<a id="more"></a>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="undefined"></span></div><div class="line"><span class="javascript">    <span class="function"><span class="keyword">function</span> <span class="title">copyUrl</span>(<span class="params"></span>)</span></span></div><div class="line"><span class="undefined">    &#123;</span></div><div class="line"><span class="javascript">    <span class="keyword">var</span> Url2=<span class="built_in">document</span>.getElementById(<span class="string">"biao"</span>);</span></div><div class="line"><span class="javascript">    Url2.select(); <span class="comment">// 选择对象</span></span></div><div class="line"><span class="javascript">    <span class="built_in">document</span>.execCommand(<span class="string">"Copy"</span>); <span class="comment">// 执行浏览器复制命令</span></span></div><div class="line"><span class="undefined">    &#125;</span></div><div class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">textarea</span> <span class="attr">cols</span>=<span class="string">"20"</span> <span class="attr">rows</span>=<span class="string">"10"</span> <span class="attr">id</span>=<span class="string">"biao"</span>&gt;</span>用户定义的代码区域<span class="tag">&lt;/<span class="name">textarea</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">onClick</span>=<span class="string">"copyUrl()"</span> <span class="attr">value</span>=<span class="string">"点击复制代码"</span> /&gt;</span></div></pre></td></tr></table></figure>
 
       

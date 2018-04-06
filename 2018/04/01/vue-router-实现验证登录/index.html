@@ -100,18 +100,18 @@
 
 
 
-<meta name="description" content="最近改版的项目上有一个需求，如果用户没有登录，则不能跳转到除登录页外的其他页面   刚开始王二打算用 vue-router 的全局前置守卫来判断是否允许用户跳转，如下： 12345const router = new VueRouter(&amp;#123; ... &amp;#125;)router.beforeEach((to, from, next) =&amp;gt; &amp;#123;  // ...&amp;#125;)">
+<meta name="description" content="最近改版的项目上有一个需求，如果用户没有登录，则不能跳转到除登录页外的其他页面">
 <meta name="keywords" content="JS,vue">
 <meta property="og:type" content="article">
 <meta property="og:title" content="vue-router 实现验证登录">
 <meta property="og:url" content="http://yoursite.com/2018/04/01/vue-router-实现验证登录/index.html">
 <meta property="og:site_name" content="王玉略的个人网站">
-<meta property="og:description" content="最近改版的项目上有一个需求，如果用户没有登录，则不能跳转到除登录页外的其他页面   刚开始王二打算用 vue-router 的全局前置守卫来判断是否允许用户跳转，如下： 12345const router = new VueRouter(&amp;#123; ... &amp;#125;)router.beforeEach((to, from, next) =&amp;gt; &amp;#123;  // ...&amp;#125;)">
+<meta property="og:description" content="最近改版的项目上有一个需求，如果用户没有登录，则不能跳转到除登录页外的其他页面">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-02T14:33:00.291Z">
+<meta property="og:updated_time" content="2018-04-06T08:20:24.886Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="vue-router 实现验证登录">
-<meta name="twitter:description" content="最近改版的项目上有一个需求，如果用户没有登录，则不能跳转到除登录页外的其他页面   刚开始王二打算用 vue-router 的全局前置守卫来判断是否允许用户跳转，如下： 12345const router = new VueRouter(&amp;#123; ... &amp;#125;)router.beforeEach((to, from, next) =&amp;gt; &amp;#123;  // ...&amp;#125;)">
+<meta name="twitter:description" content="最近改版的项目上有一个需求，如果用户没有登录，则不能跳转到除登录页外的其他页面">
 
 
 
@@ -473,6 +473,7 @@
       
         <blockquote class="blockquote-center"><p>最近改版的项目上有一个需求，如果用户没有登录，则不能跳转到除登录页外的其他页面 </p>
 </blockquote>
+<a id="more"></a>
 <p>刚开始王二打算用 <code>vue-router</code> 的全局前置守卫来判断是否允许用户跳转，如下：</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> router = <span class="keyword">new</span> VueRouter(&#123; ... &#125;)</div><div class="line"></div><div class="line">router.beforeEach(<span class="function">(<span class="params">to, <span class="keyword">from</span>, next</span>) =&gt;</span> &#123;</div><div class="line">  <span class="comment">// ...</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
 <p>但用全局前置守卫需要进行很多判断，处理不好还很容易导致递归调用，王二调试了很长时间都没有处理好，很是苦恼。</p>
