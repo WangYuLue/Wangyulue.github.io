@@ -1,6 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[vue生产环境清除打印]]></title>
+    <url>%2F2018%2F04%2F09%2Fvue%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83%E6%B8%85%E9%99%A4%E6%89%93%E5%8D%B0%2F</url>
+    <content type="text"><![CDATA[在生产环境显示打印很不好，而且会影响性能，那怎么去除生产环境的打印呢？王二这里有两个方法，感兴趣的同学可以进来看看 第一种方法我们可以直接在 src/main.js 里添加如下代码：1234window.log = console.log;if (process.env.NODE_ENV === 'production') &#123; window.log = ()=&gt;&#123;&#125;;&#125; 它会判断当前环境是开发环境还是生产环境，如果是生产环境，则将window.log 赋值给一个空函数。 需要注意的是，为了不影响生产环境原生window.console.log的使用，所以这里定义了一个window.log方法用来打印，所以以后代码里的打印用 log 而不是用 console.log。 第二种方法第二种方法则更加简单，其实在vue的手脚架中可以添加相应的配置项， 在 build/webpack.config.js 的 plugins 的 UglifyJsPlugin 里面添加如下配置项： 123456new webpack.optimize.UglifyJsPlugin(&#123; compress:&#123; warnings: false, drop_console: true //添加这行配置项 &#125;&#125;) 问题就被顺利搞定了]]></content>
+      <categories>
+        <category>前端备忘</category>
+      </categories>
+      <tags>
+        <tag>JS</tag>
+        <tag>vue</tag>
+        <tag>易面打分端重构</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[小记一个简单的样式布局]]></title>
+    <url>%2F2018%2F04%2F08%2F%E5%B0%8F%E8%AE%B0%E4%B8%80%E4%B8%AA%E7%AE%80%E5%8D%95%E7%9A%84%E6%A0%B7%E5%BC%8F%E5%B8%83%E5%B1%80%2F</url>
+    <content type="text"><![CDATA[开发中遇到一个样式布局，值得留意，王二在这里小计一下 以下代码的效果是：在一行中，一块的宽度是固定的，剩下的一块的内部是滑动的； 代码如下： 123456789101112131415161718192021222324252627282930313233343536&lt;style&gt; .z&#123; display: flex; box-sizing: border-box; border: 1 dashed gray; height: 100px; width: 200px; &#125; .a&#123; width: 50px; background-color: #ddd; &#125; .b&#123; flex: 1; white-space: nowrap; background-color: orange; overflow-x: auto; display: flex; &#125; .c&#123; margin: 5px; border: 1px dashed gray &#125;&lt;/style&gt;&lt;div class="z"&gt; &lt;div class="a"&gt; 固定宽度 &lt;/div&gt; &lt;div class="b"&gt; &lt;div class="c"&gt;滚动栏1&lt;/div&gt; &lt;div class="c"&gt;滚动栏2&lt;/div&gt; &lt;div class="c"&gt;滚动栏3&lt;/div&gt; &lt;div class="c"&gt;滚动栏4&lt;/div&gt; &lt;div class="c"&gt;滚动栏5&lt;/div&gt; &lt;/div&gt;&lt;/div&gt; 效果图如下：]]></content>
+      <categories>
+        <category>前端备忘</category>
+      </categories>
+      <tags>
+        <tag>CSS</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[如何设置父元素透明度但不影响子元素透明度]]></title>
     <url>%2F2018%2F04%2F02%2F%E5%A6%82%E4%BD%95%E8%AE%BE%E7%BD%AE%E7%88%B6%E5%85%83%E7%B4%A0%E9%80%8F%E6%98%8E%E5%BA%A6%E4%BD%86%E4%B8%8D%E5%BD%B1%E5%93%8D%E5%AD%90%E5%85%83%E7%B4%A0%E9%80%8F%E6%98%8E%E5%BA%A6%2F</url>
     <content type="text"><![CDATA[最近要画一个页面，需要设置父盒子有透明度，但是子盒子没有透明度，王二之前遇到过类似的因此遇到了点麻烦 王二一开始是类似下面这样写的： 1234div.father&#123; background-color: black; opacity: 0.75;&#125; 但是这样写的话,子元素会受到父元素 opacity 的影响，也会有0.5的透明度。这时候哪怕子元素的 opacity 设置为一也没有用，因为子元素的 opacity:1 也是在父元素的 opacity:0.5 的基础上设置的，因此子元素的 opacity 还是0.5。 后来的解决的方法如下： 123div.father&#123; background-color: rgba(255,255,255,0.75);&#125;]]></content>
@@ -66,8 +90,8 @@
       </categories>
       <tags>
         <tag>JS</tag>
-        <tag>易面打分端重构</tag>
         <tag>vue</tag>
+        <tag>易面打分端重构</tag>
       </tags>
   </entry>
   <entry>
@@ -128,8 +152,8 @@
       </categories>
       <tags>
         <tag>JS</tag>
-        <tag>易面打分端重构</tag>
         <tag>vue</tag>
+        <tag>易面打分端重构</tag>
       </tags>
   </entry>
   <entry>
@@ -154,8 +178,8 @@
       </categories>
       <tags>
         <tag>JS</tag>
-        <tag>易面打分端重构</tag>
         <tag>vue</tag>
+        <tag>易面打分端重构</tag>
       </tags>
   </entry>
   <entry>
@@ -256,8 +280,8 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>JS</tag>
         <tag>Chrome</tag>
+        <tag>JS</tag>
         <tag>自动化测试</tag>
       </tags>
   </entry>
