@@ -437,7 +437,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  383 字
+                  397 字
                 </span>
               
 
@@ -453,7 +453,7 @@
                   <span class="post-meta-item-text">阅读时长</span>
                 
                 <span title="阅读时长">
-                  1 分钟
+                  2 分钟
                 </span>
               
             </div>
@@ -478,7 +478,7 @@
 <p>例如：’asd’的所有排列组就是[“ads”, “asd”, “das”, “dsa”, “sad”, “sda”]；</p>
 <p>规定：字符串由小写字母组成，且无重复</p>
 <h3 id="二、解决方案"><a href="#二、解决方案" class="headerlink" title="二、解决方案"></a>二、解决方案</h3><p>这是个典型的排列组合问题，对于长度为<code>n</code>的字符串，排列的数组的长度为<code>n!</code>个。我们可以用<strong>递归</strong>来解决此类问题，参考如下代码：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span> (<span class="params">str</span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> str = str.split(<span class="string">''</span>).sort().join(<span class="string">''</span>);</div><div class="line">    <span class="keyword">var</span> arr = [];</div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">demo</span> (<span class="params">str,i=<span class="string">''</span></span>)</span>&#123;</div><div class="line">        <span class="keyword">if</span>(str.length===<span class="number">1</span>)&#123;</div><div class="line">            arr.push(i+str);</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">for</span>(<span class="keyword">var</span> x=<span class="number">0</span>;x&lt;str.length;x++)&#123;</div><div class="line">            demo(str.substring(<span class="number">0</span>,x)+str.substring(x+<span class="number">1</span>),i+str[x]);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    demo(str);</div><div class="line">    <span class="keyword">return</span> arr ;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">test</span> (<span class="params">str</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> str = str.split(<span class="string">''</span>).sort().join(<span class="string">''</span>);</span><br><span class="line">    <span class="keyword">var</span> arr = [];</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">demo</span> (<span class="params">str,i=<span class="string">''</span></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(str.length===<span class="number">1</span>)&#123;</span><br><span class="line">            arr.push(i+str);</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">var</span> x=<span class="number">0</span>;x&lt;str.length;x++)&#123;</span><br><span class="line">            demo(str.substring(<span class="number">0</span>,x)+str.substring(x+<span class="number">1</span>),i+str[x]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    demo(str);</span><br><span class="line">    <span class="keyword">return</span> arr ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="三、优化"><a href="#三、优化" class="headerlink" title="三、优化"></a>三、优化</h3><p>事实上，以上的递归算法有大量的重复计算，例如：</p>
 <p>对于<code>abcdefg</code>字符串，当字符串前两位确定时，比如，前两位字母是是<code>a</code>、<code>b</code>，那么后<code>5</code>个字母<code>cdefg</code>的排列组合只要计算一次，再加上前面的两位字母就好了。</p>
 <p>但是，在上面的算法中，当前面的两位字母是<code>ab</code>或者<code>ba</code>时，算法都重新计算了一次<code>cdefg</code>的排列组合，这显然是不合理的。</p>
@@ -628,7 +628,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">110</span>
+                <span class="site-state-item-count">111</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

@@ -437,7 +437,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  258 字
+                  272 字
                 </span>
               
 
@@ -471,16 +471,16 @@
       
 
       
-        <blockquote class="blockquote-center"><p>scss是个好东西，写起css来很爽，不过vue的脚手架默认没装scss，这时候需要我们额外配置，配置虽然简单，但难免有有时候会出错，于是索性在这里记录一下。如果之前还没有了解过scss,可以先看看<a href="http://www.wangyulue.com/2017/10/30/sass%E5%AD%A6%E4%B9%A0%E5%B0%8F%E7%BB%93/" target="_blank" rel="external">这篇博文</a> </p>
+        <blockquote class="blockquote-center"><p>scss是个好东西，写起css来很爽，不过vue的脚手架默认没装scss，这时候需要我们额外配置，配置虽然简单，但难免有有时候会出错，于是索性在这里记录一下。如果之前还没有了解过scss,可以先看看<a href="http://www.wangyulue.com/2017/10/30/sass%E5%AD%A6%E4%B9%A0%E5%B0%8F%E7%BB%93/" target="_blank" rel="noopener">这篇博文</a> </p>
 </blockquote>
 <a id="more"></a>
 <h3 id="一、安装依赖"><a href="#一、安装依赖" class="headerlink" title="一、安装依赖"></a>一、安装依赖</h3><p>正确加载scss文件需要安装 <code>node-sass</code> 以及 <code>sass-loader</code>,参考以下命令：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install node-sass sass-loader --save-dev</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install node-sass sass-loader --save-dev</span><br></pre></td></tr></table></figure>
 <h3 id="二、修改-webpack-base-conf-js-文件"><a href="#二、修改-webpack-base-conf-js-文件" class="headerlink" title="二、修改 webpack.base.conf.js 文件"></a>二、修改 webpack.base.conf.js 文件</h3><p>在配置文件的 <code>module.rules</code> 下加上如下规则：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    test: <span class="regexp">/\.scss$/</span>,</div><div class="line">    include:<span class="string">'/src/'</span>,</div><div class="line">    loader: <span class="string">'style-loader!css-loader!sass-loader'</span>,</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="三、简单的配置过-sass-的脚手架"><a href="#三、简单的配置过-sass-的脚手架" class="headerlink" title="三、简单的配置过 sass 的脚手架"></a>三、简单的配置过 sass 的脚手架</h3><p>如果参考上述配置后依旧报错，可以参考这个<a href="https://github.com/WangYuLue/vue_sass_cil" target="_blank" rel="external">简单的配置过 sass 的脚手架</a>项目，看看里面是如何配置的。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    test: <span class="regexp">/\.scss$/</span>,</span><br><span class="line">    include:<span class="string">'/src/'</span>,</span><br><span class="line">    loader: <span class="string">'style-loader!css-loader!sass-loader'</span>,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="三、简单的配置过-sass-的脚手架"><a href="#三、简单的配置过-sass-的脚手架" class="headerlink" title="三、简单的配置过 sass 的脚手架"></a>三、简单的配置过 sass 的脚手架</h3><p>如果参考上述配置后依旧报错，可以参考这个<a href="https://github.com/WangYuLue/vue_sass_cil" target="_blank" rel="noopener">简单的配置过 sass 的脚手架</a>项目，看看里面是如何配置的。</p>
 <p>或者选个文件夹敲下如下命令：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 克隆远程代码</span></div><div class="line">git <span class="built_in">clone</span> https://github.com/WangYuLue/vue_sass_cil</div><div class="line"></div><div class="line"><span class="comment"># 进入克隆的文件夹</span></div><div class="line"><span class="built_in">cd</span> vue_sass_cil</div><div class="line"></div><div class="line"><span class="comment"># 安装依赖</span></div><div class="line">npm install</div><div class="line"></div><div class="line"><span class="comment"># 运行代码</span></div><div class="line">npm run dev</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 克隆远程代码</span></span><br><span class="line">git <span class="built_in">clone</span> https://github.com/WangYuLue/vue_sass_cil</span><br><span class="line"></span><br><span class="line"><span class="comment"># 进入克隆的文件夹</span></span><br><span class="line"><span class="built_in">cd</span> vue_sass_cil</span><br><span class="line"></span><br><span class="line"><span class="comment"># 安装依赖</span></span><br><span class="line">npm install</span><br><span class="line"></span><br><span class="line"><span class="comment"># 运行代码</span></span><br><span class="line">npm run dev</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -627,7 +627,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">110</span>
+                <span class="site-state-item-count">111</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

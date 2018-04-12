@@ -100,7 +100,7 @@
 
 
 
-<meta name="description" content="最近公司碰到一个棘手的需求，需要用浏览器在线浏览PDF文件，这个在PC端不是问题，浏览器可以直接打开以.pdf结尾的文件，在ios端的浏览器上也能正常打开，但是如果是安卓设备，则会直接将.pdf结尾的文件下载下来，如果安卓设备上没有相应的PDF阅读器，还不能正常打开。这次要解决的问题就是：判断是否是安卓设备，如果是安卓设备，则将.pdf结尾的文件用js的PDF阅读器打开">
+<meta name="description" content="最近公司碰到一个棘手的需求，需要用浏览器在线浏览PDF文件，这个在PC端不是问题，浏览器可以直接打开以.pdf结尾的文件，在ios端的浏览器上也能正常打开，但是如果是安卓设备，则会直接将.pdf结尾的文件下载下来，如果安卓设备上没有相应的PDF阅读器，还不能正常打开。这次要解决的问题就是：判断是否是安卓设备，如果是安卓">
 <meta name="keywords" content="JS,前端备忘">
 <meta property="og:type" content="article">
 <meta property="og:title" content="如何使用JavaScript编写的PDF阅读器">
@@ -437,7 +437,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  485 字
+                  499 字
                 </span>
               
 
@@ -475,16 +475,16 @@
 </blockquote>
 <a id="more"></a>
 <h3 id="一、判断是否是安卓设备"><a href="#一、判断是否是安卓设备" class="headerlink" title="一、判断是否是安卓设备"></a>一、判断是否是安卓设备</h3><p>(1)、判断是否是安卓设备很简单，只要判断它的<code>userAgent</code>是否包含<code>android</code>就能搞定，一个可运行的代码如下：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 返回true表示是安卓设备，flase表示不是安卓设备；</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">isAndroid</span>(<span class="params"></span>)</span>&#123;</div><div class="line">    <span class="keyword">if</span>(navigator.userAgent.toLowerCase().indexOf(<span class="string">"android"</span>) &gt; <span class="number">-1</span>)&#123;</div><div class="line">        <span class="keyword">return</span> <span class="literal">true</span> ;</div><div class="line">    &#125;<span class="keyword">else</span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="literal">false</span> ;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 返回true表示是安卓设备，flase表示不是安卓设备；</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isAndroid</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(navigator.userAgent.toLowerCase().indexOf(<span class="string">"android"</span>) &gt; <span class="number">-1</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span> ;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span> ;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>(2)、顺便再说一下如何判断是否是IE浏览器，一个可运行的代码如下：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">isIE</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> userAgent = navigator.userAgent.toLowerCase();</div><div class="line">    <span class="keyword">if</span> (userAgent.indexOf(<span class="string">"msie"</span>) &gt; <span class="number">-1</span> || userAgent.indexOf(<span class="string">"rv:11"</span>) &gt; <span class="number">-1</span>) &#123;</div><div class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</div><div class="line">    &#125;<span class="keyword">else</span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="二、怎么使用用js的PDF阅读器"><a href="#二、怎么使用用js的PDF阅读器" class="headerlink" title="二、怎么使用用js的PDF阅读器"></a>二、怎么使用用js的PDF阅读器</h3><p>这里使用的是Github上一个比较火的项目–<a href="https://github.com/mozilla/pdf.js" target="_blank" rel="external">mozilla/pdf.js</a>。不过王二搞了半天都没清楚怎么用它。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">isIE</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> userAgent = navigator.userAgent.toLowerCase();</span><br><span class="line">    <span class="keyword">if</span> (userAgent.indexOf(<span class="string">"msie"</span>) &gt; <span class="number">-1</span> || userAgent.indexOf(<span class="string">"rv:11"</span>) &gt; <span class="number">-1</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="二、怎么使用用js的PDF阅读器"><a href="#二、怎么使用用js的PDF阅读器" class="headerlink" title="二、怎么使用用js的PDF阅读器"></a>二、怎么使用用js的PDF阅读器</h3><p>这里使用的是Github上一个比较火的项目–<a href="https://github.com/mozilla/pdf.js" target="_blank" rel="noopener">mozilla/pdf.js</a>。不过王二搞了半天都没清楚怎么用它。</p>
 <p>王二的需求很简单，给王二一个<code>.html</code>文件，然后王二会在<code>.html</code>文件后面加上对应的pdf文件的绝对路径，然后就可以正常访问这个pdf文件，链接类似下面这样：</p>
 <blockquote>
-<p><a href="http://localhost/static/pdf_read/web/viewer.html?pdf=/media/resume/7/test.pdf" target="_blank" rel="external">http://localhost/static/pdf_read/web/viewer.html?pdf=/media/resume/7/test.pdf</a></p>
+<p><a href="http://localhost/static/pdf_read/web/viewer.html?pdf=/media/resume/7/test.pdf" target="_blank" rel="noopener">http://localhost/static/pdf_read/web/viewer.html?pdf=/media/resume/7/test.pdf</a></p>
 </blockquote>
 <p>王二期望的是点开上面的链接，就可以顺利地访问<code>test.pdf</code>文件。</p>
-<p>于是王二在<a href="https://github.com/mozilla/pdf.js" target="_blank" rel="external">mozilla/pdf.js</a>打包后的文件夹下稍微做了一些修改，以达到上面的目的，有这方面需求读者可以直接<a href="https://github.com/WangYuLue/pdf_read" target="_blank" rel="external">戳这里</a>来查看相关代码。</p>
+<p>于是王二在<a href="https://github.com/mozilla/pdf.js" target="_blank" rel="noopener">mozilla/pdf.js</a>打包后的文件夹下稍微做了一些修改，以达到上面的目的，有这方面需求读者可以直接<a href="https://github.com/WangYuLue/pdf_read" target="_blank" rel="noopener">戳这里</a>来查看相关代码。</p>
 
       
     </div>
@@ -631,7 +631,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">110</span>
+                <span class="site-state-item-count">111</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

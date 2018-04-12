@@ -108,7 +108,7 @@
 <meta property="og:site_name" content="王玉略的个人网站">
 <meta property="og:description" content="最近改版的项目上有一个需求，如果用户没有登录，则不能跳转到除登录页外的其他页面">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-06T08:20:24.886Z">
+<meta property="og:updated_time" content="2018-04-06T08:20:24.887Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="vue-router 实现验证登录">
 <meta name="twitter:description" content="最近改版的项目上有一个需求，如果用户没有登录，则不能跳转到除登录页外的其他页面">
@@ -437,7 +437,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  217 字
+                  225 字
                 </span>
               
 
@@ -475,10 +475,10 @@
 </blockquote>
 <a id="more"></a>
 <p>刚开始王二打算用 <code>vue-router</code> 的全局前置守卫来判断是否允许用户跳转，如下：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> router = <span class="keyword">new</span> VueRouter(&#123; ... &#125;)</div><div class="line"></div><div class="line">router.beforeEach(<span class="function">(<span class="params">to, <span class="keyword">from</span>, next</span>) =&gt;</span> &#123;</div><div class="line">  <span class="comment">// ...</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> router = <span class="keyword">new</span> VueRouter(&#123; ... &#125;)</span><br><span class="line"></span><br><span class="line">router.beforeEach(<span class="function">(<span class="params">to, <span class="keyword">from</span>, next</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 <p>但用全局前置守卫需要进行很多判断，处理不好还很容易导致递归调用，王二调试了很长时间都没有处理好，很是苦恼。</p>
 <p>后来王二试了试 <code>vue-router</code> 的全局后置守卫来进行跳转，处理起来还真他娘的简单，比全局前置守卫好用多了，那么就用它了，代码参考如下：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">router.afterEach(<span class="function">(<span class="params">to, <span class="keyword">from</span></span>) =&gt;</span> &#123;    <span class="comment">//如果未登录，则直接跳转到login页面</span></div><div class="line">  <span class="keyword">if</span>(!store.state.isLogin)&#123;    <span class="comment">//从vuex里读取登录状态    </span></div><div class="line">    router.push(&#123;<span class="attr">name</span>: <span class="string">'Login'</span>&#125;) </div><div class="line">  &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">router.afterEach(<span class="function">(<span class="params">to, <span class="keyword">from</span></span>) =&gt;</span> &#123;    <span class="comment">//如果未登录，则直接跳转到login页面</span></span><br><span class="line">  <span class="keyword">if</span>(!store.state.isLogin)&#123;    <span class="comment">//从vuex里读取登录状态    </span></span><br><span class="line">    router.push(&#123;<span class="attr">name</span>: <span class="string">'Login'</span>&#125;) </span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -615,7 +615,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">110</span>
+                <span class="site-state-item-count">111</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

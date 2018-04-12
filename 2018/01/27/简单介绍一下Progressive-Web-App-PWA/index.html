@@ -512,7 +512,7 @@
 <h3 id="4、PWA的核心目标"><a href="#4、PWA的核心目标" class="headerlink" title="4、PWA的核心目标"></a>4、PWA的核心目标</h3><p><code>PWA</code>的核心目标就是提升 Web App 的性能，改善 Web App 的用户体验。媲美native的流畅体验，将网络之长与应用之长相结合。</p>
 <h2 id="二、特点"><a href="#二、特点" class="headerlink" title="二、特点"></a>二、特点</h2><h3 id="1、PWA的特点"><a href="#1、PWA的特点" class="headerlink" title="1、PWA的特点"></a>1、PWA的特点</h3><p>PWA具有以下一些特点：</p>
 <p><img src="https://github.com/WangYuLue/pic_of_blog/blob/master/1801/10.png?raw=true" alt="Alt text"></p>
-<p>这边有一个关于PWA特点的<a href="https://developers.google.com/web/progressive-web-apps/checklist#exemplary" target="_blank" rel="external">列表清单</a>，有兴趣的同学可以点进去看看.</p>
+<p>这边有一个关于PWA特点的<a href="https://developers.google.com/web/progressive-web-apps/checklist#exemplary" target="_blank" rel="noopener">列表清单</a>，有兴趣的同学可以点进去看看.</p>
 <h3 id="2、特点详解"><a href="#2、特点详解" class="headerlink" title="2、特点详解"></a>2、特点详解</h3><h4 id="（1）、可安装"><a href="#（1）、可安装" class="headerlink" title="（1）、可安装"></a>（1）、可安装</h4><p>1、可安装指的是可以像原生APP在主屏幕上留有图标。</p>
 <p>2、但是这需要我们提供 <code>Web app manifest</code>，<code>manifest.json</code> 是一个简单的JSON文件，我们在 <code>html</code> 页面如下引用他：</p>
 <p><img src="https://github.com/WangYuLue/pic_of_blog/blob/master/1801/12.png?raw=true" alt="Alt text"></p>
@@ -528,8 +528,8 @@
 <li><code>display</code> 设置启动样式</li>
 </ul>
 </blockquote>
-<p>关于<code>manifest.json</code>里字段更加具体的含义，感兴趣的同学可以参考<a href="https://developer.mozilla.org/en-US/docs/Web/Manifest" target="_blank" rel="external">MDN文档</a>或者谷歌开发者文档里的<a href="https://developers.google.com/web/fundamentals/web-app-manifest/" target="_blank" rel="external">这篇文章</a></p>
-<p>3、实际上 <a href="https://m.douban.com/page/vhn1tgl" target="_blank" rel="external">豆瓣移动端</a>就是一个<code>PWA</code>应用，如果我们用高版本的浏览器打开，就会发现有横幅提示，不过需要注意的是，IOS似乎还不支持，以下王二用安卓手机来做一个演示：</p>
+<p>关于<code>manifest.json</code>里字段更加具体的含义，感兴趣的同学可以参考<a href="https://developer.mozilla.org/en-US/docs/Web/Manifest" target="_blank" rel="noopener">MDN文档</a>或者谷歌开发者文档里的<a href="https://developers.google.com/web/fundamentals/web-app-manifest/" target="_blank" rel="noopener">这篇文章</a></p>
+<p>3、实际上 <a href="https://m.douban.com/page/vhn1tgl" target="_blank" rel="noopener">豆瓣移动端</a>就是一个<code>PWA</code>应用，如果我们用高版本的浏览器打开，就会发现有横幅提示，不过需要注意的是，IOS似乎还不支持，以下王二用安卓手机来做一个演示：</p>
 <p>打开豆瓣后，浏览器会提示添加到主屏幕：<br><img src="https://github.com/WangYuLue/pic_of_blog/blob/master/1801/14.png?raw=true" alt="Alt text"></p>
 <p>点击确定后，他会提示添加成功，然后在主屏幕上留有一个豆瓣的图标。</p>
 <p><img src="https://github.com/WangYuLue/pic_of_blog/blob/master/1801/15.png?raw=true" alt="Alt text"></p>
@@ -540,18 +540,18 @@
 <p><img src="https://github.com/WangYuLue/pic_of_blog/blob/master/1801/17.png?raw=true" alt="Alt text"></p>
 <p>3、我们来看看如何注册一个 <code>Service Worker</code></p>
 <p><img src="https://github.com/WangYuLue/pic_of_blog/blob/master/1801/18.png?raw=true" alt="Alt text"></p>
-<p>关于<code>Service Worker</code>更加详细的介绍，感兴趣的同学可以参考<a href="https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorker" target="_blank" rel="external">MDN文档</a>或者Github上的<a href="https://googlechrome.github.io/samples/service-worker/basic/index.html" target="_blank" rel="external">Basic Service Worker Sample</a>这篇介绍。</p>
+<p>关于<code>Service Worker</code>更加详细的介绍，感兴趣的同学可以参考<a href="https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorker" target="_blank" rel="noopener">MDN文档</a>或者Github上的<a href="https://googlechrome.github.io/samples/service-worker/basic/index.html" target="_blank" rel="noopener">Basic Service Worker Sample</a>这篇介绍。</p>
 <p>4、 当然 <code>Service Worker</code> 也有生命周期，参考下图：</p>
 <p><img src="https://github.com/WangYuLue/pic_of_blog/blob/master/1801/19.png?raw=true" alt="Alt text"></p>
 <p>关于 <code>Service Worker</code> 生命周期的详细介绍可以参考下面这张图：</p>
 <p><img src="https://github.com/WangYuLue/pic_of_blog/blob/master/1801/20.png?raw=true" alt="Alt text"></p>
-<p>关于<code>Service Worker</code> 生命周期更加详细的介绍，感兴趣的同学可以参考<a href="https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API/Using_Service_Workers" target="_blank" rel="external">MDN文档</a></p>
-<h4 id="（3）、消息推送"><a href="#（3）、消息推送" class="headerlink" title="（3）、消息推送"></a>（3）、消息推送</h4><p>消息推送具体可以参考谷歌的官方教程<a href="https://developers.google.com/web/fundamentals/codelabs/push-notifications/" target="_blank" rel="external">Your First Web Push Notification</a>,里面有详细的代码Demo和说明，以及相应的后台配置（带好梯子）。</p>
+<p>关于<code>Service Worker</code> 生命周期更加详细的介绍，感兴趣的同学可以参考<a href="https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API/Using_Service_Workers" target="_blank" rel="noopener">MDN文档</a></p>
+<h4 id="（3）、消息推送"><a href="#（3）、消息推送" class="headerlink" title="（3）、消息推送"></a>（3）、消息推送</h4><p>消息推送具体可以参考谷歌的官方教程<a href="https://developers.google.com/web/fundamentals/codelabs/push-notifications/" target="_blank" rel="noopener">Your First Web Push Notification</a>,里面有详细的代码Demo和说明，以及相应的后台配置（带好梯子）。</p>
 <h2 id="3、开发者如何了解是否具备这些特点"><a href="#3、开发者如何了解是否具备这些特点" class="headerlink" title="3、开发者如何了解是否具备这些特点"></a>3、开发者如何了解是否具备这些特点</h2><p>说了这么多，那我们开发者如何了解一个网页是否具备了 <code>PWA</code> 的一些特点呢？</p>
 <p>这时候谷歌开发者工具可以帮上我们的忙，在 <code>Chrome</code>浏览器的开发者工具里有一个<code>Audits</code>面板，它可以帮我们检测网页是否具备了PWA的一些特点：</p>
 <p><img src="https://github.com/WangYuLue/pic_of_blog/blob/master/1801/21.png?raw=true" alt="Alt text"></p>
-<h2 id="三、有哪些企业已经在使用PWA？"><a href="#三、有哪些企业已经在使用PWA？" class="headerlink" title="三、有哪些企业已经在使用PWA？"></a>三、有哪些企业已经在使用PWA？</h2><p>1、国内已经有<a href="https://m.douban.com/" target="_blank" rel="external">豆瓣</a>、<a href="https://h5.ele.me/" target="_blank" rel="external">饿了么</a>使用了部分PWA技术；</p>
-<p>2、国外用PWA的企业相对较多，例如<a href="https://mobile.twitter.com/home" target="_blank" rel="external">Twitter</a>、<a href="https://flipboard.com/" target="_blank" rel="external">Filpboard</a>;</p>
+<h2 id="三、有哪些企业已经在使用PWA？"><a href="#三、有哪些企业已经在使用PWA？" class="headerlink" title="三、有哪些企业已经在使用PWA？"></a>三、有哪些企业已经在使用PWA？</h2><p>1、国内已经有<a href="https://m.douban.com/" target="_blank" rel="noopener">豆瓣</a>、<a href="https://h5.ele.me/" target="_blank" rel="noopener">饿了么</a>使用了部分PWA技术；</p>
+<p>2、国外用PWA的企业相对较多，例如<a href="https://mobile.twitter.com/home" target="_blank" rel="noopener">Twitter</a>、<a href="https://flipboard.com/" target="_blank" rel="noopener">Filpboard</a>;</p>
 <p>3、特别需要注意的是Twitter ，Twitter 在 2017 年上线了 <code>Twitter Lite PWA</code>，其获得了相当惊人的收益：</p>
 <blockquote>
 <ul>
@@ -561,21 +561,21 @@
 </ul>
 </blockquote>
 <p>Twitter Lite 能取得这样的成绩，归功于 PWA 的新技术和用户体验至上的设计原则：它通过 Service Worker 缓存文件，让页面可以离线，同时降低网络消耗；通过 Web Push 接受服务器推送的消息；采用 App Shell 的设计模型，配合 Service Worker 能让页面瞬间展现。</p>
-<p>4、另外一些采用了PWA的网站可以参考<a href="https://pwa.rocks/" target="_blank" rel="external">这个链接</a></p>
-<h2 id="四、代码细节"><a href="#四、代码细节" class="headerlink" title="四、代码细节"></a>四、代码细节</h2><h3 id="1、代码可以参考的是谷歌的官方教程"><a href="#1、代码可以参考的是谷歌的官方教程" class="headerlink" title="1、代码可以参考的是谷歌的官方教程"></a>1、代码可以参考的是谷歌的官方教程</h3><p>1、<a href="https://developers.google.com/web/fundamentals/codelabs/your-first-pwapp/" target="_blank" rel="external">Your First Progressive Web App</a>会帮我们了解如何从头构建一个PWA应用。<br>2、<a href="https://developers.google.com/web/fundamentals/codelabs/debugging-service-workers/" target="_blank" rel="external">Debugging Service Workers</a>会辅导我们如何调试<code>Service Worker</code>。</p>
+<p>4、另外一些采用了PWA的网站可以参考<a href="https://pwa.rocks/" target="_blank" rel="noopener">这个链接</a></p>
+<h2 id="四、代码细节"><a href="#四、代码细节" class="headerlink" title="四、代码细节"></a>四、代码细节</h2><h3 id="1、代码可以参考的是谷歌的官方教程"><a href="#1、代码可以参考的是谷歌的官方教程" class="headerlink" title="1、代码可以参考的是谷歌的官方教程"></a>1、代码可以参考的是谷歌的官方教程</h3><p>1、<a href="https://developers.google.com/web/fundamentals/codelabs/your-first-pwapp/" target="_blank" rel="noopener">Your First Progressive Web App</a>会帮我们了解如何从头构建一个PWA应用。<br>2、<a href="https://developers.google.com/web/fundamentals/codelabs/debugging-service-workers/" target="_blank" rel="noopener">Debugging Service Workers</a>会辅导我们如何调试<code>Service Worker</code>。</p>
 <h3 id="2、缓存策略"><a href="#2、缓存策略" class="headerlink" title="2、缓存策略"></a>2、缓存策略</h3><p>有缓存可以优化用户体验，但是如果没有合理的缓存策略，我们会发现我们的网站将会很难更新。</p>
 <p>在用户重新加载新的<code>Service Worker</code>的时候，我们需要将之前旧的资源文件都删掉,如下图所示：</p>
 <p><img src="https://github.com/WangYuLue/pic_of_blog/blob/master/1801/11.png?raw=true" alt="Alt text"></p>
-<p>更多的缓存策略有兴趣的同学可以参考这篇文章 – <a href="https://jakearchibald.com/2014/offline-cookbook/#cache-then-network" target="_blank" rel="external">The offline cookbook</a></p>
+<p>更多的缓存策略有兴趣的同学可以参考这篇文章 – <a href="https://jakearchibald.com/2014/offline-cookbook/#cache-then-network" target="_blank" rel="noopener">The offline cookbook</a></p>
 <h3 id="3、官方工具"><a href="#3、官方工具" class="headerlink" title="3、官方工具"></a>3、官方工具</h3><p>除了前面提到的手工编写 <code>Service Worker</code> 脚本, Google 提供了 <code>sw-toolbox</code> 和 <code>sw-precache</code> 两个工具方便快速生成 <code>service-worker.js</code> 文件:</p>
 <blockquote>
 <ul>
-<li><a href="https://github.com/GoogleChromeLabs/sw-precache" target="_blank" rel="external">sw-precache</a> 可以用来生成配置使 PWA 在安装时进行静态资源的缓存</li>
-<li><a href="https://github.com/GoogleChromeLabs/sw-toolbox" target="_blank" rel="external">sw-toolbox</a> 提供了动态缓存使用的通用策略, 这些动态的资源不合适用 sw-precache 预先缓存。</li>
+<li><a href="https://github.com/GoogleChromeLabs/sw-precache" target="_blank" rel="noopener">sw-precache</a> 可以用来生成配置使 PWA 在安装时进行静态资源的缓存</li>
+<li><a href="https://github.com/GoogleChromeLabs/sw-toolbox" target="_blank" rel="noopener">sw-toolbox</a> 提供了动态缓存使用的通用策略, 这些动态的资源不合适用 sw-precache 预先缓存。</li>
 </ul>
 </blockquote>
 <h2 id="五、小结"><a href="#五、小结" class="headerlink" title="五、小结"></a>五、小结</h2><p>Progressive Web App仍处于初级阶段，国内普及度还不够，但我们不可忽视其背后的的技术，以及对前端全新的定位。或许它会像十年前的AJAX那样重新改变前端的生态。</p>
-<h2 id="参考文章（部分链接需要带好梯子）"><a href="#参考文章（部分链接需要带好梯子）" class="headerlink" title="参考文章（部分链接需要带好梯子）"></a>参考文章（部分链接需要带好梯子）</h2><p><a href="https://developers.google.com/s/results/?q=pwa&amp;p=%2Fweb%2F" target="_blank" rel="external">谷歌开发者网站关于PWA的搜索结果</a><br><a href="https://developers.google.com/web/fundamentals/codelabs/your-first-pwapp/" target="_blank" rel="external">Your First Progressive Web App</a><br><a href="https://developers.google.com/web/progressive-web-apps/checklist#exemplary" target="_blank" rel="external">Exemplary Progressive Web App Checklist</a><br><a href="https://jakearchibald.com/2014/offline-cookbook/#cache-then-network" target="_blank" rel="external">The offline cookbook</a><br><a href="https://developers.google.com/web/fundamentals/codelabs/push-notifications/" target="_blank" rel="external">Your First Web Push Notification</a><br><a href="https://developers.google.com/web/fundamentals/codelabs/debugging-service-workers/" target="_blank" rel="external">Debugging Service Workers</a><br><a href="https://pwa.rocks/" target="_blank" rel="external">PWA网站清单列表</a><br><a href="https://www.juhe.cn/news/index/id/2406" target="_blank" rel="external">PWA是否能带来新一轮大前端技术洗牌？</a><br><a href="https://zhuanlan.zhihu.com/p/25524382" target="_blank" rel="external">PWA 入门: 理解和创建 Service Worker 脚本</a><br><a href="https://developers.google.com/web/fundamentals/web-app-manifest/" target="_blank" rel="external">web-app-manifest</a><br><a href="https://googlechrome.github.io/samples/service-worker/basic/index.html" target="_blank" rel="external">Basic Service Worker Sample</a><br><a href="https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorker" target="_blank" rel="external">‘ServiceWorker’MDN文档</a><br><a href="https://developer.mozilla.org/en-US/docs/Web/Manifest" target="_blank" rel="external">‘ServiceWorker’MDN文档</a><br><a href="https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API/Using_Service_Workers" target="_blank" rel="external">‘Using_Service_Workers’MDN文档</a></p>
+<h2 id="参考文章（部分链接需要带好梯子）"><a href="#参考文章（部分链接需要带好梯子）" class="headerlink" title="参考文章（部分链接需要带好梯子）"></a>参考文章（部分链接需要带好梯子）</h2><p><a href="https://developers.google.com/s/results/?q=pwa&amp;p=%2Fweb%2F" target="_blank" rel="noopener">谷歌开发者网站关于PWA的搜索结果</a><br><a href="https://developers.google.com/web/fundamentals/codelabs/your-first-pwapp/" target="_blank" rel="noopener">Your First Progressive Web App</a><br><a href="https://developers.google.com/web/progressive-web-apps/checklist#exemplary" target="_blank" rel="noopener">Exemplary Progressive Web App Checklist</a><br><a href="https://jakearchibald.com/2014/offline-cookbook/#cache-then-network" target="_blank" rel="noopener">The offline cookbook</a><br><a href="https://developers.google.com/web/fundamentals/codelabs/push-notifications/" target="_blank" rel="noopener">Your First Web Push Notification</a><br><a href="https://developers.google.com/web/fundamentals/codelabs/debugging-service-workers/" target="_blank" rel="noopener">Debugging Service Workers</a><br><a href="https://pwa.rocks/" target="_blank" rel="noopener">PWA网站清单列表</a><br><a href="https://www.juhe.cn/news/index/id/2406" target="_blank" rel="noopener">PWA是否能带来新一轮大前端技术洗牌？</a><br><a href="https://zhuanlan.zhihu.com/p/25524382" target="_blank" rel="noopener">PWA 入门: 理解和创建 Service Worker 脚本</a><br><a href="https://developers.google.com/web/fundamentals/web-app-manifest/" target="_blank" rel="noopener">web-app-manifest</a><br><a href="https://googlechrome.github.io/samples/service-worker/basic/index.html" target="_blank" rel="noopener">Basic Service Worker Sample</a><br><a href="https://developer.mozilla.org/en-US/docs/Web/API/ServiceWorker" target="_blank" rel="noopener">‘ServiceWorker’MDN文档</a><br><a href="https://developer.mozilla.org/en-US/docs/Web/Manifest" target="_blank" rel="noopener">‘ServiceWorker’MDN文档</a><br><a href="https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API/Using_Service_Workers" target="_blank" rel="noopener">‘Using_Service_Workers’MDN文档</a></p>
 
       
     </div>
@@ -724,7 +724,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">110</span>
+                <span class="site-state-item-count">111</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

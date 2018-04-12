@@ -486,8 +486,8 @@
 <li>unicode emoji转义为softbank的emoji;</li>
 </ul>
 </blockquote>
-<p>这次只讨论第一种方案, 以下是正则代码,很简短，只有一行：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">name = name.replace(<span class="regexp">/\ud83c[\udf00-\udfff]|\ud83d[\udc00-\ude4f]|\ud83d[\ude80-\udeff]/g</span>, <span class="string">""</span>);</div></pre></td></tr></table></figure></p>
-<p>参考博客：<br><a href="http://blog.csdn.net/ugg/article/details/44225723" target="_blank" rel="external">“逸学堂”的博客</a></p>
+<p>这次只讨论第一种方案, 以下是正则代码,很简短，只有一行：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">name = name.replace(<span class="regexp">/\ud83c[\udf00-\udfff]|\ud83d[\udc00-\ude4f]|\ud83d[\ude80-\udeff]/g</span>, <span class="string">""</span>);</span><br></pre></td></tr></table></figure></p>
+<p>参考博客：<br><a href="http://blog.csdn.net/ugg/article/details/44225723" target="_blank" rel="noopener">“逸学堂”的博客</a></p>
 
       
     </div>
@@ -625,7 +625,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">110</span>
+                <span class="site-state-item-count">111</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

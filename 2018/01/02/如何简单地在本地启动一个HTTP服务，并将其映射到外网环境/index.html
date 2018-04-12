@@ -113,7 +113,7 @@
 <meta property="og:image" content="https://github.com/WangYuLue/pic_of_blog/blob/master/1712/5.png?raw=true">
 <meta property="og:image" content="https://github.com/WangYuLue/pic_of_blog/blob/master/1712/6.png?raw=true">
 <meta property="og:image" content="https://github.com/WangYuLue/pic_of_blog/blob/master/1712/7.png?raw=true">
-<meta property="og:updated_time" content="2018-01-02T11:42:45.978Z">
+<meta property="og:updated_time" content="2018-01-02T11:42:45.979Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="如何简单地在本地启动一个HTTP服务，并将其映射到外网环境">
 <meta name="twitter:description" content="文本旨在告诉读者如何简单的启动一个HTTP Server，并将其映射到外网，让外网访问者也能通过浏览器访问自己本地的服务。其中关键词有  http-server 、web server for chrome 、ngrok">
@@ -443,7 +443,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  624 字
+                  633 字
                 </span>
               
 
@@ -485,23 +485,23 @@
 <h3 id="一、如何简单地在本地启动一个HTTP服务"><a href="#一、如何简单地在本地启动一个HTTP服务" class="headerlink" title="一、如何简单地在本地启动一个HTTP服务"></a>一、如何简单地在本地启动一个HTTP服务</h3><h4 id="1、http-server"><a href="#1、http-server" class="headerlink" title="1、http-server"></a>1、<strong>http-server</strong></h4><p><code>http-server</code> 是一个简单的，零配置的命令行http服务器。它足够强大,可以用于生产环境，但它很简单，可以用来测试，本地开发和学习。</p>
 <p><img src="https://github.com/WangYuLue/pic_of_blog/blob/master/1712/4.png?raw=true" alt="Alt text"></p>
 <p>使用 <code>http-server</code> 很简单：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">//全局安装http-server</div><div class="line">npm install http-server -g</div><div class="line"></div><div class="line">//找到你要运行的文件目录下，敲下http-server，项目就顺利运行起来了</div><div class="line">http-server</div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//全局安装http-server</span><br><span class="line">npm install http-server -g</span><br><span class="line"></span><br><span class="line">//找到你要运行的文件目录下，敲下http-server，项目就顺利运行起来了</span><br><span class="line">http-server</span><br></pre></td></tr></table></figure>
 <p>关于<code>http-server</code> 的具体说明：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">http-server [path] [options]</div><div class="line"></div><div class="line">//[path]默认路径为./public，如果没有./public文件夹，则路径为./。</div></pre></td></tr></table></figure>
-<p><code>http-server</code>还有更多的配置项，可以<a href="https://www.npmjs.com/package/http-server" target="_blank" rel="external">戳这里</a>来详细了解它。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">http-server [path] [options]</span><br><span class="line"></span><br><span class="line">//[path]默认路径为./public，如果没有./public文件夹，则路径为./。</span><br></pre></td></tr></table></figure>
+<p><code>http-server</code>还有更多的配置项，可以<a href="https://www.npmjs.com/package/http-server" target="_blank" rel="noopener">戳这里</a>来详细了解它。</p>
 <h4 id="2、web-server-for-chrome"><a href="#2、web-server-for-chrome" class="headerlink" title="2、web server for chrome"></a>2、<strong>web server for chrome</strong></h4><p><strong>web server for chrome</strong> 是谷歌浏览器的一个插件，使用它也可以很方便的启动本地HTTP服务。它长下面这个样子：</p>
 <p><img src="https://github.com/WangYuLue/pic_of_blog/blob/master/1712/2.png?raw=true" alt="Alt text"></p>
-<p>你可以<a href="https://chrome.google.com/webstore/detail/web-server-for-chrome/ofhbbkphhbklhfoeikjpcbhemlocgigb?utm_source=chrome-app-launcher-info-dialog" target="_blank" rel="external">戳这里</a>来获取它，不过需要注意的的是，由于这个链接访问的是谷歌商店，所以需要科学上网。如果你还不知道如何科学上网，<a href="https://github.com/getlantern/lantern" target="_blank" rel="external">戳这里</a>,蓝灯或许能帮助到你。</p>
+<p>你可以<a href="https://chrome.google.com/webstore/detail/web-server-for-chrome/ofhbbkphhbklhfoeikjpcbhemlocgigb?utm_source=chrome-app-launcher-info-dialog" target="_blank" rel="noopener">戳这里</a>来获取它，不过需要注意的的是，由于这个链接访问的是谷歌商店，所以需要科学上网。如果你还不知道如何科学上网，<a href="https://github.com/getlantern/lantern" target="_blank" rel="noopener">戳这里</a>,蓝灯或许能帮助到你。</p>
 <p>安装好后打开 <strong>web server for chrome</strong>，它长下面这个样子：</p>
 <p><img src="https://github.com/WangYuLue/pic_of_blog/blob/master/1712/5.png?raw=true" alt="Alt text"></p>
 <p>这时候就可以手动配置来轻松使用它了。</p>
 <h3 id="一、如何将本地服务映射到外网环境"><a href="#一、如何将本地服务映射到外网环境" class="headerlink" title="一、如何将本地服务映射到外网环境"></a>一、如何将本地服务映射到外网环境</h3><h4 id="1、ngrok"><a href="#1、ngrok" class="headerlink" title="1、ngrok"></a>1、<strong>ngrok</strong></h4><p>ngrok是一个反向代理，它会在本地的Web服务和公共端点之间创建一个安全的通道。</p>
 <p><img src="https://github.com/WangYuLue/pic_of_blog/blob/master/1712/6.png?raw=true" alt="Alt text"></p>
-<p>使用它也很简单，先到他的<a href="https://ngrok.com/" target="_blank" rel="external">官方网站</a>上找到对应的下载地址，解压并运行ngrok,</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">//敲下ngrok http 8080，本地的8080端口就会被映射到外网环境</div><div class="line">ngrok http 8080</div></pre></td></tr></table></figure>
+<p>使用它也很简单，先到他的<a href="https://ngrok.com/" target="_blank" rel="noopener">官方网站</a>上找到对应的下载地址，解压并运行ngrok,</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">//敲下ngrok http 8080，本地的8080端口就会被映射到外网环境</span><br><span class="line">ngrok http 8080</span><br></pre></td></tr></table></figure>
 <p>如下图：</p>
 <p><img src="https://github.com/WangYuLue/pic_of_blog/blob/master/1712/7.png?raw=true" alt="Alt text"></p>
-<p>我们还可以到它的<a href="https://ngrok.com/" target="_blank" rel="external">官方网站</a>或者<a href="https://github.com/inconshreveable/ngrok" target="_blank" rel="external">github</a>更详细地了解它。</p>
+<p>我们还可以到它的<a href="https://ngrok.com/" target="_blank" rel="noopener">官方网站</a>或者<a href="https://github.com/inconshreveable/ngrok" target="_blank" rel="noopener">github</a>更详细地了解它。</p>
 
       
     </div>
@@ -646,7 +646,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">110</span>
+                <span class="site-state-item-count">111</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

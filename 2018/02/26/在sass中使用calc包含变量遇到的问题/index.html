@@ -437,7 +437,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  216 字
+                  222 字
                 </span>
               
 
@@ -475,11 +475,11 @@
 </blockquote>
 <a id="more"></a>
 <h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>今天重构项目写scss的时候,发现如果在 <code>calc</code> 包含变量，那么scss就不会正确的编译，例如下面这样的代码：</p>
-<figure class="highlight scss"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$bar-height</span>:<span class="number">80px</span>;</div><div class="line"><span class="selector-class">.main</span>&#123;</div><div class="line">    <span class="attribute">height</span>: calc(<span class="number">100%</span> - <span class="variable">$bar-height</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$bar-height</span>:<span class="number">80px</span>;</span><br><span class="line"><span class="selector-class">.main</span>&#123;</span><br><span class="line">    <span class="attribute">height</span>: calc(<span class="number">100%</span> - <span class="variable">$bar-height</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>sass最后并不会解析<code>calc</code>中的 <code>$bar-height</code>。</p>
-<h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><p>后来王二上网查资料在scss的<a href="https://www.sass.hk/docs/" target="_blank" rel="external">官方文档</a>里找到了解决方法（第6.7节）</p>
+<h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><p>后来王二上网查资料在scss的<a href="https://www.sass.hk/docs/" target="_blank" rel="noopener">官方文档</a>里找到了解决方法（第6.7节）</p>
 <p>这里需要用到scss的插值语句 <code>#{}</code> (Interpolation: <code>#{}</code>),例如上面的代码可以修改如下：</p>
-<figure class="highlight scss"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$bar-height</span>:<span class="number">80px</span>;</div><div class="line"><span class="selector-class">.main</span>&#123;</div><div class="line">    <span class="attribute">height</span>: calc(<span class="number">100%</span> - #&#123;<span class="variable">$bar-height</span>&#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight scss"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$bar-height</span>:<span class="number">80px</span>;</span><br><span class="line"><span class="selector-class">.main</span>&#123;</span><br><span class="line">    <span class="attribute">height</span>: calc(<span class="number">100%</span> - #&#123;<span class="variable">$bar-height</span>&#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>文档中这样说到：‘<code>#{}</code> 插值语句也可以在属性值中插入 SassScript，大多数情况下，这样可能还不如使用变量方便，但是使用 <code>#{}</code> 可以避免 Sass 运行运算表达式，直接编译 CSS。’</p>
 
       
@@ -627,7 +627,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">110</span>
+                <span class="site-state-item-count">111</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

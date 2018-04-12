@@ -84,7 +84,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="JS,vue,易面打分端重构," />
+  <meta name="keywords" content="JS,易面打分端重构,vue," />
 
 
 
@@ -101,7 +101,7 @@
 
 
 <meta name="description" content="在Vue单页应用中，如果在某一个具体路由的具体页面下点击刷新，那么刷新后，页面的状态信息可能就会丢失掉。这时候应该怎么处理呢？如果你也有这个疑惑，这篇文章或许能够帮助到你">
-<meta name="keywords" content="JS,vue,易面打分端重构">
+<meta name="keywords" content="JS,易面打分端重构,vue">
 <meta property="og:type" content="article">
 <meta property="og:title" content="vue单页应用如何在页面刷新时保留状态数据">
 <meta property="og:url" content="http://yoursite.com/2018/03/13/Vue单页应用如何在页面刷新时保留状态数据/index.html">
@@ -437,7 +437,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  609 字
+                  648 字
                 </span>
               
 
@@ -453,7 +453,7 @@
                   <span class="post-meta-item-text">阅读时长</span>
                 
                 <span title="阅读时长">
-                  2 分钟
+                  3 分钟
                 </span>
               
             </div>
@@ -478,14 +478,14 @@
 <p>这时候就需要我们保存刷新之前页面的状态。</p>
 <h3 id="二、一种解决方案"><a href="#二、一种解决方案" class="headerlink" title="二、一种解决方案"></a>二、一种解决方案</h3><p>在这个Vue单页应用中，王二是用Vuex作为状态管理的，一开始王二的思路是将Vuex里的数据同步更新到localStorage里。</p>
 <p>即：一改变vuex里的数据,便触发<code>localStorage.setItem</code> 方法，参考如下代码：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">"vue"</span></div><div class="line"><span class="keyword">import</span> Vuex <span class="keyword">from</span> <span class="string">"vuex"</span></div><div class="line"></div><div class="line">Vue.use(Vuex)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">storeLocalStore</span> (<span class="params">state</span>) </span>&#123;</div><div class="line">    <span class="built_in">window</span>.localStorage.setItem(<span class="string">"userMsg"</span>,<span class="built_in">JSON</span>.stringify(state));</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">new</span> Vuex.Store(&#123;</div><div class="line">    state: &#123;</div><div class="line">        username: <span class="string">"王二"</span>,</div><div class="line">        schedulename: <span class="string">"标题"</span>,</div><div class="line">        scheduleid: <span class="number">0</span>,</div><div class="line">    &#125;,</div><div class="line">    mutations: &#123;</div><div class="line">        storeUsername (state,name) &#123;</div><div class="line">            state.username = name</div><div class="line">            storeLocalStore (state)</div><div class="line">        &#125;,</div><div class="line">        storeSchedulename (state,name) &#123;</div><div class="line">            state.schedulename = name</div><div class="line">            storeLocalStore (state)</div><div class="line">        &#125;,</div><div class="line">        storeScheduleid (state,id) &#123;</div><div class="line">            state.scheduleid = <span class="built_in">Number</span>(id)</div><div class="line">            storeLocalStore (state)</div><div class="line">        &#125;,</div><div class="line">    &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">"vue"</span></span><br><span class="line"><span class="keyword">import</span> Vuex <span class="keyword">from</span> <span class="string">"vuex"</span></span><br><span class="line"></span><br><span class="line">Vue.use(Vuex)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">storeLocalStore</span> (<span class="params">state</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">window</span>.localStorage.setItem(<span class="string">"userMsg"</span>,<span class="built_in">JSON</span>.stringify(state));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">new</span> Vuex.Store(&#123;</span><br><span class="line">    state: &#123;</span><br><span class="line">        username: <span class="string">"王二"</span>,</span><br><span class="line">        schedulename: <span class="string">"标题"</span>,</span><br><span class="line">        scheduleid: <span class="number">0</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    mutations: &#123;</span><br><span class="line">        storeUsername (state,name) &#123;</span><br><span class="line">            state.username = name</span><br><span class="line">            storeLocalStore (state)</span><br><span class="line">        &#125;,</span><br><span class="line">        storeSchedulename (state,name) &#123;</span><br><span class="line">            state.schedulename = name</span><br><span class="line">            storeLocalStore (state)</span><br><span class="line">        &#125;,</span><br><span class="line">        storeScheduleid (state,id) &#123;</span><br><span class="line">            state.scheduleid = <span class="built_in">Number</span>(id)</span><br><span class="line">            storeLocalStore (state)</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 <p>然后在页面加载时再从localStorage里将数据取回来放到vuex里，于是王二在 <code>App.vue</code> 的 <code>created</code> 钩子函数里写下了如下代码：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">localStorage.getItem(<span class="string">"userMsg"</span>) &amp;&amp; <span class="keyword">this</span>.$store.replaceState(<span class="built_in">JSON</span>.parse(localStorage.getItem(<span class="string">"userMsg"</span>)));</div><div class="line"></div><div class="line"><span class="comment">//考虑到第一次加载项目时localStorage里没有userMsg的信息，所以在前面要先做判断</span></div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">localStorage.getItem(<span class="string">"userMsg"</span>) &amp;&amp; <span class="keyword">this</span>.$store.replaceState(<span class="built_in">JSON</span>.parse(localStorage.getItem(<span class="string">"userMsg"</span>)));</span><br><span class="line"></span><br><span class="line"><span class="comment">//考虑到第一次加载项目时localStorage里没有userMsg的信息，所以在前面要先做判断</span></span><br></pre></td></tr></table></figure>
 <p>这样就能比较圆满的解决问题了。</p>
 <h3 id="三、另一种解决方案"><a href="#三、另一种解决方案" class="headerlink" title="三、另一种解决方案"></a>三、另一种解决方案</h3><p>以上的解决方法由于要频繁地触发 <code>localStorage.setItem</code> 方法，所以对性能很不友好。而且如果一直同步vuex里的数据到localStorage里，我们直接用localStorage做状态管理好了，似乎也没有必要再用vuex。</p>
 <p>这时候王二想，如果有什么方法能够监听到页面的刷新事件，然后在那个监听方法里将Vuex里的数据储存到localStorage里，那该多好。</p>
 <p>很幸运，还真有这样的监听事件，我们可以用 <code>beforeunload</code> 来达到以上目的，于是王二在 <code>App.vue</code> 的 <code>created</code> 钩子函数里写下了如下代码：</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//在页面加载时读取localStorage里的状态信息</span></div><div class="line">localStorage.getItem(<span class="string">"userMsg"</span>) &amp;&amp; <span class="keyword">this</span>.$store.replaceState(<span class="built_in">JSON</span>.parse(localStorage.getItem(<span class="string">"userMsg"</span>)));</div><div class="line"></div><div class="line"><span class="comment">//在页面刷新时将vuex里的信息保存到localStorage里</span></div><div class="line"><span class="built_in">window</span>.addEventListener(<span class="string">"beforeunload"</span>,()=&gt;&#123;</div><div class="line">    localStorage.setItem(<span class="string">"userMsg"</span>,<span class="built_in">JSON</span>.stringify(<span class="keyword">this</span>.$store.state))</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//在页面加载时读取localStorage里的状态信息</span></span><br><span class="line">localStorage.getItem(<span class="string">"userMsg"</span>) &amp;&amp; <span class="keyword">this</span>.$store.replaceState(<span class="built_in">JSON</span>.parse(localStorage.getItem(<span class="string">"userMsg"</span>)));</span><br><span class="line"></span><br><span class="line"><span class="comment">//在页面刷新时将vuex里的信息保存到localStorage里</span></span><br><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">"beforeunload"</span>,()=&gt;&#123;</span><br><span class="line">    localStorage.setItem(<span class="string">"userMsg"</span>,<span class="built_in">JSON</span>.stringify(<span class="keyword">this</span>.$store.state))</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 <p>这样的话，似乎就比较完美了。</p>
 
       
@@ -533,9 +533,9 @@
           
             <a href="/tags/JS/" rel="tag"><i class="fa fa-tag"></i> JS</a>
           
-            <a href="/tags/vue/" rel="tag"><i class="fa fa-tag"></i> vue</a>
-          
             <a href="/tags/易面打分端重构/" rel="tag"><i class="fa fa-tag"></i> 易面打分端重构</a>
+          
+            <a href="/tags/vue/" rel="tag"><i class="fa fa-tag"></i> vue</a>
           
         </div>
       
@@ -635,7 +635,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">110</span>
+                <span class="site-state-item-count">111</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

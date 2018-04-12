@@ -437,7 +437,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  258 字
+                  282 字
                 </span>
               
 
@@ -475,16 +475,16 @@
 </blockquote>
 <a id="more"></a>
 <blockquote>
-<p>如果读者还不太了解 <code>vue-cil</code> , 或许<a href="https://vuejs-templates.github.io/webpack/" target="_blank" rel="external">vue-cil文档</a>可以帮助到你 , 事实上,文档中就有用 <a href="https://vuejs-templates.github.io/webpack/proxy.html" target="_blank" rel="external">proxyTable</a> 进行代理请求的相关介绍</p>
+<p>如果读者还不太了解 <code>vue-cil</code> , 或许<a href="https://vuejs-templates.github.io/webpack/" target="_blank" rel="noopener">vue-cil文档</a>可以帮助到你 , 事实上,文档中就有用 <a href="https://vuejs-templates.github.io/webpack/proxy.html" target="_blank" rel="noopener">proxyTable</a> 进行代理请求的相关介绍</p>
 </blockquote>
 <h4 id="关键代码"><a href="#关键代码" class="headerlink" title="关键代码"></a>关键代码</h4><p>在 <code>config/index.js</code> 写下以下关键代码 ：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// config/index.js</span></div><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">    <span class="comment">// ...</span></div><div class="line">    dev: &#123;</div><div class="line">        proxyTable: &#123;</div><div class="line">            <span class="comment">// proxy all requests starting with /api to jsonplaceholder</span></div><div class="line">            <span class="string">'/api'</span>: &#123;</div><div class="line">                target: <span class="string">'http://jsonplaceholder.typicode.com'</span>,</div><div class="line">                changeOrigin: <span class="literal">true</span>,</div><div class="line">                pathRewrite: &#123;</div><div class="line">                    <span class="string">'^/api'</span>: <span class="string">''</span></div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// config/index.js</span></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    dev: &#123;</span><br><span class="line">        proxyTable: &#123;</span><br><span class="line">            <span class="comment">// proxy all requests starting with /api to jsonplaceholder</span></span><br><span class="line">            <span class="string">'/api'</span>: &#123;</span><br><span class="line">                target: <span class="string">'http://jsonplaceholder.typicode.com'</span>,</span><br><span class="line">                changeOrigin: <span class="literal">true</span>,</span><br><span class="line">                pathRewrite: &#123;</span><br><span class="line">                    <span class="string">'^/api'</span>: <span class="string">''</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>上面的示例将代理请求 <code>/api/posts/test</code> 到 <code>http://jsonplaceholder.typicode.com/posts/test</code></p>
 <h4 id="实际开发中的配置"><a href="#实际开发中的配置" class="headerlink" title="实际开发中的配置"></a>实际开发中的配置</h4><p>王二在开发中进行的如下的配置：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">proxyTable: &#123;</div><div class="line">    <span class="string">"/middleware"</span>: &#123;</div><div class="line">    target: <span class="string">"http://192.168.2.57:80"</span>,</div><div class="line">    pathRewrite: &#123;</div><div class="line">        <span class="string">'^/middleware'</span>: <span class="string">'/patient/1070/middleware'</span></div><div class="line">    &#125;,</div><div class="line">    changeOrigin: <span class="literal">true</span>,</div><div class="line">    &#125;</div><div class="line">&#125;,</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">proxyTable: &#123;</span><br><span class="line">    <span class="string">"/middleware"</span>: &#123;</span><br><span class="line">    target: <span class="string">"http://192.168.2.57:80"</span>,</span><br><span class="line">    pathRewrite: &#123;</span><br><span class="line">        <span class="string">'^/middleware'</span>: <span class="string">'/patient/1070/middleware'</span></span><br><span class="line">    &#125;,</span><br><span class="line">    changeOrigin: <span class="literal">true</span>,</span><br><span class="line">    &#125;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
 <p>这样就会将代理请求 <code>/middleware/balabala</code> 到 <code>http://192.168.2.57:80/patient/1070/middleware/balabala</code></p>
 <blockquote>
-<p>需要注意的是，这这种代理请求只适用于开发环境，其背后的设置来自于其使用的插件<a href="https://github.com/chimurai/http-proxy-middleware" target="_blank" rel="external">http-proxy-middleware</a>，有兴趣可以了解了解</p>
+<p>需要注意的是，这这种代理请求只适用于开发环境，其背后的设置来自于其使用的插件<a href="https://github.com/chimurai/http-proxy-middleware" target="_blank" rel="noopener">http-proxy-middleware</a>，有兴趣可以了解了解</p>
 </blockquote>
 
       
@@ -632,7 +632,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">110</span>
+                <span class="site-state-item-count">111</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

@@ -108,7 +108,7 @@
 <meta property="og:site_name" content="王玉略的个人网站">
 <meta property="og:description" content="如何获取一段随机字符串？下面的方法或许能帮到你">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-02-06T09:28:44.900Z">
+<meta property="og:updated_time" content="2018-02-06T09:28:44.901Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="获取随机字符串">
 <meta name="twitter:description" content="如何获取一段随机字符串？下面的方法或许能帮到你">
@@ -437,7 +437,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  95 字
+                  109 字
                 </span>
               
 
@@ -474,7 +474,7 @@
         <blockquote class="blockquote-center"><p>如何获取一段随机字符串？下面的方法或许能帮到你 </p>
 </blockquote>
 <a id="more"></a>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">  <span class="comment">/**</span></div><div class="line"><span class="comment">   *  Get the a random string</span></div><div class="line"><span class="comment">   *  @param  &#123;integer&#125;  len   length of the random string</span></div><div class="line"><span class="comment">   *  @return &#123;string&#125;</span></div><div class="line"><span class="comment">   */</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">getStrRandom</span>(<span class="params">len</span>) </span>&#123;       <span class="comment">//len为字符串长度</span></div><div class="line">　　<span class="keyword">var</span> len = len || <span class="number">32</span>;</div><div class="line">　　<span class="keyword">var</span> $chars = <span class="string">'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678'</span>;    <span class="comment">/****默认去掉了容易混淆的字符oOLl,9gq,Vv,Uu,I1****/</span></div><div class="line">　　<span class="keyword">var</span> maxPos = $chars.length;</div><div class="line">　　<span class="keyword">var</span> pwd = <span class="string">''</span>;</div><div class="line">　　<span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</div><div class="line">　　　　pwd += $chars.charAt(<span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * maxPos));</div><div class="line">　　&#125;</div><div class="line">　　<span class="keyword">return</span> pwd;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   *  Get the a random string</span></span><br><span class="line"><span class="comment">   *  @param  &#123;integer&#125;  len   length of the random string</span></span><br><span class="line"><span class="comment">   *  @return &#123;string&#125;</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getStrRandom</span>(<span class="params">len</span>) </span>&#123;       <span class="comment">//len为字符串长度</span></span><br><span class="line">　　<span class="keyword">var</span> len = len || <span class="number">32</span>;</span><br><span class="line">　　<span class="keyword">var</span> $chars = <span class="string">'ABCDEFGHJKMNPQRSTWXYZabcdefhijkmnprstwxyz2345678'</span>;    <span class="comment">/****默认去掉了容易混淆的字符oOLl,9gq,Vv,Uu,I1****/</span></span><br><span class="line">　　<span class="keyword">var</span> maxPos = $chars.length;</span><br><span class="line">　　<span class="keyword">var</span> pwd = <span class="string">''</span>;</span><br><span class="line">　　<span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">　　　　pwd += $chars.charAt(<span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * maxPos));</span><br><span class="line">　　&#125;</span><br><span class="line">　　<span class="keyword">return</span> pwd;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -612,7 +612,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">110</span>
+                <span class="site-state-item-count">111</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

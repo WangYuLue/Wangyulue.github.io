@@ -437,7 +437,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  174 字
+                  179 字
                 </span>
               
 
@@ -475,10 +475,10 @@
 </blockquote>
 <a id="more"></a>
 <p>王二一开始是类似下面这样写的：</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">div</span><span class="selector-class">.father</span>&#123;</div><div class="line">    <span class="attribute">background-color</span>: black;</div><div class="line">    <span class="attribute">opacity</span>: <span class="number">0.75</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span><span class="selector-class">.father</span>&#123;</span><br><span class="line">    <span class="attribute">background-color</span>: black;</span><br><span class="line">    <span class="attribute">opacity</span>: <span class="number">0.75</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>但是这样写的话,子元素会受到父元素 <code>opacity</code> 的影响，也会有0.5的透明度。这时候哪怕子元素的 <code>opacity</code> 设置为一也没有用，因为子元素的 <code>opacity:1</code> 也是在父元素的 <code>opacity:0.5</code> 的基础上设置的，因此子元素的 <code>opacity</code> 还是0.5。</p>
 <p>后来的解决的方法如下：</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">div</span><span class="selector-class">.father</span>&#123;</div><div class="line">    <span class="attribute">background-color</span>: <span class="built_in">rgba</span>(255,255,255,0.75);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span><span class="selector-class">.father</span>&#123;</span><br><span class="line">    <span class="attribute">background-color</span>: <span class="built_in">rgba</span>(255,255,255,0.75);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -613,7 +613,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">110</span>
+                <span class="site-state-item-count">111</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
