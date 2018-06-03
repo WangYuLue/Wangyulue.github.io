@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[奥斯本检核表法]]></title>
+    <url>%2F2018%2F06%2F03%2F%E5%A5%A5%E6%96%AF%E6%9C%AC%E6%A3%80%E6%A0%B8%E8%A1%A8%E6%B3%95%2F</url>
+    <content type="text"><![CDATA[最近看到一个很有意思的的思考问题的方法–奥斯本检核表法 奥斯本检核表法是以该方法的发明者奥斯本命名的，它会引导个人在创新的过程中对照9个维度75个问题进行思考，启迪思路，开拓想象空间，打破固有的思维模式。以下是奥斯本的检核表 一、能否他用现有的事物有无其他用途；保持不变能否扩大用途；稍加改变有无其他用途。 包括三个问题： 有无新的用途？ 是否有新的使用方法？ 可否改变现有的使用方法？ 二、能否借用能否引入其他的创造性设想；能否模仿别的东西；能否从其他领域、产品、方案中引入新的元素、材料、造型、原理、工艺、思路。 包括五个问题： 有无类似的东西？ 利用类比能否产生新观念？ 过去有无类似的问题？ 可否模仿？ 能否超越？ 三、能否改变现有事物能否做些改变，如颜色、声音、味道、样式、花色、音响、品种、意义、制造方法；改变后效果如何？ 包括八个问题： 可否改变功能？ 可否改变颜色？ 可否改变形状？ 可否改变运动？ 可否改变气味？ 可否改变音响？ 可否改变外形？ 是否还有其他改变的可能性？ 四、能否扩大1、现有的事物可否扩大适用范围；能否增加使用功能；能否添加零部件，延长它的使用寿命，增加长度、厚度、强度、频率、速度、数量、价值。 包括十二个问题： 可否增加些什么？ 可否附加些什么？ 可否增加使用时间？ 可否增加频率？ 可否增加尺寸？ 可否增加强度？ 可否提高性能？ 可否增加新成分？ 可否加倍？ 可否扩大若干倍？ 可否放大？ 可否夸大？ 五、能否缩小 现有事物能否体积变小、长度变短、重量变轻、厚度变薄以及拆分或省略某些部分（简单化）？能否浓缩化、省力化、方便化。 包括十二个问题： 可否减少些什么？ 可否密集？ 可否压缩？ 可否浓缩？ 可否聚合？ 可否微型化？ 可否缩短？ 可否变窄？ 可否去掉？ 可否分割？ 可否减轻？ 可否变成流线型？ 六、能否代替 现有事物能否用其他材料、元件、结构、力、设备、方法、符号、声音等代替。 包括十个问题： 可否代替？ 用什么代替？ 还有什么其他的排列？ 还有什么其他的成分？ 还有什么其他的材料？ 还有什么其他的过程？ 还有什么其他的能源？ 还有什么其他的颜色？ 还有什么其他的音响？ 还有什么其他的照明？ 七、能否变换 现有事物能否变换排列顺序、位置、时间、速度、计划、型号；内部元件可否交换。 包括八个问题： 可否变换？ 有无可互换的成分？ 可否变换模式？ 可否变换布置顺序？ 可否变换操作工序？ 可否变换因果关系？ 可否变换速度或者频率？ 可否变换工作规范？ 八、能否颠倒现有的事物能否从内外、上下、左右、前后、横竖、主次、正负、因果等相反的角度颠倒过来用。 包括七个问题： 可否颠倒？ 可否颠倒正负？ 可否颠倒正反？ 可否前后颠倒？ 可否上下颠倒？ 可否颠倒位置？ 可否颠倒作用？ 九、能否组合能否进行原理组合、材料组合、部件组合、形状组合、功能组合、目的组合。 包括十个问题： 可否重新组合？ 可否尝试混合？ 可否尝试合成？ 可否尝试配合？ 可否尝试协调？ 可否尝试配套？ 可否把物体组合？ 可否把目的组合？ 可否把特性组合？ 可否把观念组合？ 就王二自身而言，把现在正在做的事情套进奥斯本检核表里来思考，脑子里蹦出了不少全新而且巧妙的点子，让王二能够全面的发散的思考一个问题。希望这对你也会有一些帮助。]]></content>
+      <categories>
+        <category>文学</category>
+      </categories>
+      <tags>
+        <tag>转载</tag>
+        <tag>读书</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[《你不知道的Javascript中卷》中有趣的知识点一]]></title>
     <url>%2F2018%2F04%2F25%2F%E3%80%8A%E4%BD%A0%E4%B8%8D%E7%9F%A5%E9%81%93%E7%9A%84javascript%E4%B8%AD%E5%8D%B7%E3%80%8B%E4%B8%AD%E6%9C%89%E8%B6%A3%E7%9A%84%E7%9F%A5%E8%AF%86%E7%82%B9%E4%B8%80%2F</url>
     <content type="text"><![CDATA[最近在看《你不知道的Javascript中卷》，里面有不少有趣的知识点和新鲜货，在这里做一个分享 一、类数组转换一些 DOM 查询操作会返回 DOM 元素列表，它们并非真正意义上的数组，但十分类似。另一个例子是通过 arguments 对象（类数组）将函数的参数,这时候我们可以通过如下方式将这些类数组转换为数组： 1234//通过工具函数slice();var arr = Array.prototype.slice.call( arguments );//或者ES6语法Array.from();var arr = Array.from( arguments ); 二、 . 运算符对于 . 运算符我们需要给予特别注意，因为它是一个有效的数字字符，会被优先识别为数字常量的一部分，然后才是对象属性访问运算符。 1234567// 无效语法：42.toFixed( 3 ); // SyntaxError// 下面的语法都有效：(42).toFixed( 3 ); // "42.000" 0.42.toFixed( 3 ); // "0.420"42..toFixed( 3 ); // "42.000"42 .toFixed(3); // "42.000"（注意其中的空格） 三、0.1 + 0.2 === 0.3 ？在js中: 10.1 + 0.2 === 0.3; // false 关于这个问题，感兴趣的同学可以读读王二的转载的一篇文章抓住数据的小尾巴 - JS浮点数陷阱及解法，由于 JavaScript 中的数字类型是基于 IEEE754 标准来实现的，所以二进制浮点数中的 0.1 和 0.2 相加并不是十分精确，这时候可以使用 Number.EPSILON 来比较两个数字是否相等（在指定的误差范围内）： 123456function numbersCloseEnoughToEqual(n1,n2) &#123; return Math.abs( n1 - n2 ) &lt; Number.EPSILON;&#125;var a = 0.1 + 0.2;var b = 0.3;numbersCloseEnoughToEqual( a, b ); //true 四、null 与 undefinednull 是一个特殊关键字，不是标识符，我们不能将其当作变量来使用和赋值。然而 undefined 却是一个标识符，可以被当作变量来使用和赋值。 五、isNaN()我们可以使用全局工具函数 window.isNaN() 和 ES6中的 Number.isNaN() 来判断一个值是不是 NaN,但这两者也有区别，参考如下代码： 123456789101112131415161718192021Number.isNaN( NaN ); // trueNumber.isNaN( "wanger" ); // false Number.isNaN( 5 ); // falsewindow.isNaN( NaN ); // truewindow.isNaN( "wanger" ); // true window.isNaN( 5 ); // false``` 很明显 "wanger" 不是一个数字 ，它也不是 NaN 。但是 `window.isNaN( "wanger" )`显示为true, 这个 bug自 JavaScript 问世以来就一直存在。### 六、`Object.prototype.toString` 可以查看类型```jsObject.prototype.toString.call( [1,2,3] ); // "[object Array]"Object.prototype.toString.call( /regex-literal/i ); // "[object RegExp]"Object.prototype.toString.call( null ); // "[object Null]"Object.prototype.toString.call( undefined ); //"[object Undefined]"Object.prototype.toString.call( "abc" ); // "[object String]"Object.prototype.toString.call( 42 ); // "[object Number]"Object.prototype.toString.call( true ); // "[object Boolean]" 七、JSON 字符串化undefined 、function 、symbol （ES6+）和包含循环引用（对象之间相互引用，形成一个无限循环）的对象都不符合 JSON 结构标准，支持 JSON 的语言无法处理它们。JSON.stringify(..) 在对象中遇到 undefined 、function 和 symbol 时会自动将其忽略，在数组中则会返回 null（以保证单元位置不变）。 例如： 12JSON.stringify([1,undefined,function()&#123;&#125;,4]); // "[1,null,null,4]"JSON.stringify(&#123; a:2, b:function()&#123;&#125; &#125;); // "&#123;"a":2&#125;" 八、假值对象先看一段代码： 12345console.log(document.all) //会返回页面上的所有元素if(document.all)&#123; console.log("test") //不会答应 "test"&#125; 最常见的假值对象是 document.all ，它是一个类数组对象，包含了页面上的所有元素，由 DOM（而不是 JavaScript 引擎）提供给 JavaScript 程序使用。它以前曾是一个真正意义上的对象，布尔强制类型转换结果为 true ，不过现在它是一个假值对象。 虽然 JavaScript 代码中会出现假值对象，但它实际上并不属于 JavaScript 语言的范畴。但这里仍然有必要注意一下。 需要注意的是，为我们经常通过将 document.all 强制类型转换为布尔值（比如在 if 语句中）来判断浏览器是否是老版本的 IE，如下： 1if(document.all) &#123; /* it's IE */ &#125; 九、显式解析数字字符串解析字符串中的数字和将字符串强制类型转换为数字的返回结果都是数字。但解析和转换两者之间还是有明显的差别，参考如下代码： 1234567var a = "42";var b = "42px";Number( a ); // 42parseInt( a ); // 42Number( b ); // NaNparseInt( b ); // 42 解析允许字符串中含有非数字字符，解析按从左到右的顺序，如果遇到非数字字符就停止。而转换不允许出现非数字字符，否则会失败并返回 NaN 。 需要注意的是 parseInt() 针对的是字符串值。向 parseInt() 传递数字和其他类型的参数是没有用的，比如 true、function(){...} 和 [1,2,3]，因为非字符串参数会首先被强制类型转换为字符串，所以如下的代码就没有问题： 1parseInt( new String( "42") ); // 42 十、|| 和 &amp;&amp;|| 和 &amp;&amp; 运算符的返回值并不一定是布尔类型，而是两个操作数其中一个的值，参考如下代码： 12345678var a = 42;var b = "abc"; var c = null;a || b; // 42 a &amp;&amp; b; // "abc"c || b; // "abc"c &amp;&amp; b; // null 在 C 和 PHP 中，上例的结果是 true 或 false ，在 JavaScript（以及 Python和 Ruby）中却是某个操作数的值。 十一、假值的相等比较== 中的隐式强制类型转换最为人诟病的地方是假值的相等比较。 下面分别列出了常规和非常规的情况： 123456789101112131415161718192021222324"0" == null; // false"0" == undefined; // false "0" == false; // true -- 晕！"0" == NaN; // false"0" == 0; // true "0" == ""; // falsefalse == null; // false false == undefined; // false false == NaN; // falsefalse == 0; // true -- 晕！false == ""; // true -- 晕！false == []; // true -- 晕！false == &#123;&#125;; // false"" == null; // false"" == undefined; // false "" == NaN; // false "" == 0; // true -- 晕！"" == []; // true -- 晕！"" == &#123;&#125;; // false0 == null; // false 0 == undefined; // false 0 == NaN; // false0 == []; // true -- 晕！0 == &#123;&#125;; // false 为了更详尽的展现假值的相等比较的一些特殊情况，github 上的@dorey做了一个JavaScript-Equality-Table如下图： 其中绿色表示为 true ,白色表示为 false; 资源地址戳这里 密码:j9gp]]></content>
@@ -54,8 +66,8 @@
       </categories>
       <tags>
         <tag>JS</tag>
-        <tag>vue</tag>
         <tag>易面打分端重构</tag>
+        <tag>vue</tag>
       </tags>
   </entry>
   <entry>
@@ -135,8 +147,8 @@
       </categories>
       <tags>
         <tag>JS</tag>
-        <tag>vue</tag>
         <tag>易面打分端重构</tag>
+        <tag>vue</tag>
       </tags>
   </entry>
   <entry>
@@ -197,8 +209,8 @@
       </categories>
       <tags>
         <tag>JS</tag>
-        <tag>vue</tag>
         <tag>易面打分端重构</tag>
+        <tag>vue</tag>
       </tags>
   </entry>
   <entry>
@@ -223,8 +235,8 @@
       </categories>
       <tags>
         <tag>JS</tag>
-        <tag>vue</tag>
         <tag>易面打分端重构</tag>
+        <tag>vue</tag>
       </tags>
   </entry>
   <entry>
@@ -325,8 +337,8 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>JS</tag>
         <tag>Chrome</tag>
+        <tag>JS</tag>
         <tag>自动化测试</tag>
       </tags>
   </entry>
