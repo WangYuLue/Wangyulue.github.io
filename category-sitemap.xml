@@ -70,15 +70,15 @@
     </url>
 
     <url>
-        <loc>http://yoursite.com/categories/%E5%89%8D%E7%AB%AF/</loc>
-        <lastmod>2018-05-03T08:06:15.401Z</lastmod>
+        <loc>http://yoursite.com/categories/%E6%96%87%E5%AD%A6/</loc>
+        <lastmod>2018-06-03T07:19:59.314Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://yoursite.com/categories/%E6%96%87%E5%AD%A6/</loc>
-        <lastmod>2018-06-03T07:19:59.314Z</lastmod>
+        <loc>http://yoursite.com/categories/%E5%89%8D%E7%AB%AF/</loc>
+        <lastmod>2018-07-14T01:51:54.403Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>

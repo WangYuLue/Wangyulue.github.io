@@ -117,7 +117,7 @@
 <meta property="og:image" content="https://github.com/WangYuLue/pic_of_blog/blob/master/1711/24.png?raw=true">
 <meta property="og:image" content="https://github.com/WangYuLue/pic_of_blog/blob/master/1711/25.png?raw=true">
 <meta property="og:image" content="https://github.com/WangYuLue/pic_of_blog/blob/master/1711/26.png?raw=true">
-<meta property="og:updated_time" content="2017-11-21T13:50:41.000Z">
+<meta property="og:updated_time" content="2018-07-14T01:51:54.403Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="理解浏览器缓存以及304状态码">
 <meta name="twitter:description" content="过去没太研究过HTTP,最近有空,看了一些。本文主要讨论浏览器缓存以及304状态码的一些知识，在这里做一个分享">
@@ -447,7 +447,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  975 字
+                  980 字
                 </span>
               
 
@@ -487,9 +487,9 @@
 <p>废话少说，先上一张HTTP请求流程图：</p>
 <p><img src="https://github.com/WangYuLue/pic_of_blog/blob/master/1711/28.png?raw=true" alt="Alt text"></p>
 <h3 id="一、详细讨论"><a href="#一、详细讨论" class="headerlink" title="一、详细讨论"></a>一、详细讨论</h3><h4 id="1、是否禁止缓存"><a href="#1、是否禁止缓存" class="headerlink" title="1、是否禁止缓存"></a>1、是否禁止缓存</h4><p><strong>禁止缓存</strong>指的是缓存中不得存储任何关于客户端请求和服务端响应的内容。每次由客户端发起的请求都会下载完整的响应内容。</p>
-<p>在请求头中，<code>Cache-Control: no-cache</code>与<code>Pragma: no-cache</code>都可以禁止缓存，</p>
-<p>但两者也有区别，<code>Pragma: no-cache</code>可以兼容<code>http 1.0</code> ，而<code>Cache-Control: no-cache</code>是<code>http 1.1</code>提供的。因此，<code>Pragma: no-cache</code>可以应用到<code>http 1.0</code>和<code>http 1.1</code>,而<code>Cache-Control: no-cache</code>只能应用于<code>http 1.1</code>。</p>
-<h4 id="2、是否检查本地副本是否过期"><a href="#2、是否检查本地副本是否过期" class="headerlink" title="2、是否检查本地副本是否过期"></a>2、是否检查本地副本是否过期</h4><p><strong>是否检查本地版本是否过期</strong>主要由<code>no-cache</code>和<code>must-revalidate</code>这两个值控制，其中：</p>
+<p>在请求头中，<code>Cache-Control: no-store</code>与<code>Pragma: no-cache</code>都可以禁止缓存，</p>
+<p>但两者也有区别，<code>Pragma: no-cache</code>可以兼容<code>http 1.0</code> ，而<code>Cache-Control: no-store</code>是<code>http 1.1</code>提供的。因此，<code>Pragma: no-cache</code>可以应用到<code>http 1.0</code>和<code>http 1.1</code>,而<code>Cache-Control: no-store</code>只能应用于<code>http 1.1</code>。</p>
+<h4 id="2、是否检查本地副本是否过期"><a href="#2、是否检查本地副本是否过期" class="headerlink" title="2、是否检查本地副本是否过期"></a>2、是否检查本地副本是否过期</h4><p><strong>是否检查本地版本是否过期</strong>主要由<code>Cache-Contro</code> 的 <code>no-cache</code>和<code>must-revalidate</code>这两个可选值控制，其中：</p>
 <blockquote>
 <ul>
 <li><code>no-cache</code>: 告诉浏览器、缓存服务器，不管本地副本是否过期，使用资源副本前，一定要到源服务器进行副本有效性校验。</li>
