@@ -233,13 +233,6 @@
     </url>
 
     <url>
-        <loc>http://yoursite.com/tags/JS/</loc>
-        <lastmod>2018-05-03T08:06:15.401Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.2</priority>
-    </url>
-
-    <url>
         <loc>http://yoursite.com/tags/%E5%89%8D%E7%AB%AF%E5%A4%87%E5%BF%98/</loc>
         <lastmod>2018-05-03T08:06:15.401Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -263,6 +256,13 @@
     <url>
         <loc>http://yoursite.com/tags/http/</loc>
         <lastmod>2018-07-14T01:51:54.403Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.2</priority>
+    </url>
+
+    <url>
+        <loc>http://yoursite.com/tags/JS/</loc>
+        <lastmod>2018-07-17T12:50:52.502Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
