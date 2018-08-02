@@ -108,7 +108,7 @@
 <meta property="og:site_name" content="王玉略的个人网站">
 <meta property="og:description" content="最近项目上有需求要检测网络的带宽，网上找了不少解决方案，以下王二来做一个整理">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-18T01:41:59.893Z">
+<meta property="og:updated_time" content="2018-07-20T15:45:51.209Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JS 检测网络带宽">
 <meta name="twitter:description" content="最近项目上有需求要检测网络的带宽，网上找了不少解决方案，以下王二来做一个整理">
@@ -491,7 +491,7 @@
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">measureBW</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> navigator.connection.downlink * <span class="number">1024</span> /<span class="number">8</span>;   <span class="comment">//单位为KB/sec</span></span><br><span class="line">&#125;</span><br><span class="line">measureBW() ;</span><br></pre></td></tr></table></figure>
 <p>我们还可以通过 <code>navigator.connection</code> 上的 <code>change</code> 事件来监听网络带宽的变化：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">navigator.connection.addEventListener(<span class="string">'change'</span>, measureBW());</span><br></pre></td></tr></table></figure></p>
 <p>参考文章：</p>
-<p><a href="https://developer.mozilla.org/en-US/docs/Web/API/NetworkInformation" target="_blank" rel="noopener">MDN NetworkInformation</a><br><a href="https://googlechrome.github.io/samples/network-information/" target="_blank" rel="noopener">Network Information API Sample</a><br><a href="https://blog.csdn.net/foart/article/details/8193288" target="_blank" rel="noopener">Kbps、KB、Mbps单位换算</a></p>
+<p><a href="https://developer.mozilla.org/en-US/docs/Web/API/NetworkInformation" target="_blank" rel="noopener">MDN NetworkInformation</a><br><a href="https://googlechrome.github. io/samples/network-information/" target="_blank" rel="noopener">Network Information API Sample</a><br><a href="https://blog.csdn.net/foart/article/details/8193288" target="_blank" rel="noopener">Kbps、KB、Mbps单位换算</a></p>
 
       
     </div>
