@@ -84,7 +84,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="JS,ES6," />
+  <meta name="keywords" content="ES6,JS," />
 
 
 
@@ -101,14 +101,14 @@
 
 
 <meta name="description" content="今天来啃一个硬骨头，this">
-<meta name="keywords" content="JS,ES6">
+<meta name="keywords" content="ES6,JS">
 <meta property="og:type" content="article">
 <meta property="og:title" content="理解JS中的this">
 <meta property="og:url" content="http://yoursite.com/2018/03/15/理解JS中的this/index.html">
 <meta property="og:site_name" content="王玉略的个人网站">
 <meta property="og:description" content="今天来啃一个硬骨头，this">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-03-15T16:06:28.709Z">
+<meta property="og:updated_time" content="2018-08-02T09:00:48.760Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="理解JS中的this">
 <meta name="twitter:description" content="今天来啃一个硬骨头，this">
@@ -437,7 +437,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  1,913 字
+                  1,981 字
                 </span>
               
 
@@ -544,7 +544,9 @@
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;      <span class="comment">// 返回一个箭头函数     </span></span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="params">()</span> =&gt;</span> &#123;   <span class="comment">//this继承自foo()       </span></span><br><span class="line">        <span class="built_in">console</span>.log( <span class="keyword">this</span>.a );     </span><br><span class="line">    &#125;</span><br><span class="line">&#125; </span><br><span class="line"><span class="keyword">var</span> obj1 = &#123;</span><br><span class="line">    a:<span class="number">2</span> </span><br><span class="line">&#125;; </span><br><span class="line"><span class="keyword">var</span> obj2 = &#123;</span><br><span class="line">    a:<span class="number">3</span> </span><br><span class="line">&#125;; </span><br><span class="line"><span class="keyword">var</span> bar = foo.call( obj1 ); </span><br><span class="line">bar.call( obj2 ); <span class="comment">// 2, 不是3！</span></span><br></pre></td></tr></table></figure>
 <p>如果将箭头函数换为普通函数，则打印的是3:</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;   </span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;       </span><br><span class="line">        <span class="built_in">console</span>.log( <span class="keyword">this</span>.a );     </span><br><span class="line">    &#125;</span><br><span class="line">&#125; </span><br><span class="line"><span class="keyword">var</span> obj1 = &#123;</span><br><span class="line">    a:<span class="number">2</span> </span><br><span class="line">&#125;; </span><br><span class="line"><span class="keyword">var</span> obj2 = &#123;</span><br><span class="line">    a:<span class="number">3</span> </span><br><span class="line">&#125;; </span><br><span class="line"><span class="keyword">var</span> bar = foo.call( obj1 ); </span><br><span class="line">bar.call( obj2 ); <span class="comment">// 3</span></span><br></pre></td></tr></table></figure>
+<p>也就是说，<strong>箭头函数中的<code>this</code> 是函数在定义时被确定，而不是函数在运行时被确定的</strong>，而普通方法中的 <code>this</code> 是在运行时被确定，而不是在定义时被确定的。</p>
 <h3 id="五、参考阅读"><a href="#五、参考阅读" class="headerlink" title="五、参考阅读"></a>五、参考阅读</h3><p><a href="https://pan.baidu.com/s/1fXBzt-NUdVXQe_gHSGk4cA" target="_blank" rel="noopener">你不知道的Javascript(上)（中文版）</a>  密码:x7ge</p>
+<p><a href="https://github.com/ruanyf/es6tutorial/issues/150" target="_blank" rel="noopener">阮一峰 es6tutorial 下的issue</a></p>
 <p><a href="https://www.cnblogs.com/pssp/p/5216085.html" target="_blank" rel="noopener">“追梦子”的博客</a></p>
 <p><a href="https://www.zhihu.com/question/25842198" target="_blank" rel="noopener">知乎关于this的问题</a></p>
 
@@ -591,9 +593,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/JS/" rel="tag"><i class="fa fa-tag"></i> JS</a>
-          
             <a href="/tags/ES6/" rel="tag"><i class="fa fa-tag"></i> ES6</a>
+          
+            <a href="/tags/JS/" rel="tag"><i class="fa fa-tag"></i> JS</a>
           
         </div>
       
