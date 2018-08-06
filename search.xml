@@ -77,8 +77,8 @@
       </categories>
       <tags>
         <tag>JS</tag>
-        <tag>vue</tag>
         <tag>易面打分端重构</tag>
+        <tag>vue</tag>
       </tags>
   </entry>
   <entry>
@@ -129,13 +129,13 @@
   <entry>
     <title><![CDATA[理解JS中的this]]></title>
     <url>%2F2018%2F03%2F15%2F%E7%90%86%E8%A7%A3JS%E4%B8%AD%E7%9A%84this%2F</url>
-    <content type="text"><![CDATA[今天来啃一个硬骨头，this 一、开始最近阅读《你不知道的javascript》，里面有关于 this 的详细介绍，王二受益匪浅，于是在这里做一个分享。 关于JS中的 this 到底是什么，知乎中轮子哥这样说到： this 在js的函数里面只是一个参数，是通过 Fuck.Shit(Bitches) 这种语法来传递的，点号前面的表达式就算 this。 轮子哥说的没错，通常来说，想要确定 this 就是寻找“函数被调用的位置”，但是这做起来并没有这么简单，因为某些编程模式可能会隐藏真正的调用位置。 划分到具体，js中有四条绑定规则来确定 this 的绑定对象。 二、四条绑定规则假设我们已经找到函数的被调用位置，我们还要确定用下面四条绑定规则中的哪一条，来确定 this 的绑定对象。在这里，王二首先会分别解释这四条规则，然后解释多条规则都可用时它们的优先级如何排列。 第一条规则：默认绑定1、默认绑定下 this 会指向全局对象 12345function foo() &#123; console.log( this.a ); &#125; var a = 2; foo(); // 2 2、但是如果使用严格模式（strict mode），那么全局对象将无法使用默认绑定，this 会绑定到 undefined,因此以上的代码会报错： 123456"use strict";function foo() &#123; console.log( this.a ); &#125; var a = 2; foo(); // TypeError: this is undefined 3、但是如果我们显式地用 window 调用 foo 函数，则以上代码不会报错： 123456"use strict";function foo() &#123; console.log( this.a ); &#125; var a = 2; window.foo(); // 2 这是因为我们应用了第二条规则——隐式绑定 第二条规则：隐式绑定如果一个函数中有 this ，这个函数有被上一级的对象所调用，那么 this 指向的就是上一级的对象；this 是在运行时被确定，而不是在定义时被确定。 1、参考如下代码： 12345678function foo() &#123; console.log( this.a ); &#125; var obj = &#123; a: 2, foo: foo &#125;;obj.foo(); // 2 2、this 指向的是被调用方法的上一级对象，而不是它的最外层对象， 参考如下代码： 123456789101112function foo() &#123; console.log( this.a ); &#125; var obj2 = &#123; a: 22, foo: foo &#125;; var obj1 = &#123; a: 12, obj2: obj2 &#125;; obj1.obj2.foo(); // 22 3、this 是在运行时被确定，而不是在定义时被确定， 参考如下代码： 12345678910function foo() &#123; console.log( this.a ); &#125; var obj = &#123; a: 2, foo: foo &#125;; var bar = obj.foo; // 函数别名！ var a = "oops, global"; // a是全局对象的属性bar(); // "oops, global" 4、在方法的参数中传入函数时也需要特别注意，传入函数的 this 也指向其方法被调用的上一级对象 参考如下代码： 123456789101112function foo() &#123; console.log( this.a ); &#125;function doFoo(fn) &#123; // fn其实引用的是foo fn(); // &lt;-- 调用位置！ &#125; var obj = &#123; a: 2, foo: foo &#125;; var a = "oops, global"; // a是全局对象的属性doFoo( obj.foo ); // "oops, global" 再例如： 123456789function foo() &#123; console.log( this.a ); &#125; var obj = &#123; a: 2, foo: foo &#125;; var a = "oops, global"; // a是全局对象的属性setTimeout( obj.foo, 100 ); // "oops, global" 在上面的的代码片段中，有时候我们就想打印 obj 中的 a 属性，这时候我们应该怎么修改呢？ 这就需要我们应用第三条规则——显式绑定 第三条规则：显式绑定以上的代码可以如下修改来访问到 obj 中的 a 属性： 123456789function foo() &#123; console.log( this.a ); &#125; var obj = &#123; a: 2, foo: foo &#125;; var a = "oops, global"; // a是全局对象的属性setTimeout( obj.foo.bind(obj), 100 ); // 2 这个代码片段中用了 bind（） 方法来显式修改 this 的指向，与 bind（） 方法有类似功能的还有 call（） 方法和 apply（） 方法，他们都可以改变 this的指向； 但是它们之间也有重要的区别：bind（） 是返回对应函数，便于稍后调用；call（） 、apply（） 则是立即调用 。关于这三个方法更详细的介绍，感兴趣的同学可以参考王二之前写过的一篇文章——JS中apply、call、bind的用法 第四条规则：new绑定参考如下代码： 12345function foo(a) &#123; this.a = a; &#125; var bar = new foo(2);console.log( bar.a ); // 2 使用 new 来调用函数，或者说发生构造函数调用时，会自动执行下面的操作。 创建（或者说构造）一个全新的对象。 这个新对象会被执行[[原型]]连接。 这个新对象会绑定到函数调用的 this 上。 如果函数没有返回其他对象，那么 new 表达式中的函数调用会自动返回这个新对象。 其中第二步操作，王二这里暂不讨论。 更具第一步和第三部操作，我们可以知道使用 new 来调用 foo(..) 时，我们会构造一个新对象并把它绑定到 foo(..) 调用中的 this 上。 关于第四步操作，我们需要额外注意，王二接下来提供一些示例代码以供参考（此代码来自‘追梦子’的博客）： 示例代码一: 1234567function fn() &#123; this.user = '追梦子'; return &#123;&#125;; &#125;var a = new fn; console.log(a.user); //undefined 示例代码二: 1234567function fn() &#123; this.user = '追梦子'; return function()&#123;&#125;;&#125;var a = new fn; console.log(a.user); //undefined 示例代码三: 1234567function fn() &#123; this.user = '追梦子'; return 1;&#125;var a = new fn; console.log(a.user); //追梦子 示例代码四: 1234567function fn() &#123; this.user = '追梦子'; return undefined;&#125;var a = new fn; console.log(a.user); //追梦子 也就是说：如果返回值是一个对象，那么 this 指向的就是那个返回的对象，如果返回值不是一个对象那么 this 还是指向函数的实例。 三、四条绑定规则的优先级现在我们可以根据优先级来判断函数在某个调用位置应用的是哪条规则。可以按照下面的顺序来进行判断： 1、 函数是否在 new 中调用（new绑定）？如果是的话this绑定的是新创建的对象。 1var bar = new foo() 2、 函数是否通过 call、apply、bind（显式绑定）调用？如果是的话，this 绑定的是指定的对象。 1var bar = foo.call(obj) 3、函数是否在某个上下文对象中调用（隐式绑定）？如果是的话，this 绑定的是那个上下文对象。 1var bar = obj.foo() 4、如果都不是的话，使用默认绑定。如果在严格模式下，就绑定到 undefined ，否则绑定到全局对象。 1var bar = foo() 四、箭头函数里的this箭头函数不使用 this 的四种标准规则，而是根据外层（函数或者全局）作用域来决定 this 。 参考如下代码： 12345678910111213function foo() &#123; // 返回一个箭头函数 return () =&gt; &#123; //this继承自foo() console.log( this.a ); &#125;&#125; var obj1 = &#123; a:2 &#125;; var obj2 = &#123; a:3 &#125;; var bar = foo.call( obj1 ); bar.call( obj2 ); // 2, 不是3！ 如果将箭头函数换为普通函数，则打印的是3: 12345678910111213function foo() &#123; return function () &#123; console.log( this.a ); &#125;&#125; var obj1 = &#123; a:2 &#125;; var obj2 = &#123; a:3 &#125;; var bar = foo.call( obj1 ); bar.call( obj2 ); // 3 也就是说，箭头函数中的this 是函数在定义时被确定，而不是函数在运行时被确定的，而普通方法中的 this 是在运行时被确定，而不是在定义时被确定的。 五、参考阅读你不知道的Javascript(上)（中文版） 密码:x7ge 阮一峰 es6tutorial 下的issue “追梦子”的博客 知乎关于this的问题]]></content>
+    <content type="text"><![CDATA[今天来啃一个硬骨头，this 一、开始最近阅读《你不知道的javascript》，里面有关于 this 的详细介绍，王二受益匪浅，于是在这里做一个分享。 关于JS中的 this 到底是什么，知乎中轮子哥这样说到： this 在js的函数里面只是一个参数，是通过 Fuck.Shit(Bitches) 这种语法来传递的，点号前面的表达式就算 this。 轮子哥说的没错，通常来说，想要确定 this 就是寻找“函数被调用的位置”，但是这做起来并没有这么简单，因为某些编程模式可能会隐藏真正的调用位置。 划分到具体，js中有四条绑定规则来确定 this 的绑定对象。 二、四条绑定规则假设我们已经找到函数的被调用位置，我们还要确定用下面四条绑定规则中的哪一条，来确定 this 的绑定对象。在这里，王二首先会分别解释这四条规则，然后解释多条规则都可用时它们的优先级如何排列。 第一条规则：默认绑定1、默认绑定下 this 会指向全局对象 12345function foo() &#123; console.log( this.a ); &#125; var a = 2; foo(); // 2 2、但是如果使用严格模式（strict mode），那么全局对象将无法使用默认绑定，this 会绑定到 undefined,因此以上的代码会报错： 123456"use strict";function foo() &#123; console.log( this.a ); &#125; var a = 2; foo(); // TypeError: this is undefined 3、但是如果我们显式地用 window 调用 foo 函数，则以上代码不会报错： 123456"use strict";function foo() &#123; console.log( this.a ); &#125; var a = 2; window.foo(); // 2 这是因为我们应用了第二条规则——隐式绑定 第二条规则：隐式绑定如果一个函数中有 this ，这个函数有被上一级的对象所调用，那么 this 指向的就是上一级的对象；this 是在运行时被确定，而不是在定义时被确定。 1、参考如下代码： 12345678function foo() &#123; console.log( this.a ); &#125; var obj = &#123; a: 2, foo: foo &#125;;obj.foo(); // 2 2、this 指向的是被调用方法的上一级对象，而不是它的最外层对象， 参考如下代码： 123456789101112function foo() &#123; console.log( this.a ); &#125; var obj2 = &#123; a: 22, foo: foo &#125;; var obj1 = &#123; a: 12, obj2: obj2 &#125;; obj1.obj2.foo(); // 22 3、this 是在运行时被确定，而不是在定义时被确定， 参考如下代码： 12345678910function foo() &#123; console.log( this.a ); &#125; var obj = &#123; a: 2, foo: foo &#125;; var bar = obj.foo; // 函数别名！ var a = "oops, global"; // a是全局对象的属性bar(); // "oops, global" 4、在方法的参数中传入函数时也需要特别注意，传入函数的 this 也指向其方法被调用的上一级对象 参考如下代码： 123456789101112function foo() &#123; console.log( this.a ); &#125;function doFoo(fn) &#123; // fn其实引用的是foo fn(); // &lt;-- 调用位置！ &#125; var obj = &#123; a: 2, foo: foo &#125;; var a = "oops, global"; // a是全局对象的属性doFoo( obj.foo ); // "oops, global" 再例如： 123456789function foo() &#123; console.log( this.a ); &#125; var obj = &#123; a: 2, foo: foo &#125;; var a = "oops, global"; // a是全局对象的属性setTimeout( obj.foo, 100 ); // "oops, global" 在上面的的代码片段中，有时候我们就想打印 obj 中的 a 属性，这时候我们应该怎么修改呢？ 这就需要我们应用第三条规则——显式绑定 第三条规则：显式绑定以上的代码可以如下修改来访问到 obj 中的 a 属性： 123456789function foo() &#123; console.log( this.a ); &#125; var obj = &#123; a: 2, foo: foo &#125;; var a = "oops, global"; // a是全局对象的属性setTimeout( obj.foo.bind(obj), 100 ); // 2 这个代码片段中用了 bind（） 方法来显式修改 this 的指向，与 bind（） 方法有类似功能的还有 call（） 方法和 apply（） 方法，他们都可以改变 this的指向； 但是它们之间也有重要的区别：bind（） 是返回对应函数，便于稍后调用；call（） 、apply（） 则是立即调用 。关于这三个方法更详细的介绍，感兴趣的同学可以参考王二之前写过的一篇文章——JS中apply、call、bind的用法 第四条规则：new绑定参考如下代码： 12345function foo(a) &#123; this.a = a; &#125; var bar = new foo(2);console.log( bar.a ); // 2 使用 new 来调用函数，或者说发生构造函数调用时，会自动执行下面的操作。 创建（或者说构造）一个全新的对象。 这个新对象会被执行[[原型]]连接。 这个新对象会绑定到函数调用的 this 上。 如果函数没有返回其他对象，那么 new 表达式中的函数调用会自动返回这个新对象。 其中第二步操作，王二这里暂不讨论。 更具第一步和第三部操作，我们可以知道使用 new 来调用 foo(..) 时，我们会构造一个新对象并把它绑定到 foo(..) 调用中的 this 上。 关于第四步操作，我们需要额外注意，王二接下来提供一些示例代码以供参考（此代码来自‘追梦子’的博客）： 示例代码一: 1234567function fn() &#123; this.user = '追梦子'; return &#123;&#125;; &#125;var a = new fn; console.log(a.user); //undefined 示例代码二: 1234567function fn() &#123; this.user = '追梦子'; return function()&#123;&#125;;&#125;var a = new fn; console.log(a.user); //undefined 示例代码三: 1234567function fn() &#123; this.user = '追梦子'; return 1;&#125;var a = new fn; console.log(a.user); //追梦子 示例代码四: 1234567function fn() &#123; this.user = '追梦子'; return undefined;&#125;var a = new fn; console.log(a.user); //追梦子 也就是说：如果返回值是一个对象，那么 this 指向的就是那个返回的对象，如果返回值不是一个对象那么 this 还是指向函数的实例。 三、四条绑定规则的优先级现在我们可以根据优先级来判断函数在某个调用位置应用的是哪条规则。可以按照下面的顺序来进行判断： 1、 函数是否在 new 中调用（new绑定）？如果是的话this绑定的是新创建的对象。 1var bar = new foo() 2、 函数是否通过 call、apply、bind（显式绑定）调用？如果是的话，this 绑定的是指定的对象。 1var bar = foo.call(obj) 3、函数是否在某个上下文对象中调用（隐式绑定）？如果是的话，this 绑定的是那个上下文对象。 1var bar = obj.foo() 4、如果都不是的话，使用默认绑定。如果在严格模式下，就绑定到 undefined ，否则绑定到全局对象。 1var bar = foo() 四、箭头函数里的this箭头函数不使用 this 的四种标准规则，而是根据外层（函数或者全局）作用域来决定 this 。 参考如下代码： 12345678910111213function foo() &#123; // 返回一个箭头函数 return () =&gt; &#123; //this继承自foo() console.log( this.a ); &#125;&#125; var obj1 = &#123; a:2 &#125;; var obj2 = &#123; a:3 &#125;; var bar = foo.call( obj1 ); bar.call( obj2 ); // 2, 不是3！ 如果将箭头函数换为普通函数，则打印的是3: 12345678910111213function foo() &#123; return function () &#123; console.log( this.a ); &#125;&#125; var obj1 = &#123; a:2 &#125;; var obj2 = &#123; a:3 &#125;; var bar = foo.call( obj1 ); bar.call( obj2 ); // 3 也就是说，箭头函数中的this 是函数在定义时被确定，而不是函数在运行时被确定的; 而普通方法中的 this 是在运行时被确定，而不是在定义时被确定的。 五、参考阅读你不知道的Javascript(上)（中文版） 密码:x7ge 阮一峰 es6tutorial 下的issue “追梦子”的博客 知乎关于this的问题]]></content>
       <categories>
         <category>前端</category>
       </categories>
       <tags>
-        <tag>ES6</tag>
         <tag>JS</tag>
+        <tag>ES6</tag>
       </tags>
   </entry>
   <entry>
@@ -158,8 +158,8 @@
       </categories>
       <tags>
         <tag>JS</tag>
-        <tag>vue</tag>
         <tag>易面打分端重构</tag>
+        <tag>vue</tag>
       </tags>
   </entry>
   <entry>
@@ -220,8 +220,8 @@
       </categories>
       <tags>
         <tag>JS</tag>
-        <tag>vue</tag>
         <tag>易面打分端重构</tag>
+        <tag>vue</tag>
       </tags>
   </entry>
   <entry>
@@ -246,8 +246,8 @@
       </categories>
       <tags>
         <tag>JS</tag>
-        <tag>vue</tag>
         <tag>易面打分端重构</tag>
+        <tag>vue</tag>
       </tags>
   </entry>
   <entry>
@@ -325,8 +325,8 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>ES6</tag>
         <tag>JS</tag>
+        <tag>ES6</tag>
       </tags>
   </entry>
   <entry>
@@ -348,8 +348,8 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>Chrome</tag>
         <tag>JS</tag>
+        <tag>Chrome</tag>
         <tag>自动化测试</tag>
       </tags>
   </entry>
@@ -671,8 +671,8 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>ES6</tag>
         <tag>JS</tag>
+        <tag>ES6</tag>
       </tags>
   </entry>
   <entry>
@@ -683,8 +683,8 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>ES6</tag>
         <tag>JS</tag>
+        <tag>ES6</tag>
       </tags>
   </entry>
   <entry>
@@ -791,7 +791,7 @@
   <entry>
     <title><![CDATA[【转载】抓住数据的小尾巴 - JS浮点数陷阱及解法]]></title>
     <url>%2F2017%2F11%2F06%2F%E3%80%90%E8%BD%AC%E8%BD%BD%E3%80%91%E6%8A%93%E4%BD%8F%E6%95%B0%E6%8D%AE%E7%9A%84%E5%B0%8F%E5%B0%BE%E5%B7%B4-JS%E6%B5%AE%E7%82%B9%E6%95%B0%E9%99%B7%E9%98%B1%E5%8F%8A%E8%A7%A3%E6%B3%95%2F</url>
-    <content type="text"><![CDATA[前两天开发时做计算金额汇总，然后139.16+126计算的结果是265.15999999999997，这把我郁闷的半死，刚好这两天刷掘金看到一篇深度好文抓住数据的小尾巴 - JS浮点数陷阱及解法，算是解开了我心中的半片阴霾，因为有些没太理解，所以还有半片继续阴霾着。不管怎么说，这里先做一个转载 文章原发于掘金’前端新能源’ 众所周知，JavaScript 浮点数运算时经常遇到会 0.000000001 和 0.999999999 这样奇怪的结果，如 0.1+0.2=0.30000000000000004、1-0.9=0.09999999999999998，很多人知道这是浮点数误差问题，但具体原因就说不清楚了。本文帮你理清这背后的原理以及解决方案，还会向你解释JS中的大数危机和四则运算中会遇到的坑。 一、浮点数的存储首先要搞清楚 JavaScript 如何存储小数。和其它语言如 Java 和 Python 不同，JavaScript 中所有数字包括整数和小数都只有一种类型 — Number。它的实现遵循 IEEE 754 标准，使用 64 位固定长度来表示，也就是标准的 double 双精度浮点数（相关的还有float 32位单精度）。计算机组成原理中有过详细介绍，如果你不记得也没关系。 注：大多数语言中的小数默认都是遵循 IEEE 754 的 float 浮点数，包括 Java、Ruby、Python，本文中的浮点数问题同样存在。 这样的存储结构优点是可以归一化处理整数和小数，节省存储空间。 64位比特又可分为三个部分： 符号位S：第 1 位是正负数符号位（sign），0代表正数，1代表负数 指数位E：中间的 11 位存储指数（exponent），用来表示次方数 尾数位M：最后的 52 位是尾数（mantissa），超出的部分自动进一舍零 实际数字就可以用以下公式来计算： 注意以上的公式遵循科学计数法的规范，在十进制中 0&lt;M&lt;10，到二进制就是 0&lt;M&lt;2。也就是说整数部分只能是1，所以可以被舍去，只保留后面的小数部分。如 4.5 转成二进制就是 100.1，科学计数法表示是 1.001*2^2，舍去1后 M = 001。E是一个无符号整数，因为长度是11位，取值范围是 0~2047。但是科学计数法中的指数是可以为负数的，所以约定减去一个中间数 1023，[0,1022] 表示为负，[1024,2047] 表示为正。如 4.5 的指数 E = 1025，尾数 M = 001。 最终的公式变成： 所以 4.5 最终表示为（M=001、E=1025）： (图片由此生成 http://www.binaryconvert.com/convert_double.html) 下面再以 0.1 为例解释浮点误差的原因，0.1 转成二进制表示为 0.0001100110011001100(1100循环)，1.100110011001100x2^-4，所以 E=-4+1023=1019；M 舍去首位的1，得到 100110011…。最终就是： 转化成十进制后为 0.100000000000000005551115123126，因此就出现了浮点误差。 1、为什么 0.1+0.2=0.30000000000000004？计算步骤为： 123456// 0.1 和 0.2 都转化成二进制后再进行运算0.00011001100110011001100110011001100110011001100110011010 +0.0011001100110011001100110011001100110011001100110011010 =0.0100110011001100110011001100110011001100110011001100111// 转成十进制正好是 0.30000000000000004 2、为什么 x=0.1 能得到 0.1？恭喜你到了看山不是山的境界。因为 mantissa 固定长度是 52 位，再加上省略的一位，最多可以表示的数是 2^53=9007199254740992，对应科学计数尾数是 9.007199254740992，这也是 JS 最多能表示的精度。它的长度是 16，所以可以近似使用 toPrecision(16) 来做精度运算，超过的精度会自动做凑整处理。于是就有： 123450.10000000000000000555.toPrecision(16)// 返回 0.1000000000000000，去掉末尾的零后正好为 0.1// 但你看到的 `0.1` 实际上并不是 `0.1`。不信你可用更高的精度试试：0.1.toPrecision(21) = 0.100000000000000005551 3、大数危机可能你已经隐约感觉到了，如果整数大于 9007199254740992 会出现什么情况呢？由于 E 最大值是 1023，所以最大可以表示的整数是 2^1024 - 1，这就是能表示的最大整数。但你并不能这样计算这个数字，因为从 2^1024 开始就变成了 Infinity 12345&gt; Math.pow(2, 1023)8.98846567431158e+307&gt; Math.pow(2, 1024)Infinity 那么对于 (2^53, 2^63) 之间的数会出现什么情况呢？ (2^53, 2^54) 之间的数会两个选一个，只能精确表示偶数 (2^54, 2^55) 之间的数会四个选一个，只能精确表示4个倍数 … 依次跳过更多2的倍数 下面这张图能很好的表示 JavaScript 中浮点数和实数（Real Number）之间的对应关系。我们常用的 (-2^53, 2^53) 只是最中间非常小的一部分，越往两边越稀疏越不精确。 在淘宝早期的订单系统中把订单号当作数字处理，后来随意订单号暴增，已经超过了9007199254740992，最终的解法是把订单号改成字符串处理。 要想解决大数的问题你可以引用第三方库 bignumber.js，原理是把所有数字当作字符串，重新实现了计算逻辑，缺点是性能比原生的差很多，所以原生支持大数就很有必要了。TC39 已经有一个 Stage 3 的提案 proposal bigint，大数问题有望彻底解决。在浏览器正式支持前，可以使用 Babel 7.0 来实现，它的内部是自动转换成 big-integer 来计算，这样能保持精度但运算效率会降低。 4、toPrecision vs toFixed数据处理时，这两个函数很容易混淆。它们的共同点是把数字转成字符串供展示使用。注意在计算的中间过程不要使用，只用于最终结果。 不同点就需要注意一下： toPrecision 是处理精度，精度是从左至右第一个不为0的数开始数起。 toFixed 是小数点后指定位数取整，从小数点开始数起。两者都能对多余数字做凑整处理，也有些人用 toFixed 来做四舍五入，但一定要知道它是有 Bug 的。 如：1.005.toFixed(2) 返回的是 1.00 而不是 1.01。 原因： 1.005 实际对应的数字是 1.00499999999999989，在四舍五入时全部被舍去！ 解法：使用四舍五入函数 Math.round() 来处理。但 Math.round(1.005 100) / 100 还是不行，因为 1.005 100 = 100.49999999999999。还需要把乘法和除法精度误差都解决后再使用 Math.round。可以使用后面介绍的 number-precision#round 方法来解决。 二、解决方案回到最关心的问题：如何解决浮点误差。首先，理论上用有限的空间来存储无限的小数是不可能保证精确的，但我们可以处理一下得到我们期望的结果。 1、数据展示类当你拿到 1.4000000000000001 这样的数据要展示时，建议使用 toPrecision 凑整并 parseFloat 转成数字后再显示，如下： 1parseFloat(1.4000000000000001.toPrecision(12)) === 1.4 // True 封装成方法就是： 123function strip(num, precision = 12) &#123; return +parseFloat(num.toPrecision(precision));&#125; 为什么选择 12 做为默认精度？这是一个经验的选择，一般选12就能解决掉大部分0001和0009问题，而且大部分情况下也够用了，如果你需要更精确可以调高。 2、数据运算类对于运算类操作，如 +-*/，就不能使用 toPrecision 了。正确的做法是把小数转成整数后再运算。以加法为例： 123456789/** * 精确加法 */function add(num1, num2) &#123; const num1Digits = (num1.toString().split('.')[1] || '').length; const num2Digits = (num2.toString().split('.')[1] || '').length; const baseNum = Math.pow(10, Math.max(num1Digits, num2Digits)); return (num1 * baseNum + num2 * baseNum) / baseNum;&#125; 以上方法能适用于大部分场景。遇到科学计数法如 2.3e+1（当数字精度大于21时，数字会强制转为科学计数法形式显示）时还需要特别处理一下。 这里作者推荐了一个开源库number-precision,完美支持浮点数的加减乘除、四舍五入等运算。非常小只有1K，远小于绝大多数同类库（如Math.js、BigDecimal.js），100%测试全覆盖，代码可读性强，可以覆盖大部分应用场景。 参考 Double-precision floating-point format What Every Programmer Should Know About Floating-Point Arithmetic Why Computers are Bad at Algebra | Infinite Series Is Your Model Susceptible to Floating-Point Errors?]]></content>
+    <content type="text"><![CDATA[前两天开发时做计算金额汇总，然后139.16+126计算的结果是265.15999999999997，这把我郁闷的半死，刚好这两天刷掘金看到一篇深度好文抓住数据的小尾巴 - JS浮点数陷阱及解法，算是解开了我心中的半片阴霾，因为有些没太理解，所以还有半片继续阴霾着。不管怎么说，这里先做一个转载 文章原发于掘金’前端新能源’ 众所周知，JavaScript 浮点数运算时经常遇到会 0.000000001 和 0.999999999 这样奇怪的结果，如 0.1+0.2=0.30000000000000004、1-0.9=0.09999999999999998，很多人知道这是浮点数误差问题，但具体原因就说不清楚了。本文帮你理清这背后的原理以及解决方案，还会向你解释JS中的大数危机和四则运算中会遇到的坑。 一、浮点数的存储首先要搞清楚 JavaScript 如何存储小数。和其它语言如 Java 和 Python 不同，JavaScript 中所有数字包括整数和小数都只有一种类型 — Number。它的实现遵循 IEEE 754 标准，使用 64 位固定长度来表示，也就是标准的 double 双精度浮点数（相关的还有float 32位单精度）。计算机组成原理中有过详细介绍，如果你不记得也没关系。 注：大多数语言中的小数默认都是遵循 IEEE 754 的 float 浮点数，包括 Java、Ruby、Python，本文中的浮点数问题同样存在。 这样的存储结构优点是可以归一化处理整数和小数，节省存储空间。 64位比特又可分为三个部分： 符号位S：第 1 位是正负数符号位（sign），0代表正数，1代表负数 指数位E：中间的 11 位存储指数（exponent），用来表示次方数 尾数位M：最后的 52 位是尾数（mantissa），超出的部分自动进一舍零 实际数字就可以用以下公式来计算： 注意以上的公式遵循科学计数法的规范，在十进制中 0&lt;M&lt;10，到二进制就是 0&lt;M&lt;2。也就是说整数部分只能是1，所以可以被舍去，只保留后面的小数部分。如 4.5 转成二进制就是 100.1，科学计数法表示是 1.001*2^2，舍去1后 M = 001。E是一个无符号整数，因为长度是11位，取值范围是 0~2047。但是科学计数法中的指数是可以为负数的，所以约定减去一个中间数 1023，[0,1022] 表示为负，[1024,2047] 表示为正。如 4.5 的指数 E = 1025，尾数 M = 001。 最终的公式变成： 所以 4.5 最终表示为（M=001、E=1025）： (图片由此生成 http://www.binaryconvert.com/convert_double.html) 下面再以 0.1 为例解释浮点误差的原因，0.1 转成二进制表示为 0.0001100110011001100(1100循环)，1.100110011001100x2^-4，所以 E=-4+1023=1019；M 舍去首位的1，得到 100110011…。最终就是： 转化成十进制后为 0.100000000000000005551115123126，因此就出现了浮点误差。 1、为什么 0.1+0.2=0.30000000000000004？计算步骤为： 123456// 0.1 和 0.2 都转化成二进制后再进行运算0.00011001100110011001100110011001100110011001100110011010 +0.0011001100110011001100110011001100110011001100110011010 =0.0100110011001100110011001100110011001100110011001100111// 转成十进制正好是 0.30000000000000004 2、为什么 x=0.1 能得到 0.1？恭喜你到了看山不是山的境界。因为 mantissa 固定长度是 52 位，再加上省略的一位，最多可以表示的数是 2^53=9007199254740992，对应科学计数尾数是 9.007199254740992，这也是 JS 最多能表示的精度。它的长度是 16，所以可以近似使用 toPrecision(16) 来做精度运算，超过的精度会自动做凑整处理。于是就有： 123450.10000000000000000555.toPrecision(16)// 返回 0.1000000000000000，去掉末尾的零后正好为 0.1// 但你看到的 `0.1` 实际上并不是 `0.1`。不信你可用更高的精度试试：0.1.toPrecision(21) = 0.100000000000000005551 3、大数危机可能你已经隐约感觉到了，如果整数大于 9007199254740992 会出现什么情况呢？由于 E 最大值是 1023，所以最大可以表示的整数是 2^1024 - 1，这就是能表示的最大整数。但你并不能这样计算这个数字，因为从 2^1024 开始就变成了 Infinity 12345&gt; Math.pow(2, 1023)8.98846567431158e+307&gt; Math.pow(2, 1024)Infinity 那么对于 (2^53, 2^63) 之间的数会出现什么情况呢？ (2^53, 2^54) 之间的数会两个选一个，只能精确表示偶数 (2^54, 2^55) 之间的数会四个选一个，只能精确表示4个倍数 … 依次跳过更多2的倍数 下面这张图能很好的表示 JavaScript 中浮点数和实数（Real Number）之间的对应关系。我们常用的 (-2^53, 2^53) 只是最中间非常小的一部分，越往两边越稀疏越不精确。 在淘宝早期的订单系统中把订单号当作数字处理，后来随意订单号暴增，已经超过了9007199254740992，最终的解法是把订单号改成字符串处理。 要想解决大数的问题你可以引用第三方库 bignumber.js，原理是把所有数字当作字符串，重新实现了计算逻辑，缺点是性能比原生的差很多，所以原生支持大数就很有必要了。TC39 已经有一个 Stage 3 的提案 proposal bigint，大数问题有望彻底解决。在浏览器正式支持前，可以使用 Babel 7.0 来实现，它的内部是自动转换成 big-integer 来计算，这样能保持精度但运算效率会降低。 4、toPrecision vs toFixed数据处理时，这两个函数很容易混淆。它们的共同点是把数字转成字符串供展示使用。注意在计算的中间过程不要使用，只用于最终结果。 不同点就需要注意一下： toPrecision 是处理精度，精度是从左至右第一个不为0的数开始数起。 toFixed 是小数点后指定位数取整，从小数点开始数起。两者都能对多余数字做凑整处理，也有些人用 toFixed 来做四舍五入，但一定要知道它是有 Bug 的。 如：1.005.toFixed(2) 返回的是 1.00 而不是 1.01。 原因： 1.005 实际对应的数字是 1.00499999999999989，在四舍五入时全部被舍去！ 解法：使用四舍五入函数 Math.round() 来处理。但 Math.round(1.005*100) / 100 还是不行，因为 1.005*100 = 100.49999999999999。还需要把乘法和除法精度误差都解决后再使用 Math.round。可以使用后面介绍的 number-precision#round 方法来解决。 二、解决方案回到最关心的问题：如何解决浮点误差。首先，理论上用有限的空间来存储无限的小数是不可能保证精确的，但我们可以处理一下得到我们期望的结果。 1、数据展示类当你拿到 1.4000000000000001 这样的数据要展示时，建议使用 toPrecision 凑整并 parseFloat 转成数字后再显示，如下： 1parseFloat(1.4000000000000001.toPrecision(12)) === 1.4 // True 封装成方法就是： 123function strip(num, precision = 12) &#123; return +parseFloat(num.toPrecision(precision));&#125; 为什么选择 12 做为默认精度？这是一个经验的选择，一般选12就能解决掉大部分0001和0009问题，而且大部分情况下也够用了，如果你需要更精确可以调高。 2、数据运算类对于运算类操作，如 +-*/，就不能使用 toPrecision 了。正确的做法是把小数转成整数后再运算。以加法为例： 123456789/** * 精确加法 */function add(num1, num2) &#123; const num1Digits = (num1.toString().split('.')[1] || '').length; const num2Digits = (num2.toString().split('.')[1] || '').length; const baseNum = Math.pow(10, Math.max(num1Digits, num2Digits)); return (num1 * baseNum + num2 * baseNum) / baseNum;&#125; 以上方法能适用于大部分场景。遇到科学计数法如 2.3e+1（当数字精度大于21时，数字会强制转为科学计数法形式显示）时还需要特别处理一下。 这里作者推荐了一个开源库number-precision,完美支持浮点数的加减乘除、四舍五入等运算。非常小只有1K，远小于绝大多数同类库（如Math.js、BigDecimal.js），100%测试全覆盖，代码可读性强，可以覆盖大部分应用场景。 参考 Double-precision floating-point format What Every Programmer Should Know About Floating-Point Arithmetic Why Computers are Bad at Algebra | Infinite Series Is Your Model Susceptible to Floating-Point Errors?]]></content>
       <categories>
         <category>前端备忘</category>
       </categories>
@@ -1264,8 +1264,8 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>ES6</tag>
         <tag>JS</tag>
+        <tag>ES6</tag>
       </tags>
   </entry>
   <entry>
