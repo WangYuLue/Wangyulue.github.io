@@ -1,1 +1,87 @@
-"use strict";var _typeof="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e};!function(e,n){"object"===("undefined"==typeof exports?"undefined":_typeof(exports))&&"undefined"!=typeof module?module.exports=n():"function"==typeof define&&define.amd?define(n):e.imageResizeTools=n()}(void 0,function(){var o={urltoImage:function(t){return new Promise(function(e){var n=new Image;n.src=t,n.onload=function(){e(n)}})},imagetoCanvas:function(o){return new Promise(function(e){var n=document.createElement("canvas"),t=n.getContext("2d");n.width=o.width,n.height=o.height,t.drawImage(o,0,0,n.width,n.height),e(n)})},canvasResizetoFile:function(e,t){return new Promise(function(n){e.toBlob(function(e){n(e)},"image/jpeg",t)})},canvasResizetoDataURL:function(n,t){return new Promise(function(e){e(n.toDataURL("image/jpeg",t))})},filetoDataURL:function(t){return new Promise(function(n){var e=new FileReader;e.onloadend=function(e){n(e.target.result)},e.readAsDataURL(t)})},dataURLtoImage:function(t){return new Promise(function(e){var n=new Image;n.onload=function(){e(n)},n.src=t})},dataURLtoFile:function(a){return new Promise(function(e){for(var n=a.split(","),t=n[0].match(/:(.*?);/)[1],o=atob(n[1]),i=o.length,r=new Uint8Array(i);i--;)r[i]=o.charCodeAt(i);e(new Blob([r],{type:t}))})},fileResizetoFile:function(e,n,t){o.filetoDataURL(e).then(function(e){return o.dataURLtoImage(e)}).then(function(e){return o.imagetoCanvas(e)}).then(function(e){return o.canvasResizetoFile(e,n)}).then(function(e){return t(e)})}};return o});
+(function (global, factory) {
+	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
+	typeof define === 'function' && define.amd ? define(factory) :
+	(global.imageResizeTools = factory());
+}(this, (function () { 'use strict';
+
+	var methods = {} ;
+
+	methods.urltoImage = function (url) {
+        return new Promise((resolve) => {
+            var img = new Image();
+            img.src = url;
+            img.onload = function(){
+                resolve(img);
+            }
+        });
+	};
+
+	methods.imagetoCanvas = function (image) {
+        return new Promise((resolve) => {
+            var cvs = document.createElement("canvas");
+            var ctx = cvs.getContext('2d');
+            cvs.width = image.width;
+            cvs.height = image.height;
+            ctx.drawImage(image, 0, 0, cvs.width, cvs.height);
+            resolve(cvs) ;
+        });
+	};
+
+	methods.canvasResizetoFile = function (canvas,quality) {
+        return new Promise((resolve) => {
+            canvas.toBlob(function(blob) {
+                resolve(blob);
+            },'image/jpeg',quality);
+        });
+	};
+
+	methods.canvasResizetoDataURL = function (canvas,quality) {
+        return new Promise((resolve) => {
+            resolve(canvas.toDataURL('image/jpeg',quality));
+        });
+	};
+
+	methods.filetoDataURL = function (file) {
+        return new Promise((resolve) => {
+            var reader = new FileReader();
+            reader.onloadend = function (e) {
+                resolve(e.target.result);
+            };
+            reader.readAsDataURL(file);
+        });
+	};
+
+	methods.dataURLtoImage = function (dataurl) {
+        return new Promise((resolve) => {
+            var img = new Image();
+            img.onload = function() {
+                resolve(img);
+            };
+            img.src = dataurl;
+        });
+	};
+
+	methods.dataURLtoFile = function (dataurl) {
+        return new Promise((resolve) => {
+            var arr = dataurl.split(','), 
+                mime = arr[0].match(/:(.*?);/)[1],
+                bstr = atob(arr[1]), 
+                n = bstr.length, 
+                u8arr = new Uint8Array(n);
+            while(n--){
+                u8arr[n] = bstr.charCodeAt(n);
+            }
+            resolve(new Blob([u8arr], {type:mime}));
+        });
+	};
+
+    methods.fileResizetoFile = function (file,quality,fn) {
+        methods.filetoDataURL(file)
+            .then(dataurl => methods.dataURLtoImage(dataurl))
+            .then(image => methods.imagetoCanvas(image))
+            .then(canvas => methods.canvasResizetoFile(canvas,quality))
+            .then(file => fn(file))
+    };
+
+	return methods ;
+})));
