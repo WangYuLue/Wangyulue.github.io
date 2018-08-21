@@ -145,8 +145,8 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>JS</tag>
         <tag>ES6</tag>
+        <tag>JS</tag>
       </tags>
   </entry>
   <entry>
@@ -176,7 +176,7 @@
   <entry>
     <title><![CDATA[简单实现函数去抖与函数节流]]></title>
     <url>%2F2018%2F03%2F13%2F%E7%AE%80%E5%8D%95%E5%AE%9E%E7%8E%B0%E5%87%BD%E6%95%B0%E5%8E%BB%E6%8A%96%E4%B8%8E%E5%87%BD%E6%95%B0%E8%8A%82%E6%B5%81%2F</url>
-    <content type="text"><![CDATA[输入框里的值需要事实提交到后台，为了避免频繁发送请求，给服务端压力，王二使用了函数去抖 一、问题以下场景往往由于事件频繁被触发，因而频繁执行DOM操作、资源加载等重行为，导致UI停顿甚至浏览器崩溃。 window对象的 resize、scroll事件 拖拽时的 mousemove事件 射击游戏中的 mousedown、keydown事件 文字输入、自动完成的 keyup 事件 实际上对于 window 的 resize事件，实际需求大多为停止改变大小n毫秒后执行后续处理；而其他事件大多的需求是以一定的频率执行后续处理。针对这两种需求就出现了debounce 和 throttle 两种解决办法。 二、解决方法在函数库 underscore 里有函数去抖的实现方法，但是王二认为没有必要因此引用一个库，于是结合网上资料写了一个简单的函数去抖与函数节流的实现，参考如下代码(可以直接运行)： 1234567891011121314151617181920212223242526272829303132333435363738394041424344&lt;html&gt; &lt;input id="a" type="text"&gt; &lt;input id="b" type="text"&gt;&lt;/html&gt;&lt;script&gt; /** * 空闲控制 返回函数连续调用时，空闲时间必须大于或等于 delay，func 才会执行 * @param delay &#123;number&#125; 空闲时间，单位毫秒 * @param func &#123;function&#125; 请求关联函数，实际应用需要调用的函数 * @return &#123;function&#125; 返回客户调用函数 */ function debounce (func, delay) &#123; var timer return function (...args) &#123; timer &amp;&amp; clearTimeout(timer) timer = setTimeout(() =&gt; &#123; func.apply(this, args) &#125;, delay) &#125; &#125; /** * 频率控制 返回函数连续调用时，func 执行频率限定为 delay 毫秒一次 * @param delay &#123;number&#125; 延迟时间，单位毫秒 * @param func &#123;function&#125; 请求关联函数，实际应用需要调用的函数 * @return &#123;function&#125; 返回客户调用函数 */ function throttle (func,delay) &#123; var last = 0 return function(...args)&#123; var curr = +new Date() if (curr - last &gt; delay)&#123; func.apply(this, args) last = curr &#125; &#125; &#125; document.getElementById("a").addEventListener("input",debounce(() =&gt; &#123; console.log("函数节流") &#125;, 500)) document.getElementById("b").addEventListener("input",throttle(() =&gt; &#123; console.log("函数去抖") &#125;, 500))&lt;/script&gt; 三、参考文章“^_^肥仔John”的博客圆文章“anetin”的segmentfault文章]]></content>
+    <content type="text"><![CDATA[输入框里的值需要事实提交到后台，为了避免频繁发送请求，给服务端压力，王二使用了函数去抖 一、问题以下场景往往由于事件频繁被触发，因而频繁执行DOM操作、资源加载等重行为，导致UI停顿甚至浏览器崩溃。 window对象的 resize、scroll事件 拖拽时的 mousemove事件 射击游戏中的 mousedown、keydown事件 文字输入、自动完成的 keyup 事件 实际上对于 window 的 resize事件，实际需求大多为停止改变大小n毫秒后执行后续处理；而其他事件大多的需求是以一定的频率执行后续处理。针对这两种需求就出现了debounce 和 throttle 两种解决办法。 二、解决方法在函数库 underscore 里有函数去抖的实现方法，但是王二认为没有必要因此引用一个库，于是结合网上资料写了一个简单的函数去抖与函数节流的实现，参考如下代码(可以直接运行)： 1234567891011121314151617181920212223242526272829303132333435363738394041424344&lt;html&gt; &lt;input id="a" type="text"&gt; &lt;input id="b" type="text"&gt;&lt;/html&gt;&lt;script&gt; /** * 空闲控制 返回函数连续调用时，空闲时间必须大于或等于 delay，func 才会执行 * @param delay &#123;number&#125; 空闲时间，单位毫秒 * @param func &#123;function&#125; 请求关联函数，实际应用需要调用的函数 * @return &#123;function&#125; 返回客户调用函数 */ function debounce (func, delay) &#123; var timer return function (...args) &#123; timer &amp;&amp; clearTimeout(timer) timer = setTimeout(() =&gt; &#123; func.apply(this, args) &#125;, delay) &#125; &#125; /** * 频率控制 返回函数连续调用时，func 执行频率限定为 delay 毫秒一次 * @param delay &#123;number&#125; 延迟时间，单位毫秒 * @param func &#123;function&#125; 请求关联函数，实际应用需要调用的函数 * @return &#123;function&#125; 返回客户调用函数 */ function throttle (func,delay) &#123; var last = 0 return function(...args)&#123; var curr = +new Date() if (curr - last &gt; delay)&#123; func.apply(this, args) last = curr &#125; &#125; &#125; document.getElementById("a").addEventListener("input",debounce(() =&gt; &#123; console.log("函数去抖") &#125;, 500)) document.getElementById("b").addEventListener("input",throttle(() =&gt; &#123; console.log("函数节流") &#125;, 500))&lt;/script&gt; 三、参考文章“^_^肥仔John”的博客圆文章“anetin”的segmentfault文章]]></content>
       <categories>
         <category>前端备忘</category>
       </categories>
@@ -336,8 +336,8 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>JS</tag>
         <tag>ES6</tag>
+        <tag>JS</tag>
       </tags>
   </entry>
   <entry>
@@ -359,8 +359,8 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>JS</tag>
         <tag>Chrome</tag>
+        <tag>JS</tag>
         <tag>自动化测试</tag>
       </tags>
   </entry>
@@ -682,8 +682,8 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>JS</tag>
         <tag>ES6</tag>
+        <tag>JS</tag>
       </tags>
   </entry>
   <entry>
@@ -694,8 +694,8 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>JS</tag>
         <tag>ES6</tag>
+        <tag>JS</tag>
       </tags>
   </entry>
   <entry>
@@ -1046,10 +1046,10 @@
         <category>前端</category>
       </categories>
       <tags>
+        <tag>CSS</tag>
         <tag>前端备忘</tag>
         <tag>转载</tag>
         <tag>HTML</tag>
-        <tag>CSS</tag>
       </tags>
   </entry>
   <entry>
@@ -1275,8 +1275,8 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>JS</tag>
         <tag>ES6</tag>
+        <tag>JS</tag>
       </tags>
   </entry>
   <entry>
@@ -1322,9 +1322,9 @@
         <category>前端</category>
       </categories>
       <tags>
+        <tag>CSS</tag>
         <tag>前端备忘</tag>
         <tag>HTML</tag>
-        <tag>CSS</tag>
       </tags>
   </entry>
   <entry>
