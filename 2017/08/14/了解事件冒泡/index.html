@@ -108,7 +108,7 @@
 <meta property="og:site_name" content="王玉略的个人网站">
 <meta property="og:description" content="事件冒泡是前端er经常会遇到的问题，那在这里我们来用简短的代码来了解一下到底什么是事件冒泡">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-09-16T15:34:12.000Z">
+<meta property="og:updated_time" content="2018-08-24T03:24:00.019Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="了解事件冒泡">
 <meta name="twitter:description" content="事件冒泡是前端er经常会遇到的问题，那在这里我们来用简短的代码来了解一下到底什么是事件冒泡">
@@ -437,7 +437,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  458 字
+                  619 字
                 </span>
               
 
@@ -453,7 +453,7 @@
                   <span class="post-meta-item-text">阅读时长</span>
                 
                 <span title="阅读时长">
-                  2 分钟
+                  3 分钟
                 </span>
               
             </div>
@@ -481,7 +481,10 @@
 <ul>
 <li><code>event.stopPropagation();</code><br>事件处理过程中，阻止了事件冒泡，但不会阻击默认行为（它就执行了超链接的跳转） </li>
 <li><code>event.preventDefault();</code><br>如果把它放在头部A标签的click事件中，点击“点击我”。<br>会发现它依次弹出：我是最里层—-我是中间层—-我是最外层，但最后却没有跳转到百度<br>它的作用是：事件处理过程中，不阻击事件冒泡，但阻击默认行为（它只执行所有弹框，却没有执行超链接跳转）</li>
-<li><code>return false;</code><br>事件处理过程中，阻止了事件冒泡，也阻止了默认行为（比如刚才它就没有执行超链接的跳转） </li>
+<li><p><code>return false;</code><br>  (1)、在 jQuery 中，<code>return false</code>； 会同时阻止事件冒泡和默认行为（比如刚才它就没有执行超链接的跳转）<br>  (2)、在 <code>on + 监听事件</code> 中，return false；会阻止默认行为，不会停止冒泡；<br>  (3)、在 <code>addEventListener</code> 中， 两者都不会阻止；</p>
+<p>  对于<code>return false;</code>,可以参考如下代码：</p>
+  <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"http://libs.baidu.com/jquery/2.0.0/jquery.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">'div'</span> <span class="attr">onclick</span>=<span class="string">'alert("div");'</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ul</span> <span class="attr">onclick</span>=<span class="string">'alert("ul");'</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">li</span> <span class="attr">id</span>=<span class="string">'ul-a'</span> <span class="attr">onclick</span>=<span class="string">'alert("li");'</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"http://wangyulue.com/"</span> <span class="attr">id</span>=<span class="string">"testB"</span>&gt;</span>caibaojian.com<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="javascript"><span class="comment">// (1)、都不会触发</span></span></span><br><span class="line"><span class="javascript"><span class="comment">// $("#testB").on("click",function()&#123;</span></span></span><br><span class="line"><span class="javascript"><span class="comment">//     return false;</span></span></span><br><span class="line"><span class="javascript"><span class="comment">// &#125;)</span></span></span><br><span class="line"><span class="javascript"><span class="comment">// (2)、都会触发</span></span></span><br><span class="line"><span class="javascript"><span class="comment">// var a = document.getElementById("testB");</span></span></span><br><span class="line"><span class="javascript"><span class="comment">//     a.addEventListener('click', function()&#123;</span></span></span><br><span class="line"><span class="javascript"><span class="comment">//     return false;</span></span></span><br><span class="line"><span class="javascript"><span class="comment">// &#125;);</span></span></span><br><span class="line"><span class="javascript"><span class="comment">// (3)、会阻止默认行为，不会停止冒泡</span></span></span><br><span class="line"><span class="javascript"><span class="built_in">document</span>.getElementById(<span class="string">"testB"</span>).onclick = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">return</span> <span class="literal">false</span>;</span></span><br><span class="line"><span class="undefined">&#125;;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
 </ul>
 
       
