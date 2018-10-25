@@ -108,14 +108,14 @@
 <meta property="og:site_name" content="王玉略的个人网站">
 <meta property="og:description" content="浅谈网络安全–xss、csrf、csp">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://github.com/WangYuLue/pic_of_blog/blob/master/1810/1.png?raw=true">
 <meta property="og:image" content="https://github.com/WangYuLue/pic_of_blog/blob/master/1810/2.png?raw=true">
+<meta property="og:image" content="https://github.com/WangYuLue/pic_of_blog/blob/master/1810/1.png?raw=true">
 <meta property="og:image" content="https://github.com/WangYuLue/pic_of_blog/blob/master/1810/3.png?raw=true">
-<meta property="og:updated_time" content="2018-10-25T14:55:59.217Z">
+<meta property="og:updated_time" content="2018-10-25T15:14:52.763Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浅谈网络安全--xss、csrf、csp">
 <meta name="twitter:description" content="浅谈网络安全–xss、csrf、csp">
-<meta name="twitter:image" content="https://github.com/WangYuLue/pic_of_blog/blob/master/1810/1.png?raw=true">
+<meta name="twitter:image" content="https://github.com/WangYuLue/pic_of_blog/blob/master/1810/2.png?raw=true">
 
 
 
@@ -498,10 +498,10 @@
 <h2 id="二、CSP"><a href="#二、CSP" class="headerlink" title="二、CSP"></a>二、CSP</h2><p>上文提到了可以用CSP来防止XSS攻击，那CSP到底是什么呢？</p>
 <h3 id="概念-1"><a href="#概念-1" class="headerlink" title="概念"></a>概念</h3><p>内容安全策略 (CSP) 是一个额外的安全层，用于检测并削弱某些特定类型的攻击，包括跨站脚本 (XSS) 和数据注入攻击等。无论是数据盗取、网站内容污染还是散发恶意软件，这些攻击都是主要的手段；</p>
 <h3 id="举例-1"><a href="#举例-1" class="headerlink" title="举例"></a>举例</h3><p>前段时间王二想在知乎控制台下插入一段脚本，如下：</p>
-<p><img src="https://github.com/WangYuLue/pic_of_blog/blob/master/1810/1.png?raw=true" alt="Alt text"></p>
+<p><img src="https://github.com/WangYuLue/pic_of_blog/blob/master/1810/2.png?raw=true" alt="Alt text"></p>
 <p>则会提示报错，而在有些网站(百度，Google)不会报错；</p>
 <p>这是因为在知乎遵循了<code>CSP</code>,在网站的http头部定义了 <code>Content-Security-Policy</code>：</p>
-<p><img src="https://github.com/WangYuLue/pic_of_blog/blob/master/1810/2.png?raw=true" alt="Alt text"></p>
+<p><img src="https://github.com/WangYuLue/pic_of_blog/blob/master/1810/1.png?raw=true" alt="Alt text"></p>
 <p><strong>CSP 本质上是建立白名单，规定了浏览器只能够执行特定来源的代码;</strong>那么即使发生了xss攻击，也不会加载来源不明的第三方脚本；</p>
 <h2 id="三、CSRF"><a href="#三、CSRF" class="headerlink" title="三、CSRF"></a>三、CSRF</h2><h3 id="概念-2"><a href="#概念-2" class="headerlink" title="概念"></a>概念</h3><p>跨站请求伪造（英语：Cross-site request forgery），也被称为 one-click attack 或者 session riding，通常缩写为 CSRF 或者 XSRF， 是一种挟制用户在当前已登录的Web应用程序上执行非本意的操作的攻击方法。跟跨网站指令码（XSS）相比，XSS 利用的是用户对指定网站的信任，CSRF 利用的是网站对用户网页浏览器的信任。</p>
 <h3 id="举例-2"><a href="#举例-2" class="headerlink" title="举例"></a>举例</h3><h4 id="1、同一个浏览器下"><a href="#1、同一个浏览器下" class="headerlink" title="1、同一个浏览器下"></a>1、同一个浏览器下</h4><p>假如一家银行用以执行转帐操作的URL地址如下：</p>
