@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[浅谈网络安全--xss、csrf、csp]]></title>
+    <url>%2F2018%2F10%2F25%2F%E6%B5%85%E8%B0%88%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8-xss%E3%80%81csrf%E3%80%81csp%2F</url>
+    <content type="text"><![CDATA[浅谈网络安全–xss、csrf、csp 一、XSS概念跨网站指令码（英语：Cross-site scripting，通常简称为：XSS）是一种网站应用程式的安全漏洞攻击，是代码注入的一种。它允许恶意使用者将程式码注入到网页上，其他使用者在观看网页时就会受到影响。这类攻击通常包含了HTML以及使用者端脚本语言。 举例我们知道留言板通常的任务就是把用户留言的内容展示出来。正常情况下，用户的留言都是正常的语言文字，留言板显示的内容也就没毛病。然而这个时候如果有人不按套路出牌，在留言内容中丢进去一行： 1&lt;script&gt;alert(“hey!you are attacked”)&lt;/script&gt; 那么留言板界面的网页代码就会变成形如以下： 12345678910&lt;html&gt; &lt;head&gt; &lt;title&gt;留言板&lt;/title&gt; &lt;/head&gt;&lt;body&gt;&lt;div id=”board” &lt;script&gt;alert(“hey!you are attacked”)&lt;/script&gt;&lt;/div&gt; &lt;/body&gt;&lt;/html&gt; 那么别的用户加载到留言板的时候，就会出现这个弹出框； 其他可以干的事情攻击者当然不会仅仅弹出一个alert框，既然可以插入脚本，那么也可以做一些其他的事情，例如： 1、窃取网页浏览中的cookie值，为接下来的CSRF做准备2、劫持流量实现恶意跳转3、注入脚本获得其他信息 如何绕过一般网站的过滤规则实际应用中web程序往往会通过一些过滤规则来组织代有恶意代码的用户输入被显示，以下是一些常用的xss攻击绕过过滤的一些方法： 1、大小写绕过1http://192.168.1.102/xss/example2.php?name=&lt;sCript&gt;alert(&quot;hey!&quot;)&lt;/scRipt&gt; 2、利用过滤后返回语句再次构成攻击语句来绕过1http://192.168.1.102/xss/example3.php?name=&lt;sCri&lt;script&gt;pt&gt;alert(&quot;hey!&quot;)&lt;/scRi&lt;/script&gt;pt&gt; 发现问题了吧，这个利用原理在于只过滤了一个script标签。3、并不是只有script标签才可以插入代码1http://192.168.1.102/xss/example4.php?name=&lt;img src=&apos;w.123&apos; onerror=&apos;alert(&quot;hey!&quot;)&apos;&gt; 其他绕过方式可以参考知乎用户Snake的专栏文章; 防范手段1、既然是代码注入攻击，那我们可以对敏感字符做转义，如下：12345678910function escape(str) &#123; str = str.replace(/&amp;/g, "&amp;amp;"); str = str.replace(/&lt;/g, "&amp;lt;"); str = str.replace(/&gt;/g, "&amp;gt;"); str = str.replace(/"/g, "&amp;quto;"); str = str.replace(/'/g, "&amp;##39;"); str = str.replace(/`/g, "&amp;##96;"); str = str.replace(/\//g, "&amp;##x2F;"); return str&#125; 2、CSP（接下来会谈到） 3、过滤诸如&lt;script&gt;、&lt;img&gt;、&lt;a&gt; 标签 3、为防止cookie盗用，我们还可以在Http响应头设置HttpOnly 二、CSP上文提到了可以用CSP来防止XSS攻击，那CSP到底是什么呢？ 概念内容安全策略 (CSP) 是一个额外的安全层，用于检测并削弱某些特定类型的攻击，包括跨站脚本 (XSS) 和数据注入攻击等。无论是数据盗取、网站内容污染还是散发恶意软件，这些攻击都是主要的手段； 举例前段时间王二想在知乎控制台下插入一段脚本，如下： 则会提示报错，而在有些网站(百度，Google)不会报错； 这是因为在知乎遵循了CSP,在网站的http头部定义了 Content-Security-Policy： CSP 本质上是建立白名单，规定了浏览器只能够执行特定来源的代码;那么即使发生了xss攻击，也不会加载来源不明的第三方脚本； 三、CSRF概念跨站请求伪造（英语：Cross-site request forgery），也被称为 one-click attack 或者 session riding，通常缩写为 CSRF 或者 XSRF， 是一种挟制用户在当前已登录的Web应用程序上执行非本意的操作的攻击方法。跟跨网站指令码（XSS）相比，XSS 利用的是用户对指定网站的信任，CSRF 利用的是网站对用户网页浏览器的信任。 举例1、同一个浏览器下假如一家银行用以执行转帐操作的URL地址如下： 1http://www.examplebank.com/withdraw?account=AccoutName&amp;amount=1000&amp;for=PayeeName 那么，一个恶意攻击者可以在另一个网站上放置如下代码： 1&lt;img src="http://www.examplebank.com/withdraw?account=Alice&amp;amount=1000&amp;for=Badman"&gt; 如果有账户名为Alice的用户访问了恶意站点，而她之前刚访问过银行不久，登录信息尚未过期，那么她就会损失1000资金。 2、结合xss使用上文说了xss可以结合csrf使用； 在通过xss获得目标用户的cookie后，打开目标网站的登录界面，调出Chrome控制台的Application面板，调至cookie选项卡： 再把目标用户的cookie填进去，再把过期时间调长一些， 完成之后再次刷新页面，发现已经不是之前的登录界面了，而是登录后的界面。至此，一个从cookie窃取到利用的过程就已完成。 防范手段对于上面说的第一个例子： 1、检查Referer字段：HTTP头中有一个Referer字段，这个字段用以标明请求来源于哪个地址。在处理敏感数据请求时，通常来说，Referer字段应和请求的地址位于同一域名下。2、添加校验token 对于上面说的第二个例子，则做好防止xss攻击的相应措施。 参考文章： 知乎用户Snake的专栏文章 wikiwand xss wikiwand csrf InterviewMap ‘Coocier’的开发小记]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>JS</tag>
+        <tag>网络安全</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[爱笑的宝宝]]></title>
     <url>%2F2018%2F10%2F02%2F%E7%88%B1%E7%AC%91%E7%9A%84%E5%AE%9D%E5%AE%9D%2F</url>
     <content type="text"><![CDATA[爱笑的宝宝，心善的宝宝，可爱的宝宝 偶尔也不能快乐的生活着，偶尔也会有木讷，失眠快成常态。 或许生活的本色如此，或许应该静下来沉淀浮杂。 这些都太糟糕，全不是我想要。 我想要每天有所收获，我想要每天生机勃勃，我想要湛蓝的天，…… 慢着，干脆什么都不要，什么都别想，任生命燃烧，任时光流逝，任天气变幻莫测，抓不住的就不去抓，得不到的就不去想，一路走来，花自然会开]]></content>
@@ -99,8 +111,8 @@
       </categories>
       <tags>
         <tag>JS</tag>
-        <tag>vue</tag>
         <tag>易面打分端重构</tag>
+        <tag>vue</tag>
       </tags>
   </entry>
   <entry>
@@ -156,8 +168,8 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>ES6</tag>
         <tag>JS</tag>
+        <tag>ES6</tag>
       </tags>
   </entry>
   <entry>
@@ -180,8 +192,8 @@
       </categories>
       <tags>
         <tag>JS</tag>
-        <tag>vue</tag>
         <tag>易面打分端重构</tag>
+        <tag>vue</tag>
       </tags>
   </entry>
   <entry>
@@ -242,8 +254,8 @@
       </categories>
       <tags>
         <tag>JS</tag>
-        <tag>vue</tag>
         <tag>易面打分端重构</tag>
+        <tag>vue</tag>
       </tags>
   </entry>
   <entry>
@@ -268,8 +280,8 @@
       </categories>
       <tags>
         <tag>JS</tag>
-        <tag>vue</tag>
         <tag>易面打分端重构</tag>
+        <tag>vue</tag>
       </tags>
   </entry>
   <entry>
@@ -347,8 +359,8 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>ES6</tag>
         <tag>JS</tag>
+        <tag>ES6</tag>
       </tags>
   </entry>
   <entry>
@@ -370,8 +382,8 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>Chrome</tag>
         <tag>JS</tag>
+        <tag>Chrome</tag>
         <tag>自动化测试</tag>
       </tags>
   </entry>
@@ -693,8 +705,8 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>ES6</tag>
         <tag>JS</tag>
+        <tag>ES6</tag>
       </tags>
   </entry>
   <entry>
@@ -705,8 +717,8 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>ES6</tag>
         <tag>JS</tag>
+        <tag>ES6</tag>
       </tags>
   </entry>
   <entry>
@@ -1286,8 +1298,8 @@
         <category>前端</category>
       </categories>
       <tags>
-        <tag>ES6</tag>
         <tag>JS</tag>
+        <tag>ES6</tag>
       </tags>
   </entry>
   <entry>
