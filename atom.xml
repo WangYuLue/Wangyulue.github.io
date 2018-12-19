@@ -394,9 +394,9 @@
       <category term="前端" scheme="http://yoursite.com/categories/%E5%89%8D%E7%AB%AF/"/>
     
     
-      <category term="JS" scheme="http://yoursite.com/tags/JS/"/>
-    
       <category term="ES6" scheme="http://yoursite.com/tags/ES6/"/>
+    
+      <category term="JS" scheme="http://yoursite.com/tags/JS/"/>
     
   </entry>
   
