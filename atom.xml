@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2018-12-20T07:44:22.056Z</updated>
+  <updated>2018-12-20T08:15:23.765Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="http://yoursite.com/2018/12/20/JS%E4%B8%AD%E9%80%9A%E8%BF%87%E6%8C%87%E5%AE%9A%E5%A4%A7%E5%B0%8F%E6%9D%A5%E5%8E%8B%E7%BC%A9%E5%9B%BE%E7%89%87/"/>
     <id>http://yoursite.com/2018/12/20/JS中通过指定大小来压缩图片/</id>
     <published>2018-12-20T07:39:23.000Z</published>
-    <updated>2018-12-20T07:44:22.056Z</updated>
+    <updated>2018-12-20T08:15:23.765Z</updated>
     
     <content type="html"><![CDATA[<blockquote class="blockquote-center"><p>在实际开发中，我们可能会有这样的需求：<strong>指定图片大小来压缩图片</strong>,如果你也有这样的需求，这篇文章可能会帮到你 </p></blockquote><a id="more"></a><h1 id="JS中通过指定大小来压缩图片"><a href="#JS中通过指定大小来压缩图片" class="headerlink" title="JS中通过指定大小来压缩图片"></a>JS中通过指定大小来压缩图片</h1><p>前不久王二写了一个<a href="https://juejin.im/post/5a097b2ff265da43231a79fa" target="_blank" rel="noopener">图片处理库</a>，可以指定图片质量压缩图片，调用的是javaScript的原生方法 <code>toDataURL</code> 和 <code>toBlob</code>，库里有如下这些方法：</p><p><img src="https://github.com/WangYuLue/pic_of_blog/blob/master/1812/2.png?raw=true" alt="Alt text"></p><p>但是通过质量压缩图片有一些不足之处：<strong>无法确定压缩后图片的大小</strong>；</p><p>比如下图，王二随机选了三张图片做测试(感兴趣的小伙伴可以<a href="http://www.wangyulue.com/assets/image-comversion/example/test.html" target="_blank" rel="noopener">戳这里</a>自行测试)，图中x轴是图片压缩质量，取值0~1,y轴是图片的压缩比：</p><p><img src="https://github.com/WangYuLue/pic_of_blog/blob/master/1812/1.png?raw=true" alt="Alt text"></p><p>可以看到，在设置相同的压缩图片质量下，每张图片的压缩比率都有所不同；</p><p>而在实际开发中，我们可能会有这样的需求：<strong>指定图片大小来压缩图片</strong>。王二在github找了一圈，没发现有实现此方法的js库,于是王二在原来库的基础上又做了一些修改，实现了这个功能。</p><p>下图是新库的方法地图：</p><p><img src="https://github.com/WangYuLue/pic_of_blog/blob/master/1812/3.png?raw=true" alt="Alt text"></p><p>新库做了如下优化：</p><ul><li>支持png,gif,jpeg类型图片压缩</li><li>添加<code>downloadFile()</code>方法</li><li>可以设置压缩后图片的长宽，图片比例</li><li>可以设置压缩后图片旋转方向</li><li><strong>通过指定大小来压缩文件</strong></li><li>eslint</li><li>用promise，sync/await异步调用</li></ul><p>这时候指定大小来压缩图片的方法就会变的非常简单，如下：</p><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//将图片压缩到100KB</span></span><br><span class="line">imageConversion.compressAccurately(file,<span class="number">100</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//还可以加上其他选项，指定压缩图片的精确度、类型、宽度、高度、旋转方向、缩放</span></span><br><span class="line">imageConversion.compressAccurately(file,&#123;</span><br><span class="line">  size: <span class="number">100</span>,    <span class="comment">//The compressed image size is 100kb</span></span><br><span class="line">  accuracy: <span class="number">0.9</span>,<span class="comment">//the accuracy of image compression size,range 0.8-0.99,default 0.95;</span></span><br><span class="line">                <span class="comment">//this means if the picture size is set to 1000Kb and the</span></span><br><span class="line">                <span class="comment">//accuracy is 0.9, the image with the compression result</span></span><br><span class="line">                <span class="comment">//of 900Kb-1100Kb is considered acceptable;</span></span><br><span class="line">  type: <span class="string">"image/png"</span>,</span><br><span class="line">  width: <span class="number">300</span>,</span><br><span class="line">  height: <span class="number">200</span>,</span><br><span class="line">  orientation:<span class="number">2</span>,</span><br><span class="line">  scale: <span class="number">0.5</span>,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure><p>可以参考<a href="https://github.com/WangYuLue/image-conversion" target="_blank" rel="noopener">github</a>了解更加详细的使用方法。</p><p>实现<code>compressAccurately</code>方法的原理其实很简单，就是 <strong>通过二分法来找到最接近指定大小的那个图片质量</strong>。</p><p>如果想亲手体验一下，可以<a href="http://www.wangyulue.com/assets/image-comversion/example/index.html" target="_blank" rel="noopener">戳这里</a>在线体验。如果使用有什么问题，及时提issue给我。</p><p>如果觉得还不错，别忘了来<a href="https://github.com/WangYuLue/image-conversion" target="_blank" rel="noopener">github</a>star一下哦。</p>]]></content>
     
@@ -300,9 +300,9 @@
     
       <category term="JS" scheme="http://yoursite.com/tags/JS/"/>
     
-      <category term="vue" scheme="http://yoursite.com/tags/vue/"/>
-    
       <category term="易面打分端重构" scheme="http://yoursite.com/tags/%E6%98%93%E9%9D%A2%E6%89%93%E5%88%86%E7%AB%AF%E9%87%8D%E6%9E%84/"/>
+    
+      <category term="vue" scheme="http://yoursite.com/tags/vue/"/>
     
   </entry>
   
@@ -469,9 +469,9 @@
     
       <category term="JS" scheme="http://yoursite.com/tags/JS/"/>
     
-      <category term="vue" scheme="http://yoursite.com/tags/vue/"/>
-    
       <category term="易面打分端重构" scheme="http://yoursite.com/tags/%E6%98%93%E9%9D%A2%E6%89%93%E5%88%86%E7%AB%AF%E9%87%8D%E6%9E%84/"/>
+    
+      <category term="vue" scheme="http://yoursite.com/tags/vue/"/>
     
   </entry>
   
