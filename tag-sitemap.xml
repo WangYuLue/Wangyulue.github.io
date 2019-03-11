@@ -37,14 +37,14 @@
     </url>
 
     <url>
-        <loc>http://yoursite.com/tags/leetcode/</loc>
+        <loc>http://yoursite.com/tags/git/</loc>
         <lastmod>2017-11-12T08:38:22.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
     </url>
 
     <url>
-        <loc>http://yoursite.com/tags/git/</loc>
+        <loc>http://yoursite.com/tags/leetcode/</loc>
         <lastmod>2017-11-12T08:38:22.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.2</priority>
