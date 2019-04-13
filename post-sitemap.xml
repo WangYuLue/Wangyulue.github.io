@@ -719,14 +719,6 @@
     </url>
 
     <url>
-        <loc>http://yoursite.com/2017/10/27/gulp%E5%85%A5%E9%97%A8%E7%A4%BA%E4%BE%8B/</loc>
-        <lastmod>2017-11-02T15:40:15.000Z</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-
-    </url>
-
-    <url>
         <loc>http://yoursite.com/2017/10/21/python%E5%9F%BA%E7%A1%80%E8%AF%AD%E6%B3%95%E5%B0%8F%E7%BB%93%EF%BC%88%E4%BA%8C%EF%BC%89/</loc>
         <lastmod>2017-11-02T15:40:15.000Z</lastmod>
         <changefreq>weekly</changefreq>
@@ -744,6 +736,14 @@
 
     <url>
         <loc>http://yoursite.com/2017/10/30/sass%E5%AD%A6%E4%B9%A0%E5%B0%8F%E7%BB%93/</loc>
+        <lastmod>2017-11-02T15:40:15.000Z</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.6</priority>
+
+    </url>
+
+    <url>
+        <loc>http://yoursite.com/2017/10/27/gulp%E5%85%A5%E9%97%A8%E7%A4%BA%E4%BE%8B/</loc>
         <lastmod>2017-11-02T15:40:15.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -815,7 +815,7 @@
     </url>
 
     <url>
-        <loc>http://yoursite.com/2017/10/11/JS%E4%B8%ADObject-keys%E3%80%81Object-values%E3%80%81Object-entries%E7%9A%84%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/</loc>
+        <loc>http://yoursite.com/2017/10/10/JS%E4%B8%ADObject-defineProperty%E4%B8%8EObject-create%E7%9A%84%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%952/</loc>
         <lastmod>2017-10-13T06:58:57.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -823,7 +823,7 @@
     </url>
 
     <url>
-        <loc>http://yoursite.com/2017/10/10/JS%E4%B8%ADObject-defineProperty%E4%B8%8EObject-create%E7%9A%84%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%952/</loc>
+        <loc>http://yoursite.com/2017/10/11/JS%E4%B8%ADObject-keys%E3%80%81Object-values%E3%80%81Object-entries%E7%9A%84%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/</loc>
         <lastmod>2017-10-13T06:58:57.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -959,7 +959,7 @@
     </url>
 
     <url>
-        <loc>http://yoursite.com/2017/08/10/%E7%90%86%E8%A7%A3ES6%E4%B8%AD%E7%9A%84Promise/</loc>
+        <loc>http://yoursite.com/2017/08/07/%E7%94%A8%E9%97%AD%E5%8C%85%E6%88%96%E8%80%85setInterval%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E8%AE%A1%E6%97%B6%E5%99%A8/</loc>
         <lastmod>2017-09-06T13:05:38.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
@@ -967,7 +967,7 @@
     </url>
 
     <url>
-        <loc>http://yoursite.com/2017/08/07/%E7%94%A8%E9%97%AD%E5%8C%85%E6%88%96%E8%80%85setInterval%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E8%AE%A1%E6%97%B6%E5%99%A8/</loc>
+        <loc>http://yoursite.com/2017/08/10/%E7%90%86%E8%A7%A3ES6%E4%B8%AD%E7%9A%84Promise/</loc>
         <lastmod>2017-09-06T13:05:38.000Z</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.6</priority>
